@@ -1,0 +1,30 @@
+#starRating{
+  color: black;
+  width: 100px;
+  position: relative;
+  margin: auto;
+}
+
+#starRating #over{
+  color: lightcoral;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#starRating #under{
+  position: relative;
+}
+
+#starRating #under,
+#starRating #over{
+  top: 0px;
+  left: 0px;
+}
+
+#starSubContainer{
+  /* background-color: pink; */
+  position: absolute;
+  top: 0px;
+  height: 20px;
+  overflow: hidden;
+}
