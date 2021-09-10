@@ -25,14 +25,18 @@ const getProducts = (callback) => {
 
 /***** QUESTIONS & ANSWERS SECTION *****/
 // Need to append product_id to the end of the url
-const getQuestions = (product_id_num, callback) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions?product_id=${product_id_num}`, { headers })
+const getQuestions = (params, callback) => {
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions', { params, headers })
     .then((response) => {
       callback(null, response);
     })
     .catch((err) => {
       callback(err, null);
     })
+}
+
+const postQuestion = (callback) => {
+  axios.post()
 }
 
 /***** CART SECTION *****/
