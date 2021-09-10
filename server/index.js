@@ -27,14 +27,13 @@ app.get('/api/test/products', (req, res) => {
 /***** QUESTIONS & ANSWERS SECTION *****/
 
 // Get Questions List
-app.get('/getQuestions', (req, res) => {
+app.get('/qa/questions', (req, res) => {
   const params = {
     product_id: req.body.product_id,
     page: req.body.page,
     count: req.body.count
   }
-  apiFn.getQuestions(params, (err, results)
-    => {
+  apiFn.getQuestions(params, (err, results) => {
     if (err) {
       res.status(500).send('Error requesting Questions Data');
     } else {
@@ -48,6 +47,10 @@ app.get('/getQuestions', (req, res) => {
 // params: question_id
 // queryParams: page, count
 // res 200
+
+app.get('/getAnswers', (req, res) => {
+
+})
 
 // Adds a Question
 // POST /qa/questions
