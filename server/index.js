@@ -27,13 +27,14 @@ app.get('/api/test/products', (req, res) => {
 /***** QUESTIONS & ANSWERS SECTION *****/
 
 // Get Questions List
-// GET /qa/questions
-// params: product_id, page, count
-// res 200
-app.get('/api/test/qa', (req, res) => {
-  // need to pull out the params of product_id, page, count from the request body
-  // then assign them to an object and pass to the getQuestions fn
-  apiFn.getQuestions(5, (err, results) => {
+app.get('/getQuestions', (req, res) => {
+  const params = {
+    product_id: req.body.product_id,
+    page: req.body.page,
+    count: req.body.count
+  }
+  apiFn.getQuestions(params, (err, results)
+    => {
     if (err) {
       res.status(500).send('Error requesting Questions Data');
     } else {
