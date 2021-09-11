@@ -7,6 +7,7 @@ const PORT = 1337 || process.env.PORT;
 
 app.use(express.static('client/dist'));
 app.use(express.json());
+// app.use(express.url)
 
 app.get('/api/test/products', (req, res) => {
   apiFn.getProducts((err, results) => {
@@ -25,31 +26,36 @@ app.get('/api/test/products', (req, res) => {
 
 
 /***** QUESTIONS & ANSWERS SECTION *****/
-
 // Get Questions List
-app.get('/qa/questions', (req, res) => {
+app.get('/getQuestions', (req, res) => {
   const params = {
     product_id: req.body.product_id,
     page: req.body.page,
     count: req.body.count
   }
-  apiFn.getQuestions(params, (err, results) => {
+  apiFn.getQuestions(params, (err, questions) => {
     if (err) {
       res.status(500).send('Error requesting Questions Data');
     } else {
-      res.send(results.data);
+      res.send(questions.data);
     }
   })
 })
 
 // Get Answers List
-// GET /qa/questions/[question_id]/answers
-// params: question_id
-// queryParams: page, count
-// res 200
-
 app.get('/getAnswers', (req, res) => {
-
+  const params = {
+    question_id: req.body.question_id,
+    page: req.body.page,
+    count: req.body.count
+  }
+  apiFn.getAnswers(params, (err, answers) => {
+    if (err) {
+      res.status(500).send('Error requesting Answers Data');
+    } else {
+      res.send(answers.data);
+    }
+  })
 })
 
 // Adds a Question
