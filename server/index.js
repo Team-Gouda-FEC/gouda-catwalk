@@ -7,7 +7,6 @@ const PORT = 1337 || process.env.PORT;
 
 app.use(express.static('client/dist'));
 app.use(express.json());
-// app.use(express.url)
 
 app.get('/api/test/products', (req, res) => {
   apiFn.getProducts((err, results) => {
@@ -19,6 +18,18 @@ app.get('/api/test/products', (req, res) => {
   });
 });
 
+// {
+//   "id": 38326,
+//   "campus": "hr-atx",
+//   "name": "Heir Force Ones",
+//   "slogan": "A sneaker dynasty",
+//   "description": "Now where da boxes where I keep mine? You should peep mine, maybe once or twice but never three times. I'm just a sneaker pro, I love Pumas and shell toes, but can't nothin compare to a fresh crispy white pearl",
+//   "category": "Kicks",
+//   "default_price": "99.00",
+//   "created_at": "2021-08-13T14:38:00.907Z",
+//   "updated_at": "2021-08-13T14:38:00.907Z"
+// }
+
 /***** PRODUCTS SECTION *****/
 
 
@@ -29,9 +40,9 @@ app.get('/api/test/products', (req, res) => {
 // Get Questions List
 app.get('/getQuestions', (req, res) => {
   const params = {
-    product_id: req.body.product_id,
-    page: req.body.page,
-    count: req.body.count
+    product_id: req.query.product_id,
+    page: req.query.page,
+    count: req.query.count
   }
   apiFn.getQuestions(params, (err, questions) => {
     if (err) {
@@ -44,12 +55,12 @@ app.get('/getQuestions', (req, res) => {
 
 // Get Answers List
 app.get('/getAnswers', (req, res) => {
+  const question_id = req.query.question_id;
   const params = {
-    question_id: req.body.question_id,
-    page: req.body.page,
-    count: req.body.count
+    page: req.query.page,
+    count: req.query.count
   }
-  apiFn.getAnswers(params, (err, answers) => {
+  apiFn.getAnswers(question_id, params, (err, answers) => {
     if (err) {
       res.status(500).send('Error requesting Answers Data');
     } else {
@@ -62,6 +73,21 @@ app.get('/getAnswers', (req, res) => {
 // POST /qa/questions
 // body params: body, name, email, product_id
 // res 201
+app.post('/addQuestion', (req, res) => {
+  const params = {
+    body: req.body.body,
+    name: req.body.name,
+    email: req.body.email,
+    product_id: req.body.product_id
+  }
+  apiFn.addQuestion(params, (err, confirmed) => {
+    if (err) {
+      res.status(500).send('Error adding a question');
+    } else {
+      res.status(201).send('Successfully added a question');
+    }
+  })
+})
 
 // Adds an Answer
 // POST /qa/questions/[question_id]/answers
