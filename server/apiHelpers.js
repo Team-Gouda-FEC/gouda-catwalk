@@ -18,8 +18,6 @@ const getProducts = (callback) => {
     })
 };
 
-
-
 /***** REVIEWS SECTION *****/
 
 
@@ -35,8 +33,18 @@ const getQuestions = (params, callback) => {
     })
 }
 
-const getAnswers = (params, callback) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${params.question_id}/answers`, { params, headers })
+const getAnswers = (question_id, params, callback) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${question_id}/answers`, { params, headers })
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch((err) => {
+      callback(err, null);
+    })
+}
+
+const addQuestion = (params, callback) => {
+  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions', params, { headers })
     .then((response) => {
       callback(null, response);
     })
@@ -53,5 +61,6 @@ const getAnswers = (params, callback) => {
 module.exports = {
   getProducts,
   getQuestions,
-  getAnswers
+  getAnswers,
+  addQuestion
 };
