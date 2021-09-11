@@ -35,8 +35,14 @@ const getQuestions = (params, callback) => {
     })
 }
 
-const postQuestion = (callback) => {
-  axios.post()
+const getAnswers = (params, callback) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${params.question_id}/answers`, { params, headers })
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch((err) => {
+      callback(err, null);
+    })
 }
 
 /***** CART SECTION *****/
@@ -46,5 +52,6 @@ const postQuestion = (callback) => {
 
 module.exports = {
   getProducts,
-  getQuestions
+  getQuestions,
+  getAnswers
 };
