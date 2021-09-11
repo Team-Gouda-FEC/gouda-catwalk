@@ -2,12 +2,28 @@
 
 
 
-
-// axios.get('/getQuestions',{
+// axios.get('/getQuestions', {
 //   params: {
-//     display_id: this.state.display_id
-//     transaction_id: this.state.transaction_id
+//     product_id: this.state.product_id,
+//     page: this.state.page,
+//     count: this.state.count
 //   }
-// }, (err, data) => {
+// })
 
+
+// axios.get('/getAnswers', {
+//   params: {
+//     question_id: this.state.product_id,
+//     page: this.state.page,
+//     count: this.state.count
+//   }
+// })
+
+
+// axios.post('/addQuestion', {
+//   params: {
+//     question_id: this.state.product_id,
+//     page: this.state.page,
+//     count: this.state.count
+//   }
 // })
