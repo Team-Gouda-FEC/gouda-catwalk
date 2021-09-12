@@ -37,6 +37,7 @@ app.get('/api/test/products', (req, res) => {
 
 
 /***** QUESTIONS & ANSWERS SECTION *****/
+
 // Get Questions List
 app.get('/getQuestions', (req, res) => {
   const params = {
@@ -70,9 +71,6 @@ app.get('/getAnswers', (req, res) => {
 })
 
 // Adds a Question
-// POST /qa/questions
-// body params: body, name, email, product_id
-// res 201
 app.post('/addQuestion', (req, res) => {
   const params = {
     body: req.body.body,
@@ -90,10 +88,22 @@ app.post('/addQuestion', (req, res) => {
 })
 
 // Adds an Answer
-// POST /qa/questions/[question_id]/answers
-// params: question_id
-// body params: body, name, email, photos
-// res 201
+app.post('/addAnswer', (req, res) => {
+  const question_id = req.body.question_id;
+  const params = {
+    body: req.body.body,
+    name: req.body.name,
+    email: req.body.email,
+    photos: req.body.photos
+  }
+  apiFn.addAnswer(question_id, params, (err, confirmed) => {
+    if (err) {
+      res.status(500).send('Error adding an answer');
+    } else {
+      res.status(201).send('Successfully added an answer');
+    }
+  })
+})
 
 // Mark Question as Helpful
 // PUT /qa/questions/[question_id]/helpful
