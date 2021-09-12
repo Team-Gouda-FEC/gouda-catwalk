@@ -22,7 +22,7 @@ const getProducts = (callback) => {
 
 
 /***** QUESTIONS & ANSWERS SECTION *****/
-// Need to append product_id to the end of the url
+
 const getQuestions = (params, callback) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions', { params, headers })
     .then((response) => {
@@ -30,8 +30,8 @@ const getQuestions = (params, callback) => {
     })
     .catch((err) => {
       callback(err, null);
-    })
-}
+    });
+};
 
 const getAnswers = (question_id, params, callback) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${question_id}/answers`, { params, headers })
@@ -40,8 +40,8 @@ const getAnswers = (question_id, params, callback) => {
     })
     .catch((err) => {
       callback(err, null);
-    })
-}
+    });
+};
 
 const addQuestion = (params, callback) => {
   axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions', params, { headers })
@@ -50,8 +50,18 @@ const addQuestion = (params, callback) => {
     })
     .catch((err) => {
       callback(err, null);
+    });
+};
+
+const addAnswer = (question_id, params, callback) => {
+  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${question_id}/answers`, params, { headers })
+    .then((response) => {
+      callback(null, response);
     })
-}
+    .catch((err) => {
+      callback(err, null);
+    });
+};
 
 /***** CART SECTION *****/
 
@@ -62,5 +72,6 @@ module.exports = {
   getProducts,
   getQuestions,
   getAnswers,
-  addQuestion
+  addQuestion,
+  addAnswer
 };
