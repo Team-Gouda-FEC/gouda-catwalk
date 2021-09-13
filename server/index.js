@@ -106,10 +106,6 @@ app.post('/addAnswer', (req, res) => {
 })
 
 // Mark Question as Helpful
-// PUT /qa/questions/[question_id]/helpful
-// params: question_id
-// res 204
-
 app.put('/markQuestion', (req, res) => {
   const question_id = req.body.question_id;
   apiFn.markQuestion(question_id, (err, confirmed) => {
@@ -125,6 +121,17 @@ app.put('/markQuestion', (req, res) => {
 // PUT /qa/questions/[question_id]/report
 // params: question_id
 // res 204
+
+app.put('/reportQuestion', (req, res) => {
+  const question_id = req.body.question_id;
+  apiFn.reportQuestion(question_id, (err, confirmed) => {
+    if (err) {
+      res.status(500).send('Error reporting the question');
+    } else {
+      res.status(204).send('Successfully reported the question');
+    }
+  })
+})
 
 // Mark Answer as helpful
 // PUT /qa/answers/[answer_id]/helpful
