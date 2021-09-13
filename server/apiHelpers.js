@@ -73,6 +73,16 @@ const markQuestion = (question_id, callback) => {
     })
 }
 
+const reportQuestion = (question_id, callback) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${question_id}/report`, {}, { headers })
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch((err) => {
+      callback(err, null);
+    })
+}
+
 /***** CART SECTION *****/
 
 
@@ -84,5 +94,6 @@ module.exports = {
   getAnswers,
   addQuestion,
   addAnswer,
-  markQuestion
+  markQuestion,
+  reportQuestion
 };
