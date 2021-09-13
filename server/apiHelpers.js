@@ -1,14 +1,13 @@
 const axios = require('axios');
-const config = require('../client/src/config/config.js');
+require('dotenv').config();
 
-const headers = { 'Authorization': `${config.API_KEY}` };
+const headers = { Authorization: `${process.env.API_KEY}` };
 
-
-/***** PRODUCTS SECTION *****/
+/* **** PRODUCTS SECTION **** */
 // only grabs 5 products
 const getProducts = (callback) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products', {
-    headers
+    headers,
   })
     .then((response) => {
       callback(null, response);
@@ -31,8 +30,7 @@ const getRelatedProducts = (product_id, callback) => {
 
 /***** REVIEWS SECTION *****/
 
-
-/***** QUESTIONS & ANSWERS SECTION *****/
+/* **** QUESTIONS & ANSWERS SECTION **** */
 
 const getQuestions = (params, callback) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions', { params, headers })
@@ -44,8 +42,8 @@ const getQuestions = (params, callback) => {
     });
 };
 
-const getAnswers = (question_id, params, callback) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${question_id}/answers`, { params, headers })
+const getAnswers = (questionId, params, callback) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${questionId}/answers`, { params, headers })
     .then((response) => {
       callback(null, response);
     })
@@ -64,8 +62,8 @@ const addQuestion = (params, callback) => {
     });
 };
 
-const addAnswer = (question_id, params, callback) => {
-  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${question_id}/answers`, params, { headers })
+const addAnswer = (questionId, params, callback) => {
+  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${questionId}/answers`, params, { headers })
     .then((response) => {
       callback(null, response);
     })
@@ -74,50 +72,49 @@ const addAnswer = (question_id, params, callback) => {
     });
 };
 
-const markQuestion = (question_id, callback) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${question_id}/helpful`, {}, { headers })
+const markQuestion = (questionId, callback) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${questionId}/helpful`, {}, { headers })
     .then((response) => {
       callback(null, response);
     })
     .catch((err) => {
       callback(err, null);
-    })
-}
+    });
+};
 
-const reportQuestion = (question_id, callback) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${question_id}/report`, {}, { headers })
+const reportQuestion = (questionId, callback) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${questionId}/report`, {}, { headers })
     .then((response) => {
       callback(null, response);
     })
     .catch((err) => {
       callback(err, null);
-    })
-}
+    });
+};
 
-const markAnswer = (question_id, callback) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${question_id}/helpful`, {}, { headers })
+const markAnswer = (questionId, callback) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${questionId}/helpful`, {}, { headers })
     .then((response) => {
       callback(null, response);
     })
     .catch((err) => {
       callback(err, null);
-    })
-}
+    });
+};
 
-const reportAnswer = (question_id, callback) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${question_id}/report`, {}, { headers })
+const reportAnswer = (questionId, callback) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${questionId}/report`, {}, { headers })
     .then((response) => {
       callback(null, response);
     })
     .catch((err) => {
       callback(err, null);
-    })
-}
+    });
+};
 
-/***** CART SECTION *****/
+/* **** CART SECTION **** */
 
-
-/***** INTERACTIONS SECTION *****/
+/* **** INTERACTIONS SECTION **** */
 
 module.exports = {
   getProducts,
@@ -128,5 +125,5 @@ module.exports = {
   markQuestion,
   reportQuestion,
   markAnswer,
-  reportAnswer
+  reportAnswer,
 };

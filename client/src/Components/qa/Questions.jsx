@@ -1,7 +1,5 @@
 // test point
 
-
-
 // axios.get('/getQuestions', {
 //   params: {
 //     product_id: this.state.product_id,
@@ -10,7 +8,6 @@
 //   }
 // })
 
-
 // axios.get('/getAnswers', {
 //   params: {
 //     question_id: this.state.product_id,
@@ -18,7 +15,6 @@
 //     count: this.state.count
 //   }
 // })
-
 
 // axios.post('/addQuestion', {
 //   params: {
