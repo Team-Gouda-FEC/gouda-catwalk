@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-// import Carousel from './Carousel';
+import Carousel from './Carousel.jsx';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +26,7 @@ export default function GridContainer () {
     <div classname = {classes.root}>
       <Grid container elevation={0}>
         <Grid item xs={7} >
-        {/* <Carousel /> */}
+        <Carousel />
         </Grid>
         <Grid item xs={5} >
         <Paper className={classes.paper}> this is where the interactive category info will go! </Paper>
