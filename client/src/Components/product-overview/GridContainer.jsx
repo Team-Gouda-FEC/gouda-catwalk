@@ -18,8 +18,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
-
 export default function GridContainer () {
 
   const classes = useStyles();
