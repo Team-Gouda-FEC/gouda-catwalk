@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+// import Carousel from './Carousel';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -9,7 +10,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    marginRight: theme.spacing(2),
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
   }
 }));
 
@@ -23,27 +26,18 @@ export default function GridContainer () {
 
   return (
     <div classname = {classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} >
-        <Paper className={classes.paper}>Example of full width xs=12 </Paper>
+      <Grid container elevation={0}>
+        <Grid item xs={7} >
+        {/* <Carousel /> */}
         </Grid>
-        <Grid item xs={6} >
-        <Paper className={classes.paper}> example of xs 6 </Paper>
+        <Grid item xs={5} >
+        <Paper className={classes.paper}> this is where the interactive category info will go! </Paper>
         </Grid>
-        <Grid item xs={6} >
-        <Paper className={classes.paper}> example of xs 6 </Paper>
+        <Grid item xs={8} >
+        <Paper className={classes.paper}> this is where blurbs will go </Paper>
         </Grid>
-        <Grid item xs={3} >
-        <Paper className={classes.paper}> example of xs 3 </Paper>
-        </Grid>
-        <Grid item xs={3} >
-        <Paper className={classes.paper}> example of xs 3 </Paper>
-        </Grid>
-        <Grid item xs={3} >
-        <Paper className={classes.paper}> example of xs 3 </Paper>
-        </Grid>
-        <Grid item xs={3} >
-        <Paper className={classes.paper}> example of xs 3 </Paper>
+        <Grid item xs={4} >
+        <Paper className={classes.paper}> this is the features section </Paper>
         </Grid>
       </Grid>
     </div>

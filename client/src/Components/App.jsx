@@ -22,6 +22,7 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <NavBar />
+        <h3> there is definitely some sort of announcement here! </h3>
         <GridContainer />
         This is our homepage now :D and Maria is the Goudest
         <Stars/>
