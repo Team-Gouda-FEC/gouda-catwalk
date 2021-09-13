@@ -83,6 +83,26 @@ const reportQuestion = (question_id, callback) => {
     })
 }
 
+const markAnswer = (question_id, callback) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${question_id}/helpful`, {}, { headers })
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch((err) => {
+      callback(err, null);
+    })
+}
+
+const reportAnswer = (question_id, callback) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${question_id}/report`, {}, { headers })
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch((err) => {
+      callback(err, null);
+    })
+}
+
 /***** CART SECTION *****/
 
 
@@ -95,5 +115,7 @@ module.exports = {
   addQuestion,
   addAnswer,
   markQuestion,
-  reportQuestion
+  reportQuestion,
+  markAnswer,
+  reportAnswer
 };
