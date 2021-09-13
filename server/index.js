@@ -32,7 +32,18 @@ app.get('/api/test/products', (req, res) => {
 
 /* **** PRODUCTS SECTION **** */
 
-/* **** REVIEWS SECTION **** */
+/***** RELATED ITEMS  ***/
+app.get('/products/', (req, res) => {
+  const product_id = req.query.product_id;
+  apiFn.getRelatedProducts(product_id, (err, data) => {
+    if (err) {
+      res.status(404).send(err);
+    } else {
+      res.status(200).send(data); //confirm whether or not you need a put request to make a response
+    }
+  })
+})
+
 
 /* **** QUESTIONS & ANSWERS SECTION **** */
 
