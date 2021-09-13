@@ -32,6 +32,9 @@ app.get('/api/test/products', (req, res) => {
 
 /***** PRODUCTS SECTION *****/
 
+/***** RELATED ITEMS  ***/
+//adding a temporary line of code for git workflow practice
+
 
 /***** REVIEWS SECTION *****/
 
