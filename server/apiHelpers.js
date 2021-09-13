@@ -14,9 +14,20 @@ const getProducts = (callback) => {
       callback(null, response);
     })
     .catch((err) => {
-      callback(null, err);
+      callback(err, null); //reversed the order or err and null - MK
     })
 };
+
+/*** RELATED ITEMS SECTION *****/
+const getRelatedProducts = (product_id, callback) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${product_id}/related`, {headers})
+  .then((response) => {
+    callback(null, response);
+  })
+  .catch((err) => {
+    callback(err, null);
+  })
+}
 
 /***** REVIEWS SECTION *****/
 
