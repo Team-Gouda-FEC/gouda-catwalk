@@ -1104,11 +1104,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ NavBar)\n/* harmony export */ });\n/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ \"./node_modules/@babel/runtime/helpers/esm/defineProperty.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var _material_ui_core_AppBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/AppBar */ \"./node_modules/@material-ui/core/esm/AppBar/AppBar.js\");\n/* harmony import */ var _material_ui_core_Toolbar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/Toolbar */ \"./node_modules/@material-ui/core/esm/Toolbar/Toolbar.js\");\n/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/Typography */ \"./node_modules/@material-ui/core/esm/Typography/Typography.js\");\n/* harmony import */ var _material_ui_core_InputBase__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/InputBase */ \"./node_modules/@material-ui/core/esm/InputBase/InputBase.js\");\n/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/styles */ \"./node_modules/@material-ui/core/esm/styles/makeStyles.js\");\n/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/styles */ \"./node_modules/@material-ui/core/esm/styles/colorManipulator.js\");\nObject(function webpackMissingModule() { var e = new Error(\"Cannot find module '@material-ui/icons/Search'\"); e.code = 'MODULE_NOT_FOUND'; throw e; }());\n\n\n\n\n\n\n\n\n\nvar useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__[\"default\"])(function (theme) {\n  return {\n    root: {\n      flexGrow: 1\n    },\n    menuButton: {\n      marginRight: theme.spacing(2)\n    },\n    title: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n      flexGrow: 1,\n      display: 'none'\n    }, theme.breakpoints.up('sm'), {\n      display: 'block'\n    }),\n    search: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n      position: 'relative',\n      borderRadius: theme.shape.borderRadius,\n      backgroundColor: (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__.alpha)(theme.palette.common.white, 0.15),\n      '&:hover': {\n        backgroundColor: (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__.alpha)(theme.palette.common.white, 0.25)\n      },\n      marginLeft: 0,\n      width: '100%'\n    }, theme.breakpoints.up('sm'), {\n      marginLeft: theme.spacing(1),\n      width: 'auto'\n    }),\n    searchIcon: {\n      padding: theme.spacing(0, 2),\n      height: '100%',\n      position: 'absolute',\n      pointerEvents: 'none',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center'\n    },\n    inputRoot: {\n      color: 'inherit'\n    },\n    inputInput: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n      padding: theme.spacing(1, 1, 1, 0),\n      // vertical padding + font size from searchIcon\n      paddingLeft: \"calc(1em + \".concat(theme.spacing(4), \"px)\"),\n      transition: theme.transitions.create('width'),\n      width: '100%'\n    }, theme.breakpoints.up('sm'), {\n      width: '12ch',\n      '&:focus': {\n        width: '20ch'\n      }\n    })\n  };\n});\nfunction NavBar() {\n  var classes = useStyles();\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(\"div\", {\n    className: classes.root\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core_AppBar__WEBPACK_IMPORTED_MODULE_5__[\"default\"], {\n    position: \"static\"\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core_Toolbar__WEBPACK_IMPORTED_MODULE_6__[\"default\"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_7__[\"default\"], {\n    className: classes.title,\n    variant: \"h6\",\n    noWrap: true\n  }, \"GOUDA-FEC\"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(\"div\", {\n    className: classes.search\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(\"div\", {\n    className: classes.searchIcon\n  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Object(function webpackMissingModule() { var e = new Error(\"Cannot find module '@material-ui/icons/Search'\"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core_InputBase__WEBPACK_IMPORTED_MODULE_8__[\"default\"], {\n    placeholder: \"Search\\u2026\",\n    classes: {\n      root: classes.inputRoot,\n      input: classes.inputInput\n    },\n    inputProps: {\n      'aria-label': 'search'\n    }\n  })))));\n}\n;\n\n//# sourceURL=webpack://front-end-capstone/./client/src/Components/product-overview/NavBar.jsx?");
-
-/***/ }),
-
-/***/ "./client/src/Components/related-items-section/relatedProductCard.jsx":
 /*!****************************************************************************!*\
   !*** ./client/src/Components/related-items-section/relatedProductCard.jsx ***!
   \****************************************************************************/
@@ -1771,7 +1766,7 @@ eval("module.exports = JSON.parse('{\"name\":\"axios\",\"version\":\"0.21.4\",\"
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -1785,14 +1780,14 @@ eval("module.exports = JSON.parse('{\"name\":\"axios\",\"version\":\"0.21.4\",\"
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
@@ -1805,7 +1800,7 @@ eval("module.exports = JSON.parse('{\"name\":\"axios\",\"version\":\"0.21.4\",\"
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -1817,7 +1812,7 @@ eval("module.exports = JSON.parse('{\"name\":\"axios\",\"version\":\"0.21.4\",\"
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/global */
 /******/ 	(() => {
 /******/ 		__webpack_require__.g = (function() {
@@ -1829,12 +1824,12 @@ eval("module.exports = JSON.parse('{\"name\":\"axios\",\"version\":\"0.21.4\",\"
 /******/ 			}
 /******/ 		})();
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -1845,13 +1840,13 @@ eval("module.exports = JSON.parse('{\"name\":\"axios\",\"version\":\"0.21.4\",\"
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /************************************************************************/
-/******/ 	
+/******/
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = __webpack_require__("./client/src/index.js");
-/******/ 	
+/******/
 /******/ })()
 ;
