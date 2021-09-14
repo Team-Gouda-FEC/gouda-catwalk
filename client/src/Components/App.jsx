@@ -25,12 +25,16 @@ export default class App extends React.Component {
         <GridContainer />
         This is our homepage now :D and Maria is the Goudest
         <Stars />
-        <Carousel>
+        <Carousel show={4}>
           <div>
             <div style={{padding: 8}}>
               <img src="https://via.placeholder.com/300x300" alt="placeholder" style={{width: '100%'}} />
             </div>
           </div>
+          <RelatedProductCard />
+          <RelatedProductCard />
+          <RelatedProductCard />
+          <RelatedProductCard />
           <RelatedProductCard />
         </Carousel>
 
