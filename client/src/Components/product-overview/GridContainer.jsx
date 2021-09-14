@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-// import Carousel from './Carousel.jsx';
+import CategoryInfo from './CategoryInfo.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,11 +22,10 @@ export default function GridContainer() {
     <div className={classes.root}>
       <Grid container elevation={0}>
         <Grid item xs={7}>
-          {/* <Carousel /> */}
           <Paper className={classes.paper}> this is where the carousel will go! </Paper>
         </Grid>
         <Grid item xs={5}>
-          <Paper className={classes.paper}> this is where the interactive cat info will go! </Paper>
+          <CategoryInfo />
         </Grid>
         <Grid item xs={8}>
           <Paper className={classes.paper}> this is where blurbs will go </Paper>
