@@ -1,0 +1,34 @@
+.qa-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'search-bar search-bar'
+    'qa-accordian qa-accordian'
+    'more-questions add-question';
+}
+
+.search-bar {
+  grid-area: search-bar;
+  justify-self: stretch;
+  background-color: chartreuse;
+}
+
+.qa-accordian {
+  grid-area: qa-accordian;
+  justify-self: center;
+  background-color: blueviolet;
+}
+
+.more-questions {
+  grid-area: more-questions;
+  justify-self: stretch;
+  background-color: lime;
+}
+
+.add-question {
+  grid-area: add-question;
+  justify-self: stretch;
+  background-color: fuchsia;
+}

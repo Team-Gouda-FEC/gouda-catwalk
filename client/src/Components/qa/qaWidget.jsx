@@ -1,9 +1,21 @@
 import React from 'react';
+import './qaWidget.css';
 
 export default function QAWidget() {
   return (
-    <div>
-      <h1>Hello QA World</h1>
+    <div className="qa-container">
+      <div className="search-bar">
+        Search Bar
+      </div>
+      <div className="qa-accordian">
+        QA Accoridan
+      </div>
+      <button type="button" className="more-questions">
+        More Answered Questions
+      </button>
+      <button type="button" className="add-question">
+        Add a Question
+      </button>
     </div>
   );
 }
