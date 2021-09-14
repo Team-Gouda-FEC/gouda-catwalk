@@ -6,6 +6,7 @@ import Stars from './rating-review/StarRating.jsx';
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
 import Carousel from './carousel/carousel.jsx';
 import QAWidget from './qa/qaWidget.jsx';
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -33,7 +34,7 @@ export default class App extends React.Component {
         <NavBar />
         <h3> there is definitely some sort of announcement here! </h3>
         <GridContainer />
-        <Stars rating={3.5}/>
+        <Stars rating={3.5} />
         <Carousel show={4}>
           <div>
             <div style={{ padding: 8 }}>
