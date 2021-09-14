@@ -1,18 +1,22 @@
 import React from 'react';
-// import axios from 'axios';
+// import Axios from 'axios';
 import NavBar from './product-overview/NavBar.jsx';
-// import GridContainer from './product-overview/GridContainer.jsx';
-// import Stars from './rating-review/StarRating.jsx';
+import GridContainer from './product-overview/GridContainer.jsx';
+import Stars from './rating-review/StarRating.jsx';
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
 import Carousel from './carousel/carousel.jsx';
 import QAWidget from './qa/qaWidget.jsx';
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      relatedItems: [],
     };
   }
+
+  // getProducts() {
+  //   axios.get('/products')
+  // }
 
   componentDidMount() {
 
@@ -28,10 +32,8 @@ export default class App extends React.Component {
       >
         <NavBar />
         <h3> there is definitely some sort of announcement here! </h3>
-        {/* <GridContainer /> */}
-        This is our homepage now :D and Maria is the Goudest
-        Is this tworking?
-        {/* <Stars /> */}
+        <GridContainer />
+        <Stars rating={3.5}/>
         <Carousel show={4}>
           <div>
             <div style={{ padding: 8 }}>

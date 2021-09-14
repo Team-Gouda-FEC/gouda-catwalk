@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardMedia, CardHeader, CardContent, CardActions, Typography } from '@material-ui/core';
+import Stars from '../rating-review/StarRating.jsx';
 
 export default function RelatedProductCard () {
   return (
@@ -12,6 +13,7 @@ export default function RelatedProductCard () {
             default_price
           </Typography>
         </CardContent>
+      <Stars rating={2.5} />
       </Card>
 
     </div>
