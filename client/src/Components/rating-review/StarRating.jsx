@@ -9,14 +9,14 @@ class Stars extends React.Component {
     this.state = {
       fillAmount: 0
     };
-  }
+  };
 
   componentDidMount() {
     this.setRating();
-  }
+  };
 
   // convert rating into px width
-  setRating = ()=> {
+  setRating= ()=> {
     let width = 0;
     let num = this.props.rating; // start with the rating
 
