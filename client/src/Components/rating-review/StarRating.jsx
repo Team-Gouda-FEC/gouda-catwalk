@@ -27,6 +27,11 @@ const Stars = (props) => {
     } else if (num >= 5) {
       size = 120;
     }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> feat/product-overview
     setPxWidth(size);
   }, []);
 
