@@ -1,3 +1,13 @@
+import React from 'react';
+
+export default function QAWidget() {
+  return (
+    <div>
+      <h1>Hello QA World</h1>
+    </div>
+  );
+}
+
 // test point
 
 // axios.get('/getQuestions', {
