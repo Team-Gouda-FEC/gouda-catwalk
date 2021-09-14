@@ -28,6 +28,7 @@ const Stars = (props) => {
       size = 120;
     }
 
+
     setPxWidth(size);
   }, []);
 

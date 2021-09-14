@@ -1,5 +1,5 @@
 import React from 'react';
-import Axios from 'axios';
+// import Axios from 'axios';
 import NavBar from './product-overview/NavBar.jsx';
 import GridContainer from './product-overview/GridContainer.jsx';
 import Stars from './rating-review/StarRating';
@@ -40,7 +40,7 @@ export default class App extends React.Component {
                 padding: 8,
               }}
               >
-                <img src="https://via.placeholder.com/300x300" alt="placeholder" style={{width: '100%'}} />
+                <img src="https://via.placeholder.com/300x300" alt="placeholder" style={{ width: '100%' }} />
               </div>
             </div>
             <RelatedProductCard />
