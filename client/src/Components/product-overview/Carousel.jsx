@@ -1,5 +1,4 @@
 import React from 'react';
-import ImageGallery from 'react-image-gallery';
 
 
 const images = [
@@ -43,7 +42,7 @@ export default class Carousel extends React.Component {
 
 
   _onImageClick (event) {
-    console.debug('clicked on image', event.target, 'at index', this._imageGallery.getCurrentIndex());
+    // console.debug('clicked on image', event.target, 'at index', this._imageGallery.getCurrentIndex());
   }
 
   _onImageLoad(event) {
