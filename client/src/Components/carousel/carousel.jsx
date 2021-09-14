@@ -6,6 +6,7 @@ const Carousel = (props) => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(children.length);
+
   useEffect(() => {
     setLength(children.length);
   }, [children]);

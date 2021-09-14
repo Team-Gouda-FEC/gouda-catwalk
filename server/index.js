@@ -32,18 +32,28 @@ app.get('/api/test/products', (req, res) => {
 
 /* **** PRODUCTS SECTION **** */
 
-/***** RELATED ITEMS  ***/
+/***** RELATED ITEMS  ****/
 app.get('/products/', (req, res) => {
-  const product_id = req.query.product_id;
-  apiFn.getRelatedProducts(product_id, (err, data) => {
+  //const product_id = req.query.product_id;
+  apiFn.getProducts((err, response) => {
+    if (err) {
+      res.status(405).send(err);
+    } else {
+      res.status(200).send(response.data);
+    }
+  });
+});
+
+app.get('/getImage/', (req, res) => {
+  const product_id = req.body.product_id;
+  apiFn.getThumbnail(params, (err, response) => {
     if (err) {
       res.status(404).send(err);
     } else {
-      res.status(200).send(data); //confirm whether or not you need a put request to make a response
+      res.status(200).send(response.data);
     }
-  })
-})
-
+  });
+});
 
 /* **** QUESTIONS & ANSWERS SECTION **** */
 
