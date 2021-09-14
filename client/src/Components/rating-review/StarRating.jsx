@@ -27,7 +27,6 @@ const Stars = (props) => {
     } else if (num >= 5) {
       size = 120;
     }
-
     setPxWidth(size);
   }, []);
 
