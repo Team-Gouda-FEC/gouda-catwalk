@@ -27,6 +27,7 @@ export default function GridContainer () {
       <Grid container elevation={0}>
         <Grid item xs={7} >
         <Carousel />
+        <Paper className={classes.paper}> this is where the carousel will go! </Paper>
         </Grid>
         <Grid item xs={5} >
         <Paper className={classes.paper}> this is where the interactive category info will go! </Paper>
