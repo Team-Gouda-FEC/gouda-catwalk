@@ -2,10 +2,12 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-// import Carousel from './Carousel.jsx';
+import CategoryInfo from './CategoryInfo.jsx';
+import ProductInfo from './ProductInfo.jsx';
+import ProductBlurbs from './ProductBlurbs.jsx';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  ProductOverviewGrid: {
     flexGrow: 1,
   },
   paper: {
@@ -19,21 +21,19 @@ export default function GridContainer() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className="ProductOverviewGrid">
       <Grid container elevation={0}>
-        <Grid item xs={7}>
-          {/* <Carousel /> */}
+        <Grid className="carousel" item xs={7}>
           <Paper className={classes.paper}> this is where the carousel will go! </Paper>
         </Grid>
-        <Grid item xs={5}>
-          <Paper className={classes.paper}> this is where the interactive cat info will go! </Paper>
+        <Grid className="Product Category Info" item xs={5}>
+          <ProductInfo />
+          <CategoryInfo />
         </Grid>
-        <Grid item xs={8}>
-          <Paper className={classes.paper}> this is where blurbs will go </Paper>
+        <Grid item xs={12}>
+          <ProductBlurbs />
         </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.paper}> this is the features section </Paper>
-        </Grid>
+
       </Grid>
     </div>
   );
