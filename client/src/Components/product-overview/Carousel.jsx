@@ -23,13 +23,13 @@ export default class Carousel extends React.Component {
     super(props);
     this.state = {
       showIndex: false,
-      showBullets: true,
+      showBullets: false,
       infinite: true,
       showThumbnails: true,
       showFullscreenButton: true,
       showGalleryFullscreenButton: true,
       showPlayButton: true,
-      showGalleryPlayButton: true,
+      showGalleryPlayButton: false,
       showNav: true,
       isRTL: false,
       slideDuration: 450,
