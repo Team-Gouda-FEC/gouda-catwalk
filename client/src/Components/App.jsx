@@ -1,11 +1,12 @@
 import React from 'react';
 // import Axios from 'axios';
+import Typography from '@material-ui/core/Typography';
 import NavBar from './product-overview/NavBar.jsx';
 import GridContainer from './product-overview/GridContainer.jsx';
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
 import Carousel from './carousel/carousel.jsx';
 import QAWidget from './qa/qaWidget.jsx';
-import Typography from  '@material-ui/core/Typography';
+import RatingAndReviews from './rating-review/ratingAndReviews.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -51,6 +52,7 @@ export default class App extends React.Component {
           <RelatedProductCard />
           <RelatedProductCard />
         </Carousel>
+        <RatingAndReviews />
         <QAWidget />
       </div>
     );
