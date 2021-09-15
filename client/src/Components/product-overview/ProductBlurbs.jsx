@@ -1,8 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -23,11 +21,7 @@ export default function ProductBlurbs() {
     <div className={classes.root}>
       <Grid container elevation={0}>
         <Grid item>
-          <Typography> Blurb blurb blurbbbb</Typography>
-        </Grid>
-        <Divider orientation="vertical" />
-        <Grid item>
-          <List component="nav">
+          <List dense component="list of ">
             <ListItem>
               <ListItemIcon>
                 <CheckIcon />
@@ -45,6 +39,12 @@ export default function ProductBlurbs() {
                 <CheckIcon />
               </ListItemIcon>
               <ListItemText primary="This is made up" />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <CheckIcon />
+              </ListItemIcon>
+              <ListItemText primary="It doesn't matter" />
             </ListItem>
           </List>
         </Grid>
