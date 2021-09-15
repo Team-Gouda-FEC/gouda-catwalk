@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import NavBar from './product-overview/NavBar.jsx';
 import GridContainer from './product-overview/GridContainer.jsx';
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
+import AddOutfitCard from './related-items-section/addOutfitCard.jsx';
 import Carousel from './carousel/carousel.jsx';
 import RatingAndReviews from './rating-review/ratingAndReviews.jsx';
 import QAWidget from './qa/qaWidget.jsx';
@@ -26,7 +27,8 @@ export default class App extends React.Component {
         this.setState({
           relatedItems: response.data,
         });
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log(response.data.id, error);
       });
   }
@@ -40,19 +42,27 @@ export default class App extends React.Component {
         }}
       >
         <NavBar />
-        <Typography
-          variant="subtitle1"
-          align="center"
-        >
+        <Typography variant="subtitle1" align="center">
           SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT HIGHLIGHT!
         </Typography>
         <GridContainer />
-        <Carousel show={3}>
+        <Carousel show={4}>
         {this.state.relatedItems.map((elem, i) => {
           return (
             <div key={i}>
               <div style={{ padding: 8 }}>
                 <RelatedProductCard key={i} product={elem} />
+              </div>
+            </div>
+          )
+        })}
+        </Carousel>
+        <Carousel show={4}>
+        {this.state.relatedItems.map((elem, i) => {
+          return (
+            <div key={i}>
+              <div style={{ padding: 8 }}>
+                <AddOutfitCard key={i} product={elem} />
               </div>
             </div>
           )
