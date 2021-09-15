@@ -13,8 +13,11 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       relatedItems: [],
+<<<<<<< HEAD
       allItems: [],
       currentItemId: '',
+=======
+>>>>>>> a6863f09d605919925430060ee11e414b28e4d01
     };
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
   }
