@@ -1,9 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Stars from '../rating-review/StarRating.jsx';
+import StyleSelector from './StyleSelector.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,9 +38,7 @@ export default function ProductInfo() {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            this is the features section, it will eventually be full of data!
-          </Paper>
+          <StyleSelector />
         </Grid>
       </Grid>
     </div>
