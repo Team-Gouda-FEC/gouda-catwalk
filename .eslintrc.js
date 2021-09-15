@@ -17,11 +17,12 @@ module.exports = {
     "import/extensions": "off",
     "import/no-unresolved": "off",
     "prettier/prettier": "error",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
     "no-console": "off",
     "func-names": "off",
     "class-methods-use-this": "off",
     "array-callback-return": "off",
     "consistent-return": "off",
+    "react/prop-types": "off",
   },
 };

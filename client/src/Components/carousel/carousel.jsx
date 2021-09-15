@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import './carousel.css';
+import React, { useState, useEffect } from "react";
+import "./carousel.css";
 
 const Carousel = (props) => {
   const { children, show } = props;
@@ -11,7 +11,7 @@ const Carousel = (props) => {
   }, [children]);
 
   const next = () => {
-    if (currentIndex < (length - show)) {
+    if (currentIndex < length - show) {
       setCurrentIndex((prevState) => prevState + 1);
     }
   };
@@ -25,19 +25,28 @@ const Carousel = (props) => {
   return (
     <div className="carousel-container">
       <div className="carousel-wrapper">
-        {
-          currentIndex > 0 && <button onClick={prev} className="left-arrow"> &lt; </button>
-        }
+        {currentIndex > 0 && (
+          <button onClick={prev} className="left-arrow">
+            {" "}
+            &lt;{" "}
+          </button>
+        )}
         <div className="carousel-content-wrapper">
           <div
             className={`carousel-content show-${show}`}
-            style={{ transform: `translateX(-${currentIndex * (100 / show)}%)` }}>
-              {children}
+            style={{
+              transform: `translateX(-${currentIndex * (100 / show)}%)`,
+            }}
+          >
+            {children}
           </div>
         </div>
-        {
-          currentIndex < (length - show) && <button onClick={next} className="right-arrow"> &gt; </button>
-        }
+        {currentIndex < length - show && (
+          <button onClick={next} className="right-arrow">
+            {" "}
+            &gt;{" "}
+          </button>
+        )}
       </div>
     </div>
   );
