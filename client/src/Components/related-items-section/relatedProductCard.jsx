@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardMedia, CardContent, Typography, makeStyles, IconButton, MoreVertIcon, Avatar, Button } from '@material-ui/core';
 import Stars from '../rating-review/StarRating.jsx';
@@ -42,10 +43,10 @@ const RelatedProductCard = (props) => {
           <Typography variant="body1" style={{ fontWeight: 600 }}>{props.product.name} </Typography>
           <Typography variant="body1">{props.product.default_price} </Typography>
         </CardContent>
-      <Stars rating={2.5} />
+        <Stars rating={2.5} />
       </Card>
     </div>
-  )
+  );
 }
 
-export default RelatedProductCard;
+export default relatedProductCard;

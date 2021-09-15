@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import Typography from '@material-ui/core/Typography';
 import NavBar from './product-overview/NavBar.jsx';
 import GridContainer from './product-overview/GridContainer.jsx';
-import Stars from './rating-review/StarRating.jsx';
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
 import Carousel from './carousel/carousel.jsx';
 import RatingAndReviews from './rating-review/ratingAndReviews.jsx';
@@ -40,7 +40,12 @@ export default class App extends React.Component {
         }}
       >
         <NavBar />
-        <h3> there is definitely some sort of announcement here! </h3>
+        <Typography
+          variant="subtitle1"
+          align="center"
+        >
+          SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT HIGHLIGHT!
+        </Typography>
         <GridContainer />
         <Stars rating={3.5} />
         <Carousel show={3}>

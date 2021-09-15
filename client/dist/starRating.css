@@ -1,26 +1,27 @@
-#starRating{
+#starRating {
   color: black;
   width: 120px;
   position: relative;
+  /* margin: auto; */
 }
 
-#starRating #over{
+#starRating #over {
   color: lightcoral;
   overflow: hidden;
   white-space: nowrap;
 }
 
-#starRating #under{
+#starRating #under {
   position: relative;
 }
 
 #starRating #under,
-#starRating #over{
+#starRating #over {
   top: 0px;
   left: 0px;
 }
 
-#starSubContainer{
+#starSubContainer {
   /* background-color: pink; */
   position: absolute;
   top: 0px;
