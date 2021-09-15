@@ -4,15 +4,16 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   grid-template-areas:
-    'search-bar search-bar'
-    'qa-accordian qa-accordian'
-    'more-questions add-question';
+    "search-bar search-bar"
+    "qa-accordian qa-accordian"
+    "more-questions add-question";
 }
 
 .search-bar {
   grid-area: search-bar;
   justify-self: stretch;
-  background-color: chartreuse;
+  border-style: solid;
+  border-width: thin;
 }
 
 .qa-accordian {
@@ -31,4 +32,11 @@
   grid-area: add-question;
   justify-self: stretch;
   background-color: fuchsia;
+}
+
+input {
+  height: 50px;
+  width: 94.5%;
+  font-style: bold;
+  font-size: 25px;
 }

@@ -1,26 +1,30 @@
-#starRating{
+#starRating {
   color: black;
   width: 120px;
   position: relative;
+<<<<<<< HEAD
+=======
+  /* margin: auto; */
+>>>>>>> e7e44443f1a0f4a462958dc549a6069b84809deb
 }
 
-#starRating #over{
+#starRating #over {
   color: lightcoral;
   overflow: hidden;
   white-space: nowrap;
 }
 
-#starRating #under{
+#starRating #under {
   position: relative;
 }
 
 #starRating #under,
-#starRating #over{
+#starRating #over {
   top: 0px;
   left: 0px;
 }
 
-#starSubContainer{
+#starSubContainer {
   /* background-color: pink; */
   position: absolute;
   top: 0px;

@@ -1,39 +1,48 @@
-const axios = require('axios');
-require('dotenv').config();
+const axios = require("axios");
+require("dotenv").config();
 
 const headers = { Authorization: `${process.env.API_KEY}` };
 
 /* **** PRODUCTS SECTION **** */
 // only grabs 5 products
 const getProducts = (callback) => {
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products', {
-    headers,
-  })
+  axios
+    .get("https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products", {
+      headers,
+    })
     .then((response) => {
       callback(null, response);
     })
     .catch((err) => {
-      callback(err, null); //reversed the order or err and null - MK
-    })
+      callback(err, null); // reversed the order or err and null - MK
+    });
 };
 
-/*** RELATED ITEMS SECTION *****/
-const getRelatedProducts = (product_id, callback) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${product_id}/related`, {headers})
-  .then((response) => {
-    callback(null, response);
-  })
-  .catch((err) => {
-    callback(err, null);
-  })
-}
+/* ** RELATED ITEMS SECTION **** */
+const getRelatedProducts = (productId, callback) => {
+  axios
+    .get(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/related`,
+      { headers }
+    )
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
+};
 
-/***** REVIEWS SECTION *****/
+/* **** REVIEWS SECTION **** */
 
 /* **** QUESTIONS & ANSWERS SECTION **** */
 
 const getQuestions = (params, callback) => {
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions', { params, headers })
+  axios
+    .get("https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions", {
+      params,
+      headers,
+    })
     .then((response) => {
       callback(null, response);
     })
@@ -43,7 +52,11 @@ const getQuestions = (params, callback) => {
 };
 
 const getAnswers = (questionId, params, callback) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${questionId}/answers`, { params, headers })
+  axios
+    .get(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${questionId}/answers`,
+      { params, headers }
+    )
     .then((response) => {
       callback(null, response);
     })
@@ -53,7 +66,12 @@ const getAnswers = (questionId, params, callback) => {
 };
 
 const addQuestion = (params, callback) => {
-  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions', params, { headers })
+  axios
+    .post(
+      "https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions",
+      params,
+      { headers }
+    )
     .then((response) => {
       callback(null, response);
     })
@@ -63,7 +81,12 @@ const addQuestion = (params, callback) => {
 };
 
 const addAnswer = (questionId, params, callback) => {
-  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${questionId}/answers`, params, { headers })
+  axios
+    .post(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${questionId}/answers`,
+      params,
+      { headers }
+    )
     .then((response) => {
       callback(null, response);
     })
@@ -73,7 +96,12 @@ const addAnswer = (questionId, params, callback) => {
 };
 
 const markQuestion = (questionId, callback) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${questionId}/helpful`, {}, { headers })
+  axios
+    .put(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${questionId}/helpful`,
+      {},
+      { headers }
+    )
     .then((response) => {
       callback(null, response);
     })
@@ -83,7 +111,12 @@ const markQuestion = (questionId, callback) => {
 };
 
 const reportQuestion = (questionId, callback) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${questionId}/report`, {}, { headers })
+  axios
+    .put(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions/${questionId}/report`,
+      {},
+      { headers }
+    )
     .then((response) => {
       callback(null, response);
     })
@@ -93,7 +126,12 @@ const reportQuestion = (questionId, callback) => {
 };
 
 const markAnswer = (questionId, callback) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${questionId}/helpful`, {}, { headers })
+  axios
+    .put(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${questionId}/helpful`,
+      {},
+      { headers }
+    )
     .then((response) => {
       callback(null, response);
     })
@@ -103,7 +141,12 @@ const markAnswer = (questionId, callback) => {
 };
 
 const reportAnswer = (questionId, callback) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${questionId}/report`, {}, { headers })
+  axios
+    .put(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${questionId}/report`,
+      {},
+      { headers }
+    )
     .then((response) => {
       callback(null, response);
     })
@@ -126,4 +169,5 @@ module.exports = {
   reportQuestion,
   markAnswer,
   reportAnswer,
+  getRelatedProducts,
 };
