@@ -5,8 +5,8 @@ const headers = { Authorization: `${process.env.API_KEY}` };
 
 /* **** PRODUCTS SECTION **** */
 // only grabs 5 products
-const getProducts = (callback) => {
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/', { headers: { 'Authorization': `${process.env.API_KEY}`}})
+const getProducts = (params, callback) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/`, { params,  headers: { 'Authorization': `${process.env.API_KEY}`}})
     .then((response) => {
       callback(null, response);
     })
@@ -38,13 +38,13 @@ const getProducts = (callback) => {
 //   })
 // }
 
-const getThumbnail = (params, callback) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${product_id}/styles`, { headers: { 'Authorization': `${process.env.API_KEY}`}})
+const getThumbnail = (productId, callback) => {
+  console.log(productId);
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/styles`, { headers: { 'Authorization': `${process.env.API_KEY}`}})
     .then((response) => {
       callback(null, response);
     })
     .catch((err) => {
-      console.log(err);
       callback(err, null);
     });
 };
@@ -139,6 +139,7 @@ const reportAnswer = (questionId, callback) => {
 
 module.exports = {
   getProducts,
+  getThumbnail,
   getQuestions,
   getAnswers,
   addQuestion,

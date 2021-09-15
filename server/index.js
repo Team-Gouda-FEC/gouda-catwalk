@@ -1,5 +1,6 @@
 const express = require('express');
 // const path = require('path');
+const cors = require('cors');
 const apiFn = require('./apiHelpers');
 
 const app = express();
@@ -7,6 +8,7 @@ const PORT = 1337 || process.env.PORT;
 
 app.use(express.static('client/dist'));
 app.use(express.json());
+app.use(cors());
 
 app.get('/api/test/products', (req, res) => {
   apiFn.getProducts((err, results) => {
@@ -34,8 +36,11 @@ app.get('/api/test/products', (req, res) => {
 
 /***** RELATED ITEMS  ****/
 app.get('/products/', (req, res) => {
-  //const product_id = req.query.product_id;
-  apiFn.getProducts((err, response) => {
+  const params = {
+    page: req.query.page,
+    count: req.query.count,
+  };
+  apiFn.getProducts(params, (err, response) => {
     if (err) {
       res.status(405).send(err);
     } else {
@@ -45,8 +50,8 @@ app.get('/products/', (req, res) => {
 });
 
 app.get('/getImage/', (req, res) => {
-  const product_id = req.body.product_id;
-  apiFn.getThumbnail(params, (err, response) => {
+  const productId = req.query.product_id;
+  apiFn.getThumbnail(productId, (err, response) => {
     if (err) {
       res.status(404).send(err);
     } else {

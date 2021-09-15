@@ -5,13 +5,14 @@ import GridContainer from './product-overview/GridContainer.jsx';
 import Stars from './rating-review/StarRating.jsx';
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
 import Carousel from './carousel/carousel.jsx';
+import RatingAndReviews from './rating-review/ratingAndReviews.jsx';
 import QAWidget from './qa/qaWidget.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      relatedItems: ['one','two'],
+      relatedItems: [],
     };
   }
 
@@ -20,15 +21,15 @@ export default class App extends React.Component {
   }
 
   getProduct() {
-    axios.get('http://localhost:1337/products/')
+    axios.get('http://localhost:1337/products/', { params: { page: 2, count: 7}})
       .then((response) => {
         console.log(response);
+        const arr = response.data;
         this.setState({
-          relatedItems: response.data,
+          relatedItems: [...arr],
         });
-        console.log(this.state.relatedItems);
       }).catch((error) => {
-        console.log(error);
+        console.log(response.data.id, error);
       });
   }
 
@@ -66,13 +67,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-// {this.state.relatedItems.map((elem) => {
-//   return (
-//     <div>
-//       <div style={{ padding: 8 }}>
-//         <RelatedProductCard product={elem} />
-//       </div>
-//     </div>
-//   )
-// })}
