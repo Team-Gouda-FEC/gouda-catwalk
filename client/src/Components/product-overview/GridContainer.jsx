@@ -11,6 +11,7 @@ import ProductBlurbs from './ProductBlurbs.jsx';
 const useStyles = makeStyles((theme) => ({
   ProductOverviewGrid: {
     flexGrow: 1,
+    textAlign: 'center',
   },
   paper: {
     padding: theme.spacing(2),
@@ -33,8 +34,8 @@ export default function GridContainer() {
             <ProductInfo />
             <CategoryInfo />
           </Grid>
-          <Grid item xs={12}>
-            <Typography> Blurb blurb blurbbbb</Typography>
+          <Grid item xs={6}>
+            <Typography> Blurb blurb blurbbbb, lots of words should go here! </Typography>
           </Grid>
           <Divider orientation="vertical" />
           <Grid item>

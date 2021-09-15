@@ -19,7 +19,7 @@ export default function ProductBlurbs() {
 
   return (
     <Grid container elevation={0} className={classes.root}>
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <List dense className="list of features">
           <ListItem alignItems="flex-start">
             <ListItemIcon>
