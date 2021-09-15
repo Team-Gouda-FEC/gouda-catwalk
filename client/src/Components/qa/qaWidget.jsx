@@ -1,8 +1,8 @@
-import React from "react";
-import axios from "axios";
-import "./qaWidget.css";
-import SearchBar from "./SearchBar.jsx";
-import QuestionsList from "./QuestionsList.jsx";
+import React from 'react';
+import axios from 'axios';
+import './qaWidget.css';
+import SearchBar from './SearchBar.jsx';
+import QuestionsList from './QuestionsList.jsx';
 
 export default class QAWidget extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ export default class QAWidget extends React.Component {
       // eslint-disable-next-line react/no-unused-state
       questionsList: [],
       // eslint-disable-next-line react/no-unused-state
-      searchValue: "",
+      searchValue: '',
     };
     this.handleSearchValue = this.handleSearchValue.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
@@ -34,12 +34,11 @@ export default class QAWidget extends React.Component {
     // eslint-disable-next-line no-restricted-globals
     event.preventDefault();
     // eslint-disable-next-line no-alert
-    alert("submitted");
+    alert('submitted');
     const { questionsList, searchValue } = this.state;
     const filteredSearch = (searchStr) => {
       searchStr.toLowerCase();
       const data = questionsList.results;
-      // eslint-disable-next-line no-unused-vars
       const filterData = data.filter((element) => {
         const currQuestion = element.question_body.toLowerCase();
         if (currQuestion.includes(searchStr)) {
@@ -54,7 +53,7 @@ export default class QAWidget extends React.Component {
 
   getQuestions() {
     axios
-      .get("/getQuestions", {
+      .get('/getQuestions', {
         params: {
           product_id: 38326,
           page: 1,
