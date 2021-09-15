@@ -5,26 +5,43 @@ const headers = { Authorization: `${process.env.API_KEY}` };
 
 /* **** PRODUCTS SECTION **** */
 // only grabs 5 products
-const getProducts = (callback) => {
-  axios
-    .get("https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products", {
-      headers,
-    })
+
+const getProducts = (params, callback) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/`, { params,  headers: { 'Authorization': `${process.env.API_KEY}`}})
     .then((response) => {
       callback(null, response);
     })
     .catch((err) => {
-      callback(err, null); // reversed the order or err and null - MK
+      console.log(err);
+      callback(err, null);
     });
 };
 
-/* ** RELATED ITEMS SECTION **** */
-const getRelatedProducts = (productId, callback) => {
-  axios
-    .get(
-      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/related`,
-      { headers }
-    )
+/*** RELATED ITEMS SECTION *****/
+// MK copy for reference later
+//const getProducts = (callback) => {
+//   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/', { headers: { 'Authorization': `${process.env.API_KEY}`}})
+//     .then((response) => {
+//       callback(null, response);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       callback(err, null);
+//     });
+// };
+// const getRelatedProducts = (product_id, callback) => {
+//   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${product_id}/related`, {headers})
+//   .then((response) => {
+//     callback(null, response);
+//   })
+//   .catch((err) => {
+//     callback(err, null);
+//   })
+// }
+
+const getThumbnail = (productId, callback) => {
+  console.log(productId);
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/styles`, { headers: { 'Authorization': `${process.env.API_KEY}`}})
     .then((response) => {
       callback(null, response);
     })
@@ -161,6 +178,7 @@ const reportAnswer = (questionId, callback) => {
 
 module.exports = {
   getProducts,
+  getThumbnail,
   getQuestions,
   getAnswers,
   addQuestion,
