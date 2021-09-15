@@ -14,11 +14,15 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       relatedItems: [],
+      allItems: [],
+      currentItemId: '',
     };
+    this.updateCurrentItem = this.updateCurrentItem.bind(this);
   }
 
   componentDidMount() {
     this.getProduct();
+    this.getAllProducts();
   }
 
   getProduct() {
@@ -33,6 +37,28 @@ export default class App extends React.Component {
       });
   }
 
+  getAllProducts() {
+    axios
+      .get('http://localhost:1337/products/', {
+        params: { page: 1, count: 12 },
+      })
+      .then((response) => {
+        this.setState({
+          allItems: response.data,
+          currentItemId: response.data[0].id,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  updateCurrentItem(itemId) {
+    this.setState({
+      currentItemId: itemId,
+    });
+  }
+
   render() {
     return (
       <div
@@ -45,7 +71,10 @@ export default class App extends React.Component {
         <Typography variant="subtitle1" align="center">
           SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT HIGHLIGHT!
         </Typography>
-        <GridContainer />
+        <GridContainer
+          handleUpdateCurrentItem={this.updateCurrentItem}
+          allItems={this.state.allItems}
+        />
         <Carousel show={4}>
         {this.state.relatedItems.map((elem, i) => {
           return (
