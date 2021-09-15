@@ -187,5 +187,4 @@ module.exports = {
   reportQuestion,
   markAnswer,
   reportAnswer,
-  getRelatedProducts,
 };
