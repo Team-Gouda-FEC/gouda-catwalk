@@ -1,12 +1,14 @@
 const express = require("express");
 // const path = require('path');
-const apiFn = require("./apiHelpers");
+const cors = require('cors');
+const apiFn = require('./apiHelpers');
 
 const app = express();
 const PORT = 1337 || process.env.PORT;
 
 app.use(express.static("client/dist"));
 app.use(express.json());
+app.use(cors());
 
 app.get("/api/test/products", (req, res) => {
   apiFn.getProducts((err, results) => {
@@ -32,13 +34,28 @@ app.get("/api/test/products", (req, res) => {
 
 /* **** PRODUCTS SECTION **** */
 
-/* **** RELATED ITEMS  ** */
-app.get("/products/", (req, res) => {
-  apiFn.getRelatedProducts(req.query.product_id, (err, data) => {
+/***** RELATED ITEMS  ****/
+app.get('/products/', (req, res) => {
+  const params = {
+    page: req.query.page,
+    count: req.query.count,
+  };
+  apiFn.getProducts(params, (err, response) => {
+    if (err) {
+      res.status(405).send(err);
+    } else {
+      res.status(200).send(response.data);
+    }
+  });
+});
+
+app.get('/getImage/', (req, res) => {
+  const productId = req.query.product_id;
+  apiFn.getThumbnail(productId, (err, response) => {
     if (err) {
       res.status(404).send(err);
     } else {
-      res.status(200).send(data); // confirm whether or not you need a put request to make a response
+      res.status(200).send(response.data);
     }
   });
 });
