@@ -23,10 +23,8 @@ export default class App extends React.Component {
   getProduct() {
     axios.get('http://localhost:1337/products/', { params: { page: 2, count: 7}})
       .then((response) => {
-        console.log(response);
-        const arr = response.data;
         this.setState({
-          relatedItems: [...arr],
+          relatedItems: response.data,
         });
       }).catch((error) => {
         console.log(response.data.id, error);
@@ -55,11 +53,6 @@ export default class App extends React.Component {
             </div>
           )
         })}
-          {/* <div>
-            <div style={{ padding: 8 }}>
-              <img src="https://via.placeholder.com/300x300" alt="placeholder" style={{ width: '100%' }} />
-            </div>
-          </div> */}
         </Carousel>
         <RatingAndReviews />
         <QAWidget />
