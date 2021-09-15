@@ -31,19 +31,19 @@ export default function ProductBlurbs() {
             <ListItemIcon>
               <CheckIcon />
             </ListItemIcon>
-            <ListItemText primary="Made with 100% Genetic Modification" />
+            <ListItemText primary="i think this is actually where pintrest" />
           </ListItem>
           <ListItem>
             <ListItemIcon>
               <CheckIcon />
             </ListItemIcon>
-            <ListItemText primary="This is made up" />
+            <ListItemText primary="facebook and" />
           </ListItem>
           <ListItem>
             <ListItemIcon>
               <CheckIcon />
             </ListItemIcon>
-            <ListItemText primary="It doesn't matter" />
+            <ListItemText primary="twitter should go?" />
           </ListItem>
         </List>
       </Grid>

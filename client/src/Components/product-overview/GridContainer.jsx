@@ -30,12 +30,15 @@ export default function GridContainer() {
           <Grid className="carousel" item xs={7}>
             <Paper className={classes.paper}> this is where the carousel will go! </Paper>
           </Grid>
-          <Grid className="Product Category Info" item xs={5}>
+          <Grid className="Product Information" item xs={5}>
             <ProductInfo />
             <CategoryInfo />
           </Grid>
           <Grid item xs={6}>
-            <Typography> Blurb blurb blurbbbb, lots of words should go here! </Typography>
+            <Typography>
+              Product Overview -  This free form text field may exist on some items.
+              If it is available it should be displayed.
+            </Typography>
           </Grid>
           <Divider orientation="vertical" />
           <Grid item>
