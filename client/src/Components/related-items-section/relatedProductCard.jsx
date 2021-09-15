@@ -1,23 +1,25 @@
-import React from 'react';
-import { Card, CardMedia, CardHeader, CardContent, CardActions, Typography } from '@material-ui/core';
-import Stars from '../rating-review/StarRating.jsx';
+import React from "react";
+import {
+  Card,
+  CardMedia,
+  CardHeader,
+  CardContent,
+  CardActions,
+  Typography,
+} from "@material-ui/core";
+import Stars from "../rating-review/StarRating.jsx";
 
-export default function RelatedProductCard () {
+export default function RelatedProductCard() {
   return (
     <div>
       <Card>
         <CardContent>
-          <Typography>
-            category,
-            name,
-            default_price
-          </Typography>
+          <Typography>category, name, default_price</Typography>
         </CardContent>
-      <Stars rating={2.5} />
+        <Stars rating={2.5} />
       </Card>
-
     </div>
-  )
+  );
 }
 
 // {
@@ -41,7 +43,6 @@ export default function RelatedProductCard () {
 //       }
 //   ]
 // }
-
 
 // from each product's style
 // {
