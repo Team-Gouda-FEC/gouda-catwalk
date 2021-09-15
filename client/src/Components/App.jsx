@@ -12,7 +12,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // relatedItems: [],
+      relatedItems: [],
     };
   }
 
@@ -47,7 +47,6 @@ export default class App extends React.Component {
           SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT HIGHLIGHT!
         </Typography>
         <GridContainer />
-        <Stars rating={3.5} />
         <Carousel show={3}>
         {this.state.relatedItems.map((elem, i) => {
           return (

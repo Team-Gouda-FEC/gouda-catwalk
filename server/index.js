@@ -34,7 +34,6 @@ app.get("/api/test/products", (req, res) => {
 
 /* **** PRODUCTS SECTION **** */
 
-<<<<<<< HEAD
 /***** RELATED ITEMS  ****/
 app.get('/products/', (req, res) => {
   const params = {
@@ -42,15 +41,9 @@ app.get('/products/', (req, res) => {
     count: req.query.count,
   };
   apiFn.getProducts(params, (err, response) => {
-=======
-/* **** RELATED ITEMS  ** */
-app.get("/products/", (req, res) => {
-  apiFn.getRelatedProducts(req.query.product_id, (err, data) => {
->>>>>>> e7e44443f1a0f4a462958dc549a6069b84809deb
     if (err) {
       res.status(405).send(err);
     } else {
-<<<<<<< HEAD
       res.status(200).send(response.data);
     }
   });
@@ -66,12 +59,6 @@ app.get('/getImage/', (req, res) => {
     }
   });
 });
-=======
-      res.status(200).send(data); // confirm whether or not you need a put request to make a response
-    }
-  });
-});
->>>>>>> e7e44443f1a0f4a462958dc549a6069b84809deb
 
 /* **** QUESTIONS & ANSWERS SECTION **** */
 
