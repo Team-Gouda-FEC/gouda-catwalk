@@ -18,37 +18,35 @@ export default function ProductBlurbs() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <Grid container elevation={0}>
-        <Grid item>
-          <List dense component="list of ">
-            <ListItem>
-              <ListItemIcon>
-                <CheckIcon />
-              </ListItemIcon>
-              <ListItemText primary="GMO and Pesticide-free" />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <CheckIcon />
-              </ListItemIcon>
-              <ListItemText primary="Made ith 100% Genetic Modification" />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <CheckIcon />
-              </ListItemIcon>
-              <ListItemText primary="This is made up" />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <CheckIcon />
-              </ListItemIcon>
-              <ListItemText primary="It doesn't matter" />
-            </ListItem>
-          </List>
-        </Grid>
+    <Grid container elevation={0} className={classes.root}>
+      <Grid item xs={6}>
+        <List dense className="list of features">
+          <ListItem alignItems="flex-start">
+            <ListItemIcon>
+              <CheckIcon />
+            </ListItemIcon>
+            <ListItemText primary="GMO and Pesticide-free" />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <CheckIcon />
+            </ListItemIcon>
+            <ListItemText primary="Made with 100% Genetic Modification" />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <CheckIcon />
+            </ListItemIcon>
+            <ListItemText primary="This is made up" />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <CheckIcon />
+            </ListItemIcon>
+            <ListItemText primary="It doesn't matter" />
+          </ListItem>
+        </List>
       </Grid>
-    </div>
+    </Grid>
   );
 }
