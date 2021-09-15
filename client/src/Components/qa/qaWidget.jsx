@@ -1,62 +1,73 @@
-import React from 'react';
-import axios from 'axios';
-import './qaWidget.css';
-import SearchBar from './SearchBar.jsx';
+import React from "react";
+import axios from "axios";
+import "./qaWidget.css";
+import SearchBar from "./SearchBar.jsx";
 
 export default class QAWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // eslint-disable-next-line react/no-unused-state
       questionsList: [],
-      searchValue: '',
+      // eslint-disable-next-line react/no-unused-state
+      searchValue: "",
     };
     this.handleSearchValue = this.handleSearchValue.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
 
   componentDidMount() {
-
+    this.getQuestions();
   }
 
   handleSearchValue(event) {
     this.setState({
+      // eslint-disable-next-line react/no-unused-state
       searchValue: event.target.value,
     });
   }
 
+  // TODO: Should start search when the searchValue is equal to or greater than 3
+  // TODO: Results will populate in the accordian section
   handleSearchSubmit() {
+    // eslint-disable-next-line no-restricted-globals
     event.preventDefault();
-    alert('submitted');
-    // const filteredSearch = (searchStr) => {
-    //   searchStr.toLowerCase();
-    //   const data = this.state.questionsList;
-    //   const filteredData = data.filter((element) => {
-    //     const currQuestion = element.data.toLowerCase();
-    //     if (currQuestion.includes(searchStr)) {
-    //       return currQuestion;
-    //     }
-    //   });
+    // eslint-disable-next-line no-alert
+    alert("submitted");
+    const { questionsList, searchValue } = this.state;
+    const filteredSearch = (searchStr) => {
+      searchStr.toLowerCase();
+      const data = questionsList.results;
+      // eslint-disable-next-line no-unused-vars
+      const filterData = data.filter((element) => {
+        const currQuestion = element.question_body.toLowerCase();
+        if (currQuestion.includes(searchStr)) {
+          return currQuestion;
+        }
+      });
 
-    // }
-    // filteredSearch();
+      // TODO: need to display the results in the accordian
+    };
+    filteredSearch(searchValue);
   }
 
-  // have to pull down a list of all the questions
   getQuestions() {
-    axios.get('/getQuestions', {
-      params: {
-        product_id: 38326,
-        page: 1,
-        count: 5,
-      },
-    })
+    axios
+      .get("/getQuestions", {
+        params: {
+          product_id: 38326,
+          page: 1,
+          count: 5,
+        },
+      })
       .then((response) => {
         this.setState({
+          // eslint-disable-next-line react/no-unused-state
           questionsList: response.data,
         });
       })
       .catch((err) => {
-        console.error(err);
+        console.log(err);
       });
   }
 
@@ -69,9 +80,7 @@ export default class QAWidget extends React.Component {
             submission={this.handleSearchSubmit}
           />
         </div>
-        <div className="qa-accordian">
-          QA Accoridan
-        </div>
+        <div className="qa-accordian">QA Accoridan</div>
         <button type="button" className="more-questions">
           More Answered Questions
         </button>
