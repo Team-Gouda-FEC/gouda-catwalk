@@ -24,18 +24,10 @@ export default function ProductInfo() {
       <Grid container elevation={0}>
         <Grid item xs={12}>
           <Stars />
-          <Typography variant="subtitle2">
-            Read all reviews
-          </Typography>
-          <Typography variant="body2">
-            CATEGORY
-          </Typography>
-          <Typography variant="h3">
-            EXPANDED PRODUCT NAME
-          </Typography>
-          <Typography variant="subtitle2">
-            $ Free.99
-          </Typography>
+          <Typography variant="subtitle2">Read all reviews</Typography>
+          <Typography variant="body2">CATEGORY</Typography>
+          <Typography variant="h3">EXPANDED PRODUCT NAME</Typography>
+          <Typography variant="subtitle2">$ Free.99</Typography>
         </Grid>
         <Grid item xs={12}>
           <StyleSelector />

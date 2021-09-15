@@ -49,4 +49,4 @@ const RelatedProductCard = (props) => {
   );
 }
 
-export default relatedProductCard;
+export default RelatedProductCard;
