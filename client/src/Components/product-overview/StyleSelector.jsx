@@ -14,11 +14,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   large: {
-    width: theme.spacing(8),
-    height: theme.spacing(8),
-    padding: 10,
+    width: theme.spacing(9),
+    height: theme.spacing(9),
+    padding: 5,
     margin: 10,
-    border: '1px solid black'
+    border: '1px solid black',
   },
 }));
 
@@ -31,7 +31,7 @@ export default function StyleSelector() {
         <Grid container item xs={12}>
           <Typography>
             Style
-            {">"}
+            {'>'}
             SELECTED STYLE
           </Typography>
         </Grid>
