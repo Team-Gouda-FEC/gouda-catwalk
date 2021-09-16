@@ -10,33 +10,38 @@ app.use(express.static("client/dist"));
 app.use(express.json());
 // app.use(cors());
 
-app.get("/api/test/products", (req, res) => {
-  apiFn.getProducts((err, results) => {
+/* **** PRODUCTS SECTION **** */
+app.get('/products/', (req, res) => {
+  const params = {
+    page: req.query.page,
+    count: req.query.count,
+  };
+  apiFn.getProducts(params, (err, response) => {
     if (err) {
-      res.status(500).send("Error requesting Products Data");
+      res.status(404).send(err);
     } else {
-      res.send(results.data);
+      res.status(200).send(response.data);
     }
   });
 });
 
-// {
-//   "id": 38326,
-//   "campus": "hr-atx",
-//   "name": "Heir Force Ones",
-//   "slogan": "A sneaker dynasty",
-//   "description": "Now where da boxes where I keep mine?",
-//   "category": "Kicks",
-//   "default_price": "99.00",
-//   "created_at": "2021-08-13T14:38:00.907Z",
-//   "updated_at": "2021-08-13T14:38:00.907Z"
-// }
-
-/* **** PRODUCTS SECTION **** */
-app.get('/products', (req, res) => {
-  apiFn.getProducts((err, data) => {
+/***** RELATED ITEMS  ****/
+app.get('/relatedproducts/', (req, res) => {
+  const productId = req.query.product_id;
+  apiFn.getRelatedProducts(productId, (err, response) => {
     if (err) {
-      res.status(405).send(err);
+      res.status(404).send(err);
+    } else {
+      res.status(200).send(response.data);
+    }
+  });
+});
+
+app.get('/getProductInfo/', (req, res) => {
+  const productId = req.query.product_id;
+  apiFn.getProdInfo(productId, (err, response) => {
+    if (err) {
+      res.status(404).send(err);
     } else {
       res.status(200).send(data);
     }
