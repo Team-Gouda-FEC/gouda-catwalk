@@ -1,6 +1,6 @@
 const express = require("express");
 // const path = require('path');
-const cors = require('cors');
+// const cors = require('cors');
 const apiFn = require('./apiHelpers');
 
 const app = express();
@@ -8,7 +8,7 @@ const PORT = 1337 || process.env.PORT;
 
 app.use(express.static("client/dist"));
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 app.get("/api/test/products", (req, res) => {
   apiFn.getProducts((err, results) => {
@@ -33,25 +33,37 @@ app.get("/api/test/products", (req, res) => {
 // }
 
 /* **** PRODUCTS SECTION **** */
-
-/* **** RELATED ITEMS  ** */
-app.get('/products/', (req, res) => {
-  apiFn.getRelatedProducts(req.query.product_id, (err, data) => {
+app.get('/products', (req, res) => {
+  apiFn.getProducts((err, data) => {
     if (err) {
       res.status(405).send(err);
     } else {
-      res.status(200).send(res.data);
+      res.status(200).send(data);
     }
   });
 });
+
+// /* **** RELATED ITEMS  ** */
+// app.get('/products', (req, res) => {
+//   console.log('productID in server index get: ', req.body);
+//   apiFn.getRelatedProducts(req.query.product_id, (err, data) => {
+//     if (err) {
+//       res.status(405).send(err);
+//     } else {
+//       res.status(200).send(res.data);
+//     }
+//   });
+// });
 
 app.get('/getImage/', (req, res) => {
   const productId = req.query.product_id;
   apiFn.getThumbnail(productId, (err, response) => {
     if (err) {
+      console.log('could not fetch styles!', productId);
       res.status(404).send(err);
     } else {
-      res.status(200).send(res.data);
+      console.log('successfully fetched styles!');
+      res.status(200).send(response.data);
     }
   });
 });

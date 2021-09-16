@@ -6,14 +6,13 @@ const headers = { Authorization: `${process.env.API_KEY}` };
 /* **** PRODUCTS SECTION **** */
 // only grabs 5 products
 
-const getProducts = (params, callback) => {
+const getProducts = (callback) => {
   axios
     .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/`, {
-      params,
       headers,
     })
     .then((response) => {
-      callback(null, response);
+      callback(null, response.data);
     })
     .catch((err) => {
       console.log(err);
@@ -40,7 +39,7 @@ const getProducts = (params, callback) => {
 //   })
 //   .catch((err) => {
 //     callback(err, null);
-//   })
+//   })`
 // }
 
 const getThumbnail = (productId, callback) => {

@@ -21,24 +21,12 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getProduct();
+    this.getProducts();
   }
 
-  getProduct() {
-    axios.get('http://localhost:1337/products/', { params: { page: 2, count: 7}})
-      .then((response) => {
-        this.setState({
-          relatedItems: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(response.data.id, error);
-      });
-  }
-
-  getAllProducts() {
+  getProducts() {
     axios
-      .get('/products', { params: { page: 2, count: 7 } })
+      .get('/products')
       .then((response) => {
         this.setState({
           relatedItems: response.data,
@@ -47,13 +35,13 @@ export default class App extends React.Component {
         });
       })
       .catch((error) => {
-        console.log('error in get product ', error);
+        console.log(error);
       });
   }
 
   updateCurrentItem(itemId) {
     this.setState({
-      currentItemId: itemId,
+      currentItem: itemId,
     });
   }
 

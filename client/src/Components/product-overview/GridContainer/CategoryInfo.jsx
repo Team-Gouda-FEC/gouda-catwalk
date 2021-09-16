@@ -43,13 +43,13 @@ export default function CategoryInfo() {
           <InputLabel id="Select Size">Select Size</InputLabel>
           <Select
             id="select-size"
-            value={size}
+            value={10}
             label="Select Size"
             onChange={handleSizeChange}
           >
-            <MenuItem value={0}>Small</MenuItem>
-            <MenuItem value={1}>Medium</MenuItem>
-            <MenuItem value={2}>Large</MenuItem>
+            <MenuItem value={10}>Small</MenuItem>
+            <MenuItem value={20}>Medium</MenuItem>
+            <MenuItem value={30}>Large</MenuItem>
           </Select>
         </FormControl>
 
@@ -57,7 +57,7 @@ export default function CategoryInfo() {
           <InputLabel id="Select Quantity"> </InputLabel>
           <Select
             id="select-quantity"
-            value={quantity}
+            value={10}
             label="Select Quantity"
             onChange={handleQuantityChange}
           >

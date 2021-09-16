@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react/destructuring-assignment */
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -25,38 +26,45 @@ const useStyles = makeStyles((theme) => ({
 export default function StyleSelector(props) {
   const classes = useStyles();
 
+  // define state
+  const [setProductImage, setStyle] = useState(null);
+
   const getStyles = () => {
-    axios
-      .get('/getImage', {
-        params: { product_id: props.currentItem.id },
-      })
-      .then((response) => {
-        console.log('RESPONSE DATA FROM GET THUMBNAILS', response);
-      })
-      .catch((err) => {
-        console.log('*** this is not working! ***', err);
-      });
+    if (props.currentItemId) {
+      axios
+        .get('/getImage/', {
+          params: { product_id: props.currentItemId },
+        })
+        .then((response) => {
+          console.log('*** get styles is working! ***');
+          // response.data.results[0].photos[0].thumbnail_url;
+        })
+        .catch((err) => {
+          console.log('*** get styles is not working! ***', err);
+        });
+    }
   };
 
+  useEffect(() => {
+    getStyles();
+  }, []);
+
   return (
-    <div className={classes.root}>
-      <Grid container>
-        <Grid container item xs={12}>
-          <Typography>
-            Style
-            {'>'}
-            SELECTED STYLE
-          </Typography>
+    setProductImage && (
+      <div className={classes.root}>
+        <Grid container>
+          <Grid container item xs={12}>
+            <Typography>
+              Style
+              {'>'}
+              SELECTED STYLE
+            </Typography>
+          </Grid>
+          <Grid container item xs={12}>
+            {console.log(props.currentItem)}
+          </Grid>
         </Grid>
-        <Grid container item xs={12}>
-          {console.log('current item in style selector: ', props.currentItem)}
-          {/* {props.currentItem.map((item) => (
-            <Avatar key={item.name} cols={1} className={classes.large}>
-              <img src="https://via.placeholder.com/300x300" alt={item.name} />
-            </Avatar>
-          ))} */}
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+    )
   );
 }

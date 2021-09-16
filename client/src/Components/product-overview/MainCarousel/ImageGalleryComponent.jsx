@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +12,7 @@ export default class ImageGalleryComponent extends React.Component {
     this.state = {
       selectedItem: '',
       products: this.props.allItems,
-      currentItemId: this.props.currentItemId
+      currentItemId: this.props.currentItemId,
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -22,7 +23,7 @@ export default class ImageGalleryComponent extends React.Component {
         selectedItem: itemObj,
       },
       () => {
-        this.props.handleUpdateCurrentItem(this.state.selectedItem);
+        this.props.handleUpdateCurrentItem(itemObj);
       }
     );
   }
@@ -31,17 +32,19 @@ export default class ImageGalleryComponent extends React.Component {
     return (
       <>
         {this.props.allItems.map((item) => (
-          <>
-          {console.log('***item obj***', item)}
-            <Grid
-              item
-              elevation={0}
-              onClick={() => this.handleClick(item)}
+          <Grid
+            item
+            elevation={0}
+            onClick={() => this.handleClick(item)}
+            key={item.name}
+          >
+            <ImageComponent
               key={item.id}
-            >
-              <ImageComponent key={item.id} allItems={this.props.allItems} currentItemId={item.id} currentItem={item} />
-            </Grid>
-          </>
+              allItems={this.props.allItems}
+              currentItemId={item.id}
+              currentItem={item}
+            />
+          </Grid>
         ))}
       </>
     );

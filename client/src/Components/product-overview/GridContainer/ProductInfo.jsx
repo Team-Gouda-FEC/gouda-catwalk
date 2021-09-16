@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -30,7 +31,10 @@ export default function ProductInfo(props) {
           <Typography variant="subtitle2">$ Free.99</Typography>
         </Grid>
         <Grid item xs={12}>
-          <StyleSelector currentItem={props.currentItem} />
+          <StyleSelector
+            currentItemId={props.currentItem.id}
+            currentItem={props.currentItem}
+          />
         </Grid>
       </Grid>
     </div>
