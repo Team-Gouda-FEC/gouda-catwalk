@@ -1,17 +1,19 @@
-const express = require('express');
+const express = require("express");
 // const path = require('path');
+const cors = require('cors');
 const apiFn = require('./apiHelpers');
 
 const app = express();
 const PORT = 1337 || process.env.PORT;
 
-app.use(express.static('client/dist'));
+app.use(express.static("client/dist"));
 app.use(express.json());
+app.use(cors());
 
-app.get('/api/test/products', (req, res) => {
+app.get("/api/test/products", (req, res) => {
   apiFn.getProducts((err, results) => {
     if (err) {
-      res.status(500).send('Error requesting Products Data');
+      res.status(500).send("Error requesting Products Data");
     } else {
       res.send(results.data);
     }
@@ -32,23 +34,36 @@ app.get('/api/test/products', (req, res) => {
 
 /* **** PRODUCTS SECTION **** */
 
-/***** RELATED ITEMS  ***/
+/***** RELATED ITEMS  ****/
 app.get('/products/', (req, res) => {
-  const product_id = req.query.product_id;
-  apiFn.getRelatedProducts(product_id, (err, data) => {
+  const params = {
+    page: req.query.page,
+    count: req.query.count,
+  };
+  apiFn.getProducts(params, (err, response) => {
+    if (err) {
+      res.status(405).send(err);
+    } else {
+      res.status(200).send(response.data);
+    }
+  });
+});
+
+app.get('/getImage/', (req, res) => {
+  const productId = req.query.product_id;
+  apiFn.getThumbnail(productId, (err, response) => {
     if (err) {
       res.status(404).send(err);
     } else {
-      res.status(200).send(data); //confirm whether or not you need a put request to make a response
+      res.status(200).send(response.data);
     }
-  })
-})
-
+  });
+});
 
 /* **** QUESTIONS & ANSWERS SECTION **** */
 
 // Get Questions List
-app.get('/getQuestions', (req, res) => {
+app.get("/getQuestions", (req, res) => {
   const params = {
     product_id: req.query.product_id,
     page: req.query.page,
@@ -56,7 +71,7 @@ app.get('/getQuestions', (req, res) => {
   };
   apiFn.getQuestions(params, (err, questions) => {
     if (err) {
-      res.status(500).send('Error requesting Questions Data');
+      res.status(500).send("Error requesting Questions Data");
     } else {
       res.send(questions.data);
     }
@@ -64,14 +79,14 @@ app.get('/getQuestions', (req, res) => {
 });
 
 // Get Answers List
-app.get('/getAnswers', (req, res) => {
+app.get("/getAnswers", (req, res) => {
   const params = {
     page: req.query.page,
     count: req.query.count,
   };
   apiFn.getAnswers(req.query.question_id, params, (err, answers) => {
     if (err) {
-      res.status(500).send('Error requesting Answers Data');
+      res.status(500).send("Error requesting Answers Data");
     } else {
       res.send(answers.data);
     }
@@ -79,7 +94,7 @@ app.get('/getAnswers', (req, res) => {
 });
 
 // Adds a Question
-app.post('/addQuestion', (req, res) => {
+app.post("/addQuestion", (req, res) => {
   const params = {
     body: req.body.body,
     name: req.body.name,
@@ -88,7 +103,7 @@ app.post('/addQuestion', (req, res) => {
   };
   apiFn.addQuestion(params, (err, confirmed) => {
     if (err) {
-      res.status(500).send('Error adding a question');
+      res.status(500).send("Error adding a question");
     } else {
       res.status(201).send(confirmed);
     }
@@ -96,7 +111,7 @@ app.post('/addQuestion', (req, res) => {
 });
 
 // Adds an Answer
-app.post('/addAnswer', (req, res) => {
+app.post("/addAnswer", (req, res) => {
   const params = {
     body: req.body.body,
     name: req.body.name,
@@ -105,7 +120,7 @@ app.post('/addAnswer', (req, res) => {
   };
   apiFn.addAnswer(req.query.question_id, params, (err, confirmed) => {
     if (err) {
-      res.status(500).send('Error adding an answer');
+      res.status(500).send("Error adding an answer");
     } else {
       res.status(201).send(confirmed);
     }
@@ -113,10 +128,10 @@ app.post('/addAnswer', (req, res) => {
 });
 
 // Mark Question as Helpful
-app.put('/markQuestion', (req, res) => {
+app.put("/markQuestion", (req, res) => {
   apiFn.markQuestion(req.query.question_id, (err, confirmed) => {
     if (err) {
-      res.status(500).send('Error marking the question');
+      res.status(500).send("Error marking the question");
     } else {
       res.status(204).send(confirmed);
     }
@@ -124,10 +139,10 @@ app.put('/markQuestion', (req, res) => {
 });
 
 // Report a Question
-app.put('/reportQuestion', (req, res) => {
+app.put("/reportQuestion", (req, res) => {
   apiFn.reportQuestion(req.query.question_id, (err, confirmed) => {
     if (err) {
-      res.status(500).send('Error reporting the question');
+      res.status(500).send("Error reporting the question");
     } else {
       res.status(204).send(confirmed);
     }
@@ -135,10 +150,10 @@ app.put('/reportQuestion', (req, res) => {
 });
 
 // Mark Answer as helpful
-app.put('/markAnswer', (req, res) => {
+app.put("/markAnswer", (req, res) => {
   apiFn.markAnswer(req.query.question_id, (err, confirmed) => {
     if (err) {
-      res.status(500).send('Error marking the answer');
+      res.status(500).send("Error marking the answer");
     } else {
       res.status(204).send(confirmed);
     }
@@ -146,10 +161,10 @@ app.put('/markAnswer', (req, res) => {
 });
 
 // Report an Answer
-app.put('/reportAnswer', (req, res) => {
+app.put("/reportAnswer", (req, res) => {
   apiFn.reportAnswer(req.query.question_id, (err, confirmed) => {
     if (err) {
-      res.status(500).send('Error reporting the answer');
+      res.status(500).send("Error reporting the answer");
     } else {
       res.status(204).send(confirmed);
     }
