@@ -11,25 +11,39 @@ import {
   Avatar,
   Button,
 } from '@material-ui/core';
+import axios from 'axios';
 import Stars from '../rating-review/StarRating.jsx';
 import AnimatedModal from './animatedModal.jsx';
-import axios from 'axios';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: 400,
   },
   media: {
-    height: 150,
+    height: 200,
   },
 });
 
 const RelatedProductCard = (props) => {
   const classes = useStyles();
+  const [productInfo, setProductInfo] = useState(null);
   const [productImage, setProductImage] = useState(null);
+  const prodId = props.productId;
+
+  const getProductInfo = () => {
+    axios
+      .get('http://localhost:1337/getProductInfo/', {
+        params: { product_id: prodId },
+      })
+      .then((response) => {
+        setProductInfo(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const getImage = () => {
-    const prodId = props.product.id;
     axios
       .get('http://localhost:1337/getImage/', {
         params: { product_id: prodId },
@@ -43,26 +57,40 @@ const RelatedProductCard = (props) => {
       });
   };
 
+  const getProductRating = () => {};
+
+  useEffect(() => {
+    getProductInfo();
+  }, []);
+
   useEffect(() => {
     getImage();
-  });
+  }, []);
+
+  function handleCompareClick() {
+    return <AnimatedModal />;
+  }
 
   return (
-    productImage && (
+    productInfo && (
       <div>
         <Card>
           <CardContent>
-            <AnimatedModal />
+            <AnimatedModal
+              onClick={() => {
+                this.handleCompareClick();
+              }}
+            />
             <CardMedia
               className={classes.media}
               image={productImage || 'https://via.placeholder.com/300x300'}
             />
-            <Typography variant="body1"> {props.product.category} </Typography>
+            <Typography variant="body1"> {productInfo.category} </Typography>
             <Typography variant="body1" style={{ fontWeight: 600 }}>
-              {props.product.name}{' '}
+              {productInfo.name}{' '}
             </Typography>
             <Typography variant="body1">
-              {props.product.default_price}{' '}
+              {productInfo.default_price}{' '}
             </Typography>
           </CardContent>
           <Stars rating={2.5} />

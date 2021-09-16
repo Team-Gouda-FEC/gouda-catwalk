@@ -5,6 +5,7 @@ import NavBar from './product-overview/NavBar.jsx';
 import GridContainer from './product-overview/GridContainer.jsx';
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
 import AddOutfitCard from './related-items-section/addOutfitCard.jsx';
+import OutfitProductCard from './related-items-section/outfitProductCard.jsx';
 import Carousel from './carousel/carousel.jsx';
 import RatingAndReviews from './rating-review/ratingAndReviews.jsx';
 import QAWidget from './qa/qaWidget.jsx';
@@ -14,45 +15,75 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       relatedItems: [],
+      yourOutfits: [],
       allItems: [],
       currentItemId: '',
     };
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
+    this.handleAddOutfitClick = this.handleAddOutfitClick.bind(this);
+    this.handleRemoveOutfitClick = this.handleRemoveOutfitClick.bind(this);
   }
 
   componentDidMount() {
-    // this.getProduct();
-    // this.getAllProducts();
+    this.getRelatedItems();
+    this.getAllProducts();
   }
 
-  // getProduct() {
-  //   axios
-  //     .get('http://localhost:1337/products/', { params: { page: 2, count: 7 } })
-  //     .then((response) => {
-  //       this.setState({
-  //         relatedItems: response.data,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.log(response.data.id, error);
-  //     });
-  // }
+  handleAddOutfitClick(productId) {
+    let currentOutfits = [];
+    for (let i = 0; i < this.state.yourOutfits.length; i++) {
+      currentOutfits.push(this.state.yourOutfits[i]);
+    }
+    if (!this.state.yourOutfits.includes(productId)) {
+      console.log('add');
+      this.setState({
+        yourOutfits: [...currentOutfits],
+      });
+    }
+  }
 
-  // getAllProducts() {
-  //   axios
-  //     .get('http://localhost:1337/products/', {
-  //       params: { page: 1, count: 12 },
-  //     })
-  //     .then((response) => {
-  //       this.setState({
-  //         allItems: response.data,
-  //         currentItemId: response.data[0].id,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
+  handleRemoveOutfitClick(productId) {
+    let currentOutfits = [];
+    for (let i = 0; i < this.state.yourOutfits.length; i++) {
+      if (this.state.yourOutfits[i] !== productId) {
+        currentOutfits.push(this.state.yourOutfits[i]);
+      }
+    }
+    this.setState({
+      yourOutfits: [...currentOutfits, productId],
+    });
+  }
+
+  getRelatedItems() {
+    axios
+      .get('http://localhost:1337/relatedproducts/', {
+        params: { product_id: 38325 },
+      })
+      .then((response) => {
+        this.setState({
+          relatedItems: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  getAllProducts() {
+    axios
+      .get('http://localhost:1337/products/', {
+        params: { page: 1, count: 12 },
+      })
+      .then((response) => {
+        this.setState({
+          allItems: response.data,
+          currentItemId: response.data[3].id,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   updateCurrentItem(itemId) {
     this.setState({
@@ -65,9 +96,9 @@ export default class App extends React.Component {
       <div
         className="App"
         style={{
-          maxWidth: 1200,
-          marginLeft: 350,
-          marginRight: 350,
+          maxWidth: 1600,
+          marginLeft: 'auto',
+          marginRight: 'auto',
           marginTop: 64,
         }}
       >
@@ -80,23 +111,39 @@ export default class App extends React.Component {
           handleUpdateCurrentItem={this.updateCurrentItem}
           allItems={this.state.allItems}
         />
-        <Carousel show={4}>
-          {this.state.relatedItems.map((elem, i) => (
-            <div key={i}>
-              <div style={{ padding: 8 }}>
-                <RelatedProductCard key={i} product={elem} />
+        <Carousel show={3}>
+          {this.state.relatedItems.map((elem, i) => {
+            return (
+              <div key={i}>
+                <div style={{ padding: 8 }}>
+                  <RelatedProductCard key={i} productId={elem} />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </Carousel>
-        <Carousel show={4}>
-          {this.state.relatedItems.map((elem, i) => (
-            <div key={i}>
-              <div style={{ padding: 8 }}>
-                <AddOutfitCard key={i} product={elem} />
-              </div>
+        <Carousel show={3}>
+          <div>
+            <div style={{ padding: 8 }}>
+              <AddOutfitCard
+                productId={this.state.currentItemId}
+                onClick={this.handleAddOutfitClick}
+              />
             </div>
-          ))}
+          </div>
+          {this.state.yourOutfits.map((elem, i) => {
+            return (
+              <div key={i}>
+                <div style={{ padding: 8 }}>
+                  <OutfitProductCard
+                    key={i}
+                    productId={elem}
+                    onClick={this.handleRemoveOutfitClick}
+                  />
+                </div>
+              </div>
+            );
+          })}
         </Carousel>
         <RatingAndReviews />
         <QAWidget />
