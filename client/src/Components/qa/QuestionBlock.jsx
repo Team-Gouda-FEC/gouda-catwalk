@@ -1,5 +1,5 @@
 import React from 'react';
 
-const QuestionBlock = (props) => <h1>Question Block</h1>;
+const QuestionBlock = ({ questionBody }) => <div>{questionBody}</div>;
 
 export default QuestionBlock;

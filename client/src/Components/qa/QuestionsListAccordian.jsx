@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleAccordion({ questionsList }) {
   const classes = useStyles();
-
+  console.log(questionsList);
   return (
     <div className="QA-Accordian">
       <Accordion>
@@ -28,7 +28,10 @@ export default function SimpleAccordion({ questionsList }) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <QABlock />
+          {questionsList.results &&
+            questionsList.results.map((element) => (
+              <QABlock key={element.id} questionObj={element} />
+            ))}
         </AccordionSummary>
         <AccordionDetails>text goes here</AccordionDetails>
       </Accordion>

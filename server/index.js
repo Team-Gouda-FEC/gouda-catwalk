@@ -1,6 +1,6 @@
 const express = require('express');
 // const path = require('path');
-const cors = require('cors');
+// const cors = require('cors');
 const apiFn = require('./apiHelpers');
 
 const app = express();
@@ -8,7 +8,7 @@ const PORT = 1337 || process.env.PORT;
 
 app.use(express.static('client/dist'));
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 app.get('/api/test/products', (req, res) => {
   apiFn.getProducts((err, results) => {
@@ -96,7 +96,7 @@ app.get('/getAnswers', (req, res) => {
 // Adds a Question
 app.post('/addQuestion', (req, res) => {
   const params = {
-    body: req.body.body,
+    text: req.body.text,
     name: req.body.name,
     email: req.body.email,
     product_id: req.body.product_id,
@@ -113,23 +113,23 @@ app.post('/addQuestion', (req, res) => {
 // Adds an Answer
 app.post('/addAnswer', (req, res) => {
   const params = {
-    body: req.body.body,
+    text: req.body.text,
     name: req.body.name,
     email: req.body.email,
     photos: req.body.photos,
   };
-  apiFn.addAnswer(req.query.question_id, params, (err, confirmed) => {
+  apiFn.addAnswer(req.body.question_id, params, (err, confirmed) => {
     if (err) {
       res.status(500).send('Error adding an answer');
     } else {
-      res.status(201).send(confirmed);
+      res.status(201).send(confirmed.data);
     }
   });
 });
 
 // Mark Question as Helpful
 app.put('/markQuestion', (req, res) => {
-  apiFn.markQuestion(req.query.question_id, (err, confirmed) => {
+  apiFn.markQuestion(req.body.question_id, (err, confirmed) => {
     if (err) {
       res.status(500).send('Error marking the question');
     } else {
