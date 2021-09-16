@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import NavBar from './product-overview/NavBar.jsx';
 import ProductOverviewGrid from './product-overview/GridContainer/ProductOverviewGrid.jsx';
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
+import AddOutfitCard from './related-items-section/addOutfitCard.jsx';
 import Carousel from './carousel/carousel.jsx';
 import RatingAndReviews from './rating-review/ratingAndReviews.jsx';
 import QAWidget from './qa/qaWidget.jsx';
@@ -24,6 +25,18 @@ export default class App extends React.Component {
   }
 
   getProduct() {
+    axios.get('http://localhost:1337/products/', { params: { page: 2, count: 7}})
+      .then((response) => {
+        this.setState({
+          relatedItems: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(response.data.id, error);
+      });
+  }
+
+  getAllProducts() {
     axios
       .get('/products', { params: { page: 2, count: 7 } })
       .then((response) => {
@@ -54,20 +67,30 @@ export default class App extends React.Component {
       >
         <NavBar />
         <Typography variant="subtitle1" align="center">
-          SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT
-          HIGHLIGHT!
+          SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT HIGHLIGHT!
         </Typography>
         <ProductOverviewGrid
           handleUpdateCurrentItem={this.updateCurrentItem}
           allItems={this.state.allItems}
           currentItem={this.state.currentItem}
         />
-        <Carousel show={3}>
+        <Carousel show={4}>
         {this.state.relatedItems.map((elem, i) => {
           return (
             <div key={i}>
               <div style={{ padding: 8 }}>
                 <RelatedProductCard key={i} product={elem} />
+              </div>
+            </div>
+          )
+        })}
+        </Carousel>
+        <Carousel show={4}>
+        {this.state.relatedItems.map((elem, i) => {
+          return (
+            <div key={i}>
+              <div style={{ padding: 8 }}>
+                <AddOutfitCard key={i} product={elem} />
               </div>
             </div>
           )
