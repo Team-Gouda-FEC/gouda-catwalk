@@ -24,5 +24,6 @@ module.exports = {
     'array-callback-return': 'off',
     'consistent-return': 'off',
     'react/prop-types': 'off',
+    'react/button-has-type': 'off',
   },
 };

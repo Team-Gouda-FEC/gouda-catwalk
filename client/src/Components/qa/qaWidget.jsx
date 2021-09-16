@@ -51,6 +51,7 @@ export default class QAWidget extends React.Component {
     filteredSearch(searchValue);
   }
 
+  // TODO: Need to have this grab the current product_id from product overview
   getQuestions() {
     axios
       .get('/getQuestions', {

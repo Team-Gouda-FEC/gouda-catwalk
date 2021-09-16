@@ -1,5 +1,5 @@
-const axios = require("axios");
-require("dotenv").config();
+const axios = require('axios');
+require('dotenv').config();
 
 const headers = { Authorization: `${process.env.API_KEY}` };
 
@@ -7,7 +7,7 @@ const headers = { Authorization: `${process.env.API_KEY}` };
 // only grabs 5 products
 const getProducts = (callback) => {
   axios
-    .get("https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products", {
+    .get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products', {
       headers,
     })
     .then((response) => {
@@ -39,7 +39,7 @@ const getRelatedProducts = (productId, callback) => {
 
 const getQuestions = (params, callback) => {
   axios
-    .get("https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions", {
+    .get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions', {
       params,
       headers,
     })
@@ -68,7 +68,7 @@ const getAnswers = (questionId, params, callback) => {
 const addQuestion = (params, callback) => {
   axios
     .post(
-      "https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions",
+      'https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions',
       params,
       { headers }
     )

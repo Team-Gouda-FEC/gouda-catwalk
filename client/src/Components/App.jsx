@@ -20,30 +20,33 @@ export default class App extends React.Component {
   //   axios.get('/products')
   // }
 
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   render() {
     return (
       <div
         className="App"
         style={{
-          maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto', marginTop: 64,
+          maxWidth: 1200,
+          marginLeft: 350,
+          marginRight: 350,
+          marginTop: 64,
         }}
       >
         <NavBar />
-        <Typography
-          variant="subtitle1"
-          align="center"
-        >
-          SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT HIGHLIGHT!
+        <Typography variant="subtitle1" align="center">
+          SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT
+          HIGHLIGHT!
         </Typography>
         <GridContainer />
         <Carousel show={4}>
           <div>
             <div style={{ padding: 8 }}>
-              <img src="https://via.placeholder.com/300x300" alt="placeholder" style={{ width: '100%' }} />
+              <img
+                src="https://via.placeholder.com/300x300"
+                alt="placeholder"
+                style={{ width: '100%' }}
+              />
             </div>
           </div>
           <RelatedProductCard />

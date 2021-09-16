@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import "./carousel.css";
+import React, { useState, useEffect } from 'react';
+import './carousel.css';
 
 const Carousel = (props) => {
   const { children, show } = props;
@@ -27,8 +27,8 @@ const Carousel = (props) => {
       <div className="carousel-wrapper">
         {currentIndex > 0 && (
           <button onClick={prev} className="left-arrow">
-            {" "}
-            &lt;{" "}
+            {' '}
+            &lt;{' '}
           </button>
         )}
         <div className="carousel-content-wrapper">
@@ -43,8 +43,8 @@ const Carousel = (props) => {
         </div>
         {currentIndex < length - show && (
           <button onClick={next} className="right-arrow">
-            {" "}
-            &gt;{" "}
+            {' '}
+            &gt;{' '}
           </button>
         )}
       </div>

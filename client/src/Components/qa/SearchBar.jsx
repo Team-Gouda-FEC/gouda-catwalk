@@ -10,7 +10,9 @@ const SearchBar = ({ submission, questionSearch }) => (
         questionSearch(event);
       }}
     />
-    <button type="submit">Submit</button>
+    <button id="search-button" type="submit">
+      Submit
+    </button>
   </form>
 );
 

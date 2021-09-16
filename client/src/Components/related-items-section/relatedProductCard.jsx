@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Card,
   CardMedia,
@@ -6,8 +6,8 @@ import {
   CardContent,
   CardActions,
   Typography,
-} from "@material-ui/core";
-import Stars from "../rating-review/StarRating.jsx";
+} from '@material-ui/core';
+import Stars from '../rating-review/StarRating.jsx';
 
 export default function RelatedProductCard() {
   return (

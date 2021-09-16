@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-const ModalTable = () => {
-
-};
+const ModalTable = () => {};
 
 export default ModalTable;

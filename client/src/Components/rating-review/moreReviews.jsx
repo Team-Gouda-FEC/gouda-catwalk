@@ -6,10 +6,7 @@ const MoreReviews = () => {
   };
 
   return (
-    <button
-      type="button"
-      onClick={handleClick}
-    >
+    <button type="button" onClick={handleClick}>
       More Review
     </button>
   );

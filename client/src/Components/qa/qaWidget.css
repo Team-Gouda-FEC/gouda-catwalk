@@ -4,15 +4,16 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   grid-template-areas:
-    "search-bar search-bar"
-    "qa-accordian qa-accordian"
-    "more-questions add-question";
+    'search-bar search-bar'
+    'qa-accordian qa-accordian'
+    'more-questions add-question';
 }
 
 .search-bar {
   grid-area: search-bar;
   justify-self: stretch;
   border-style: solid;
+  background-color: magenta;
   border-width: thin;
 }
 
@@ -35,8 +36,17 @@
 }
 
 input {
+  width: 90%;
   height: 50px;
-  width: 94.5%;
   font-style: bold;
-  font-size: 25px;
+  font-size: 18px;
+}
+
+/* #search-button {
+  height: 50px;
+} */
+
+.qa-accordian {
+  display: flex;
+  justify-self: stretch;
 }

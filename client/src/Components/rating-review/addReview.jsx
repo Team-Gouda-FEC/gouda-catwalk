@@ -6,10 +6,7 @@ const AddReview = (props) => {
   };
 
   return (
-    <button
-      type="button"
-      onClick={handleClick}
-    >
+    <button type="button" onClick={handleClick}>
       Add A Review
     </button>
   );
