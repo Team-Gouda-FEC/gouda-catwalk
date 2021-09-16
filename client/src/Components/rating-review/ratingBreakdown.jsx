@@ -1,10 +1,11 @@
 import React from 'react';
 
 const Breakdown = (props) => {
-  const breakOut = props.ratings;
-  const breakDown = Object.keys(breakOut);
+  // eslint-disable-next-line react/prop-types
+  const { ratings } = props;
+  const breakDown = Object.keys(ratings);
   const generateBreakdown = breakDown.map((rating) => (
-    <div>
+    <div key={rating.id}>
       {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
       <div> {rating} Star </div>
       {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
