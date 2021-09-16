@@ -21,38 +21,38 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getProduct();
-    this.getAllProducts();
+    // this.getProduct();
+    // this.getAllProducts();
   }
 
-  getProduct() {
-    axios
-      .get('http://localhost:1337/products/', { params: { page: 2, count: 7 } })
-      .then((response) => {
-        this.setState({
-          relatedItems: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(response.data.id, error);
-      });
-  }
+  // getProduct() {
+  //   axios
+  //     .get('http://localhost:1337/products/', { params: { page: 2, count: 7 } })
+  //     .then((response) => {
+  //       this.setState({
+  //         relatedItems: response.data,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log(response.data.id, error);
+  //     });
+  // }
 
-  getAllProducts() {
-    axios
-      .get('http://localhost:1337/products/', {
-        params: { page: 1, count: 12 },
-      })
-      .then((response) => {
-        this.setState({
-          allItems: response.data,
-          currentItemId: response.data[0].id,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  // getAllProducts() {
+  //   axios
+  //     .get('http://localhost:1337/products/', {
+  //       params: { page: 1, count: 12 },
+  //     })
+  //     .then((response) => {
+  //       this.setState({
+  //         allItems: response.data,
+  //         currentItemId: response.data[0].id,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
   updateCurrentItem(itemId) {
     this.setState({

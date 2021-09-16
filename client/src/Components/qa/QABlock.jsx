@@ -4,17 +4,14 @@ import AnswerBlock from './AnswerBlock.jsx';
 
 const QABlock = ({ questionObj }) => (
   <div className="QA-Block">
-    <QuestionBlock questionBody={questionObj.question_body} />
-    {questionObj.answers &&
-      Object.values(questionObj.answers).forEach((element) => (
-        <AnswerBlock key={element.id} answerObj={element} />
-      ))}
+    <QuestionBlock questionObj={questionObj} />
+    <AnswerBlock questionObj={questionObj} />
   </div>
 );
 
 export default QABlock;
 
-/*
+/* questionObj
 {
   "question_id": 425842,
   "question_body": "Who provides the chairs for the chair force?",

@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleAccordion({ questionsList }) {
   const classes = useStyles();
-  console.log(questionsList);
   return (
     <div className="QA-Accordian">
       <Accordion>
@@ -29,8 +28,8 @@ export default function SimpleAccordion({ questionsList }) {
           id="panel1a-header"
         >
           {questionsList.results &&
-            questionsList.results.map((element) => (
-              <QABlock key={element.id} questionObj={element} />
+            questionsList.results.map((element, index) => (
+              <QABlock key={index} questionObj={element} />
             ))}
         </AccordionSummary>
         <AccordionDetails>text goes here</AccordionDetails>

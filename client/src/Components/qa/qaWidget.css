@@ -50,3 +50,7 @@ input {
   display: flex;
   justify-self: stretch;
 }
+
+.MuiAccordionSummary-content {
+  flex-direction: column;
+}
