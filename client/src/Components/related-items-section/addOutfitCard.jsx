@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import {
-  Card,
-  CardMedia,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Typography,
-} from '@material-ui/core';
-import Stars from '../rating-review/StarRating.jsx';
-=======
->>>>>>> master
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardMedia, CardContent, Typography, makeStyles, IconButton, MoreVertIcon, Avatar, Button } from '@material-ui/core';
@@ -27,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-const RelatedProductCard = (props) => {
+const AddOutfitCard = (props) => {
   const classes = useStyles();
   const [productImage, setProductImage] = useState(null);
 
@@ -56,10 +43,10 @@ const RelatedProductCard = (props) => {
           <Typography variant="body1" style={{ fontWeight: 600 }}>{props.product.name} </Typography>
           <Typography variant="body1">{props.product.default_price} </Typography>
         </CardContent>
-        <Stars rating={2.5} />
+        <Stars rating={4.5} />
       </Card>
     </div>
   );
 }
 
-export default RelatedProductCard;
+export default AddOutfitCard;
