@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 import NavBar from './product-overview/NavBar.jsx';
-import GridContainer from './product-overview/GridContainer.jsx';
+import ProductOverviewGrid from './product-overview/GridContainer/ProductOverviewGrid.jsx';
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
 import Carousel from './carousel/carousel.jsx';
 import RatingAndReviews from './rating-review/ratingAndReviews.jsx';
@@ -14,40 +14,27 @@ export default class App extends React.Component {
     this.state = {
       relatedItems: [],
       allItems: [],
-      currentItemId: '',
+      currentItem: '',
     };
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
   }
 
   componentDidMount() {
     this.getProduct();
-    this.getAllProducts();
   }
 
   getProduct() {
-    axios.get('http://localhost:1337/products/', { params: { page: 2, count: 7}})
+    axios
+      .get('/products', { params: { page: 2, count: 7 } })
       .then((response) => {
         this.setState({
           relatedItems: response.data,
-        });
-      }).catch((error) => {
-        console.log(response.data.id, error);
-      });
-  }
-
-  getAllProducts() {
-    axios
-      .get('http://localhost:1337/products/', {
-        params: { page: 1, count: 12 },
-      })
-      .then((response) => {
-        this.setState({
           allItems: response.data,
-          currentItemId: response.data[0].id,
+          currentItem: response.data[0],
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.log('error in get product ', error);
       });
   }
 
@@ -70,9 +57,10 @@ export default class App extends React.Component {
           SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT
           HIGHLIGHT!
         </Typography>
-        <GridContainer
+        <ProductOverviewGrid
           handleUpdateCurrentItem={this.updateCurrentItem}
           allItems={this.state.allItems}
+          currentItem={this.state.currentItem}
         />
         <Carousel show={3}>
         {this.state.relatedItems.map((elem, i) => {

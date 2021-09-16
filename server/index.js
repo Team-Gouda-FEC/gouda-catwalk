@@ -34,17 +34,13 @@ app.get("/api/test/products", (req, res) => {
 
 /* **** PRODUCTS SECTION **** */
 
-/***** RELATED ITEMS  ****/
+/* **** RELATED ITEMS  ** */
 app.get('/products/', (req, res) => {
-  const params = {
-    page: req.query.page,
-    count: req.query.count,
-  };
-  apiFn.getProducts(params, (err, response) => {
+  apiFn.getRelatedProducts(req.query.product_id, (err, data) => {
     if (err) {
       res.status(405).send(err);
     } else {
-      res.status(200).send(response.data);
+      res.status(200).send(res.data);
     }
   });
 });
@@ -55,7 +51,7 @@ app.get('/getImage/', (req, res) => {
     if (err) {
       res.status(404).send(err);
     } else {
-      res.status(200).send(response.data);
+      res.status(200).send(res.data);
     }
   });
 });

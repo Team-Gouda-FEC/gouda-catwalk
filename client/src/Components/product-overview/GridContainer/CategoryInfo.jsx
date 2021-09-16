@@ -70,11 +70,7 @@ export default function CategoryInfo() {
           </Select>
         </FormControl>
       </Box>
-      <Button
-        variant="outlined"
-        color="primary"
-        endIcon={<AddIcon />}
-      >
+      <Button variant="outlined" color="primary" endIcon={<AddIcon />}>
         ADD TO BAG
       </Button>
       <Button

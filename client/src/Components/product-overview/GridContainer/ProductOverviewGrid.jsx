@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import CategoryInfo from './CategoryInfo.jsx';
 import ProductInfo from './ProductInfo.jsx';
 import ProductBlurbs from './ProductBlurbs.jsx';
-import ImageGallery from './ImageGallery.jsx';
+import ImageGalleryComponent from '../MainCarousel/ImageGalleryComponent.jsx';
 
 const useStyles = makeStyles((theme) => ({
   ProductOverviewGrid: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function GridContainer(props) {
+export default function ProductOverviewGrid(props) {
   const classes = useStyles();
 
   return (
@@ -23,15 +23,20 @@ export default function GridContainer(props) {
       <div className="ProductOverviewGrid">
         <Grid container elevation={0}>
           <Grid className="carousel" item xs={7}>
-            <ImageGallery
+            <ImageGalleryComponent
               // eslint-disable-next-line react/destructuring-assignment
               handleUpdateCurrentItem={props.handleUpdateCurrentItem}
               // eslint-disable-next-line react/destructuring-assignment
               allItems={props.allItems}
+              // eslint-disable-next-line react/destructuring-assignment
+              currentItem={props.currentItem}
             />
           </Grid>
           <Grid className="Product Information" item xs={5}>
-            <ProductInfo />
+            <ProductInfo
+              // eslint-disable-next-line react/destructuring-assignment
+              currentItem={props.currentItem}
+            />
             <CategoryInfo />
           </Grid>
           <Grid item xs={6}>

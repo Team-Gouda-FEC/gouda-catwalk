@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Stars from '../rating-review/StarRating.jsx';
+import Stars from '../../rating-review/StarRating.jsx';
 import StyleSelector from './StyleSelector.jsx';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductInfo() {
+export default function ProductInfo(props) {
   const classes = useStyles();
 
   return (
@@ -30,7 +30,7 @@ export default function ProductInfo() {
           <Typography variant="subtitle2">$ Free.99</Typography>
         </Grid>
         <Grid item xs={12}>
-          <StyleSelector />
+          <StyleSelector currentItem={props.currentItem} />
         </Grid>
       </Grid>
     </div>
