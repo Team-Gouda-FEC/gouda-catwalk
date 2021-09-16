@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardMedia, CardContent, Typography, makeStyles, IconButton, MoreVertIcon, Avatar, Button } from '@material-ui/core';
+import { Card, CardHeader, CardMedia, CardContent, Typography, makeStyles, IconButton, MoreVertIcon, Button } from '@material-ui/core';
 import Stars from '../rating-review/StarRating.jsx';
-import AnimatedModal from './animatedModal.jsx';
+import RemoveOutfitButton from './removeOutfitButton.jsx';
 import axios from 'axios';
 
 const useStyles = makeStyles({
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-const RelatedProductCard = (props) => {
+const OutfitProductCard = (props) => {
   const classes = useStyles();
   const [productInfo, setProductInfo] = useState(null);
   const [productImage, setProductImage] = useState(null);
@@ -27,7 +27,7 @@ const RelatedProductCard = (props) => {
       }).catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   const getImage = () => {
     axios.get('http://localhost:1337/getImage/', { params: { product_id: prodId } })
@@ -39,27 +39,18 @@ const RelatedProductCard = (props) => {
       });
   };
 
-  const getProductRating = () => {
-
-  }
-
   useEffect(() => {
     getProductInfo();
-  },[]);
-
+  }, []);
   useEffect(() => {
     getImage();
-  },[]);
-
-  function handleCompareClick() {
-    return (<AnimatedModal />)
-  }
+  }, []);
 
   return productInfo && (
     <div>
       <Card>
         <CardContent>
-          <AnimatedModal onClick={() => { this.handleCompareClick() }} />
+          <RemoveOutfitButton onClick={() => { props.onClick(prodId) }} />
           <CardMedia className={classes.media} image={productImage || "https://via.placeholder.com/300x300"} />
           <Typography variant="body1"> {productInfo.category} </Typography>
           <Typography variant="body1" style={{ fontWeight: 600 }}>{productInfo.name} </Typography>
@@ -71,4 +62,4 @@ const RelatedProductCard = (props) => {
   );
 }
 
-export default RelatedProductCard;
+export default OutfitProductCard;

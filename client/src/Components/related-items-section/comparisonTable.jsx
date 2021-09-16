@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function StickyHeadTable() {
+export default function ComparisonTable() {
   const classes = useStyles();
 
   return (
@@ -42,7 +42,6 @@ export default function StickyHeadTable() {
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
-            <h5> Comparing </h5>
             <TableRow>
               {columns.map((column) => (
                 <TableCell

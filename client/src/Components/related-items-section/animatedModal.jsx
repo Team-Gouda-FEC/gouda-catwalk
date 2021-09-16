@@ -1,11 +1,11 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
-import StarIcon from '@material-ui/icons/Star';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import StickyHeadTable from './stickyHeadTable.jsx';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import ComparisonTable from './comparisonTable.jsx';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -21,12 +21,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AnimatedModal() {
+export default function AnimatedModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true);
+    console.log('i am doing something');
   };
 
   const handleClose = () => {
@@ -35,10 +36,9 @@ export default function AnimatedModal() {
 
   return (
     <div>
-      <StarIcon />
-      <Button variant="contained" color="secondary" onClick={handleOpen}>
-        Open Animated Modal
-      </Button>
+      <IconButton variant="contained" color="secondary" onClick={handleOpen}>
+        <StarBorderIcon />
+      </IconButton>
 
       <Modal
         aria-labelledby="transition-modal-title"
@@ -54,7 +54,7 @@ export default function AnimatedModal() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <StickyHeadTable />
+            <ComparisonTable />
           </div>
         </Fade>
       </Modal>
