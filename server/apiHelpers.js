@@ -1,5 +1,5 @@
-const axios = require("axios");
-require("dotenv").config();
+const axios = require('axios');
+require('dotenv').config();
 
 const headers = { Authorization: `${process.env.API_KEY}` };
 
@@ -7,7 +7,7 @@ const headers = { Authorization: `${process.env.API_KEY}` };
 // only grabs 5 products
 
 const getProducts = (params, callback) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/`, { params,  headers: { 'Authorization': `${process.env.API_KEY}`}})
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/`, { params,  headers})
     .then((response) => {
       callback(null, response);
     })
@@ -18,30 +18,30 @@ const getProducts = (params, callback) => {
 };
 
 /*** RELATED ITEMS SECTION *****/
-// MK copy for reference later
-//const getProducts = (callback) => {
-//   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/', { headers: { 'Authorization': `${process.env.API_KEY}`}})
-//     .then((response) => {
-//       callback(null, response);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       callback(err, null);
-//     });
-// };
-// const getRelatedProducts = (product_id, callback) => {
-//   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${product_id}/related`, {headers})
-//   .then((response) => {
-//     callback(null, response);
-//   })
-//   .catch((err) => {
-//     callback(err, null);
-//   })
-// }
+
+const getRelatedProducts = (productId, callback) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/related`, {headers})
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
+};
+
+const getProdInfo = (productId, callback) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/`, {headers})
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
+};
 
 const getThumbnail = (productId, callback) => {
   console.log(productId);
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/styles`, { headers: { 'Authorization': `${process.env.API_KEY}`}})
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/styles`, { headers})
     .then((response) => {
       callback(null, response);
     })
@@ -178,6 +178,8 @@ const reportAnswer = (questionId, callback) => {
 
 module.exports = {
   getProducts,
+  getRelatedProducts,
+  getProdInfo,
   getThumbnail,
   getQuestions,
   getAnswers,
