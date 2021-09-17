@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -24,30 +25,32 @@ export default function ProductOverviewGrid(props) {
         <Grid container elevation={0}>
           <Grid className="carousel" item xs={7}>
             <ImageGalleryComponent
-              // eslint-disable-next-line react/destructuring-assignment
               handleUpdateCurrentItem={props.handleUpdateCurrentItem}
-              // eslint-disable-next-line react/destructuring-assignment
               allItems={props.allItems}
-              // eslint-disable-next-line react/destructuring-assignment
               currentItem={props.currentItem}
+              currentStyles={props.currentStyles}
             />
           </Grid>
           <Grid className="Product Information" item xs={5}>
             <ProductInfo
-              // eslint-disable-next-line react/destructuring-assignment
+              currentStyles={props.currentStyles}
+              currentItem={props.currentItem}
+              currentItemId={props.currentItemId}
+            />
+            <CategoryInfo
+              currentStyles={props.currentStyles}
               currentItem={props.currentItem}
             />
-            <CategoryInfo />
           </Grid>
           <Grid item xs={6}>
-            <Typography>
-              Product Overview - This free form text field may exist on some
-              items. If it is available it should be displayed.
+            <Typography variant="h5">{props.currentItem.slogan}.</Typography>
+            <Typography variant="body1">
+              {props.currentItem.description}
             </Typography>
           </Grid>
           <Divider orientation="vertical" />
           <Grid item>
-            <ProductBlurbs />
+            <ProductBlurbs productInfo={props.productInfo} />
           </Grid>
         </Grid>
       </div>

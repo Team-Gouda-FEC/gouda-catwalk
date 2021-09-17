@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CategoryInfo() {
+export default function CategoryInfo(props) {
   const classes = useStyles();
   const [size, setSize, quantity, setQuantity] = React.useState('');
 

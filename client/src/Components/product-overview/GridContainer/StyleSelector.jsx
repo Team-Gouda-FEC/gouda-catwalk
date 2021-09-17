@@ -27,44 +27,34 @@ export default function StyleSelector(props) {
   const classes = useStyles();
 
   // define state
-  const [setProductImage, setStyle] = useState(null);
+  let [selectedStyleName, selectedStylePhotos] = useState(null);
 
-  const getStyles = () => {
-    if (props.currentItemId) {
-      axios
-        .get('/getImage/', {
-          params: { product_id: props.currentItemId },
-        })
-        .then((response) => {
-          console.log('*** get styles is working! ***');
-          // response.data.results[0].photos[0].thumbnail_url;
-        })
-        .catch((err) => {
-          console.log('*** get styles is not working! ***', err);
-        });
-    }
-  };
-
-  useEffect(() => {
-    getStyles();
-  }, []);
+  if (props.currentStyles.length > 0) {
+    selectedStyleName = props.currentStyles[0].name;
+    selectedStylePhotos = props.currentStyles[0].photos[0];
+  } else {
+    selectedStyleName = 'SELECTED STYLE';
+    selectedStylePhotos = 'https://via.placeholder.com/300x300';
+  }
 
   return (
-    setProductImage && (
-      <div className={classes.root}>
-        <Grid container>
-          <Grid container item xs={12}>
-            <Typography>
-              Style
-              {'>'}
-              SELECTED STYLE
-            </Typography>
-          </Grid>
-          <Grid container item xs={12}>
-            {console.log(props.currentItem)}
-          </Grid>
+    <div className={classes.root}>
+      <Grid container>
+        <Grid container item xs={12}>
+          <Typography>
+            Style
+            {'>'}
+            {selectedStyleName}
+          </Typography>
         </Grid>
-      </div>
-    )
+        <Grid container item xs={12}>
+          <Avatar
+            alt={selectedStyleName}
+            src={selectedStylePhotos}
+            sx={{ width: 56, height: 56 }}
+          />
+        </Grid>
+      </Grid>
+    </div>
   );
 }

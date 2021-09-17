@@ -17,13 +17,13 @@ export default class ImageGalleryComponent extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(itemObj) {
+  handleClick(itemId, itemObj) {
     this.setState(
       {
         selectedItem: itemObj,
       },
       () => {
-        this.props.handleUpdateCurrentItem(itemObj);
+        this.props.handleUpdateCurrentItem(itemId, itemObj);
       }
     );
   }
@@ -35,7 +35,7 @@ export default class ImageGalleryComponent extends React.Component {
           <Grid
             item
             elevation={0}
-            onClick={() => this.handleClick(item)}
+            onClick={() => this.handleClick(item.id, item)}
             key={item.name}
           >
             <ImageComponent

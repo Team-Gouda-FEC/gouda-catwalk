@@ -26,14 +26,15 @@ export default function ProductInfo(props) {
         <Grid item xs={12}>
           <Stars />
           <Typography variant="subtitle2">Read all reviews</Typography>
-          <Typography variant="body2">CATEGORY</Typography>
-          <Typography variant="h3">EXPANDED PRODUCT NAME</Typography>
-          <Typography variant="subtitle2">$ Free.99</Typography>
+          <Typography variant="body2">{props.currentItem.category}</Typography>
+          <Typography variant="h3">{props.currentItem.name}</Typography>
+          <Typography variant="subtitle2">$ {props.currentItem.default_price}</Typography>
         </Grid>
         <Grid item xs={12}>
           <StyleSelector
-            currentItemId={props.currentItem.id}
+            currentItemId={props.currentItemId}
             currentItem={props.currentItem}
+            currentStyles={props.currentStyles}
           />
         </Grid>
       </Grid>
