@@ -44,7 +44,6 @@ const RelatedProductCard = (props) => {
             .then((currentItem) => {
               const currentItemName = currentItem.name;
               const relatedProductName = relatedProduct.name;
-              console.log(features);
 
               setColumns([
                 { id: 'current', label: currentItemName, minWidth: 20 },

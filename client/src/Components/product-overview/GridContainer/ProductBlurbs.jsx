@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function ProductBlurbs() {
+export default function ProductBlurbs(props) {
   const classes = useStyles();
 
   return (
@@ -22,28 +22,15 @@ export default function ProductBlurbs() {
       <Grid item xs={12}>
         <List dense className="list of features">
           <ListItem alignItems="flex-start">
-            <ListItemIcon>
-              <CheckIcon />
-            </ListItemIcon>
-            <ListItemText primary="GMO and Pesticide-free" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckIcon />
-            </ListItemIcon>
-            <ListItemText primary="Made with 100% Genetic Modification" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckIcon />
-            </ListItemIcon>
-            <ListItemText primary="This is made up" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <CheckIcon />
-            </ListItemIcon>
-            <ListItemText primary="It doesn't matter" />
+            {/* {props.productInfo.features.map((feature) => (
+              <>
+                <ListItemText primary={feature.feature} />
+                <ListItemIcon>
+                  <CheckIcon />
+                </ListItemIcon>
+                <ListItemText primary={feature.value} />
+              </>
+            ))} */}
           </ListItem>
         </List>
       </Grid>

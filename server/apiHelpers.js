@@ -9,10 +9,10 @@ const headers = { Authorization: `${process.env.API_KEY}` };
 const getProducts = (params, callback) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/`, { params,  headers})
     .then((response) => {
-      callback(null, response);
+      callback(null, response.data);
     })
     .catch((err) => {
-      console.log(err);
+      console.log('*error in get products* ', err);
       callback(err, null);
     });
 };
@@ -67,7 +67,7 @@ const getThumbnail = (productId, callback) => {
 
 const getQuestions = (params, callback) => {
   axios
-    .get("https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions", {
+    .get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions', {
       params,
       headers,
     })
@@ -96,7 +96,7 @@ const getAnswers = (questionId, params, callback) => {
 const addQuestion = (params, callback) => {
   axios
     .post(
-      "https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions",
+      'https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/questions',
       params,
       { headers }
     )
