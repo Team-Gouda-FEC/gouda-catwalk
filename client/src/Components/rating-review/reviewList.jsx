@@ -27,7 +27,6 @@ const ReviewList = (props) => {
   };
 
   const moreReviewsButton = () => {
-    console.log('count lookingl like ', count);
     const element = count >= reviews.length ? '' : <MoreReviews setReviewCount={incrementCount} />
     return ( element );
   };
