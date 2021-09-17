@@ -190,7 +190,7 @@ export default class App extends React.Component {
           ))}
         </Carousel>
         <QAWidget />
-        <RatingAndReviews productID={'38341'}/>
+        <RatingAndReviews productID={this.state.currentItemId} />
       </div>
     );
   }
