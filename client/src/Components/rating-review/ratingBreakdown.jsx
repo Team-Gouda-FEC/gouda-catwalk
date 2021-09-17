@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Container from '@material-ui/core/Container';
-import Bar from './ratingBar.jsx';
 
 const Breakdown = ({ ratings }) => {
   const breakOut = ratings;

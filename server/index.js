@@ -186,11 +186,8 @@ app.listen(PORT, () => {
 app.get("/reviews", (req, res) => {
   apiFn.getReviews(req.query, (err, reviewData) => {
     if (err) {
-      console.log(' ---------------------------- ');
-      console.log(err);
       res.status(500).send("Error getting reviews");
     } else {
-      console.log('we');
       // console.log(reviewData.results);
       res.send(reviewData.data);
     }
@@ -203,8 +200,6 @@ app.get("/reviews/meta", (req, res) => {
     if (err) {
       res.status(500).send("Error getting reviews meta data");
     } else {
-      console.log('good');
-      console.log(reviewMetaData.data)
       res.send(reviewMetaData.data);
     }
   })
