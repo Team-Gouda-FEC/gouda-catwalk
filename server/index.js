@@ -20,7 +20,7 @@ app.get('/products/', (req, res) => {
     if (err) {
       res.status(404).send(err);
     } else {
-      res.status(200).send(response.data);
+      res.status(200).send(response);
     }
   });
 });
@@ -43,22 +43,10 @@ app.get('/getProductInfo/', (req, res) => {
     if (err) {
       res.status(404).send(err);
     } else {
-      res.status(200).send(data);
+      res.status(200).send(response.data);
     }
   });
 });
-
-// /* **** RELATED ITEMS  ** */
-// app.get('/products', (req, res) => {
-//   console.log('productID in server index get: ', req.body);
-//   apiFn.getRelatedProducts(req.query.product_id, (err, data) => {
-//     if (err) {
-//       res.status(405).send(err);
-//     } else {
-//       res.status(200).send(res.data);
-//     }
-//   });
-// });
 
 app.get('/getImage/', (req, res) => {
   const productId = req.query.product_id;
