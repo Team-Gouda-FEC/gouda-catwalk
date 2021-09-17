@@ -20,7 +20,7 @@ app.get('/products/', (req, res) => {
     if (err) {
       res.status(404).send(err);
     } else {
-      res.status(200).send(response.data);
+      res.status(200).send(response);
     }
   });
 });
@@ -52,8 +52,10 @@ app.get('/getImage/', (req, res) => {
   const productId = req.query.product_id;
   apiFn.getThumbnail(productId, (err, response) => {
     if (err) {
+      console.log('could not fetch styles!', productId);
       res.status(404).send(err);
     } else {
+      console.log('successfully fetched styles!');
       res.status(200).send(response.data);
     }
   });

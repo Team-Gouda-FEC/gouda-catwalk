@@ -1,8 +1,9 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Stars from '../rating-review/StarRating.jsx';
+import Stars from '../../rating-review/StarRating.jsx';
 import StyleSelector from './StyleSelector.jsx';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductInfo() {
+export default function ProductInfo(props) {
   const classes = useStyles();
 
   return (
@@ -25,12 +26,16 @@ export default function ProductInfo() {
         <Grid item xs={12}>
           <Stars />
           <Typography variant="subtitle2">Read all reviews</Typography>
-          <Typography variant="body2">CATEGORY</Typography>
-          <Typography variant="h3">EXPANDED PRODUCT NAME</Typography>
-          <Typography variant="subtitle2">$ Free.99</Typography>
+          <Typography variant="body2">{props.currentItem.category}</Typography>
+          <Typography variant="h3">{props.currentItem.name}</Typography>
+          <Typography variant="subtitle2">$ {props.currentItem.default_price}</Typography>
         </Grid>
         <Grid item xs={12}>
-          <StyleSelector />
+          <StyleSelector
+            currentItemId={props.currentItemId}
+            currentItem={props.currentItem}
+            currentStyles={props.currentStyles}
+          />
         </Grid>
       </Grid>
     </div>
