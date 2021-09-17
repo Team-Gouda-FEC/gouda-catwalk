@@ -30,7 +30,15 @@ const ProductReview = (props) => {
       sum += Number(keys[i]) * value;
       count += value;
     }
-    return sum / count;
+    return Math.floor((sum * 10) / count) * 0.1;
+  };
+
+  const handleRatingsBreakDown = (breakdownObj) => {
+    const newBreakdown = {};
+    for (let key in ratingsCount) {
+      newBreakdown[key] = breakdownObj[key] || ratingsCount[key];
+    }
+    setRatingCount(newBreakdown);
   };
 
   // const getStarRating = (ratingObj) => {
@@ -47,7 +55,7 @@ const ProductReview = (props) => {
       .then((reviewMetaData) => {
         const rate = getRatingAverage(reviewMetaData.data.ratings);
         setRating(rate);
-        setRatingCount(reviewMetaData.data.ratings);
+        handleRatingsBreakDown(reviewMetaData.data.ratings);
         setPercent(getPercent(reviewMetaData.data.recommended));
       })
       .catch((err) => {

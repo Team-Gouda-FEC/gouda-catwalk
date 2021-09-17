@@ -33,7 +33,7 @@ const ReviewList = (props) => {
 
   return (
     <div>
-      <div style={{ maxHeight: 400, overflow: 'scroll' }}>
+      <div style={{ maxHeight: 337, overflow: 'scroll' }}>
         {/* eslint-disable-next-line react/prop-types */}
         {getReviews().map((details) => (
           <ReviewTile review={details} />

@@ -14,7 +14,6 @@ const Breakdown = ({ ratings }) => {
         maxWidth="sm"
         style={{backgroundColor: 'blue'}}
       >
-
       </Container>
     </div>
   ));

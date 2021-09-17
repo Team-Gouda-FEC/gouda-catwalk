@@ -8,8 +8,7 @@ import ReviewList from './reviewList.jsx';
 import dummyData from './dummy_data.jsx';
 
 const RatingAndReviews = (props) => {
-  const id = props.productID || '38341';
-  const [productId] = useState(id);
+  const [productId, setProductId] = useState(props.productId);
   const [reviews, setReviews] = useState([]);
   const [reviewCount, setReviewCount] = useState(2);
   const [sortOrder, setSortOrder] = useState('relevent');
@@ -29,7 +28,11 @@ const RatingAndReviews = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [productId]);
+
+  useEffect(() => {
+    setProductId(props.productId);
+  }, [props]);
 
   return (
     <div>
