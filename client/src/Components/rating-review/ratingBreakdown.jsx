@@ -1,25 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Container from '@material-ui/core/Container';
+import Bar from './ratingBar.jsx';
 
-<<<<<<< HEAD
-const Breakdown = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const { ratings } = props;
-  const breakDown = Object.keys(ratings);
-  const generateBreakdown = breakDown.map((rating) => (
-    <div key={rating.id}>
-=======
 const Breakdown = ({ ratings }) => {
   const breakOut = ratings;
   const breakDown = Object.keys(breakOut);
   const generateBreakdown = breakDown.map((rating, index) => (
-    // eslint-disable-next-line react/no-array-index-key
     <div key={index}>
->>>>>>> master
-      {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-      <div> {rating} Star </div>
-      {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-      <div> % of {rating} stars </div>
+      <div>
+        {rating} Star
+      </div>
+      <Container
+        maxWidth="sm"
+        style={{backgroundColor: 'blue'}}
+      >
+
+      </Container>
     </div>
   ));
 

@@ -4,3 +4,7 @@
 client/dist/bundle.js
 
 client/src/Components/.DS_Store
+
+config.jsx
+
+.DS_Store

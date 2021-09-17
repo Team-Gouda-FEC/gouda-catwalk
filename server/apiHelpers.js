@@ -12,7 +12,7 @@ const getProducts = (params, callback) => {
       callback(null, response);
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       callback(err, null);
     });
 };
@@ -40,7 +40,7 @@ const getProducts = (params, callback) => {
 // }
 
 const getThumbnail = (productId, callback) => {
-  console.log(productId);
+  // console.log(productId);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/styles`, { headers: { 'Authorization': `${process.env.API_KEY}`}})
     .then((response) => {
       callback(null, response);
@@ -172,6 +172,35 @@ const reportAnswer = (questionId, callback) => {
     });
 };
 
+/* **** Rating and Reviews **** */
+
+const getReviews = (params, callback) => {
+  axios
+    .get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/', {
+      params,
+      headers,
+    })
+    .then((reviews) => {
+      callback(null, reviews);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
+};
+
+const getReviewsMeta = (params, callback) => {
+  axios
+    .get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/meta', {
+      params,
+      headers,
+    })
+    .then((reviewMeta) => {
+      callback(null, reviewMeta);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
+};
 /* **** CART SECTION **** */
 
 /* **** INTERACTIONS SECTION **** */
@@ -187,4 +216,6 @@ module.exports = {
   reportQuestion,
   markAnswer,
   reportAnswer,
+  getReviews,
+  getReviewsMeta,
 };

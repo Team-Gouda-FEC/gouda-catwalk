@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Grid from '@material-ui/core/Grid';
 import ReviewTile from './review.jsx';
 import AddReview from './addReview.jsx';
 import MoreReviews from './moreReviews.jsx';
@@ -6,11 +7,8 @@ import MoreReviews from './moreReviews.jsx';
 // render multiple individual review tiles
 // based on the arr passed in the property
 const ReviewList = (props) => {
-  // eslint-disable-next-line react/prop-types
   const { reviews } = props;
-  // eslint-disable-next-line react/prop-types
   const { setReviewCount } = props;
-  // eslint-disable-next-line react/prop-types
   const { count } = props;
 
   const getReviews = () => {
@@ -24,29 +22,37 @@ const ReviewList = (props) => {
     return reviewList;
   };
 
-  useEffect(() => {
-    console.log(getReviews());
-    console.log(count);
-  }, [props], count);
-
   const incrementCount = () => {
     setReviewCount(count + 2);
   };
 
+  const moreReviewsButton = () => {
+    console.log('count lookingl like ', count);
+    const element = count >= reviews.length ? '' : <MoreReviews setReviewCount={incrementCount} />
+    return ( element );
+  };
+
   return (
     <div>
-      <div>
-        Review List
+      <div style={{ maxHeight: 400, overflow: 'scroll' }}>
         {/* eslint-disable-next-line react/prop-types */}
         {getReviews().map((details) => (
           <ReviewTile review={details} />
         ))}
       </div>
       <div>
-        <AddReview />
-        <MoreReviews
-          setReviewCount={incrementCount}
-        />
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center"
+          spacing={2}
+        >
+          <Grid item>{moreReviewsButton()}</Grid>
+          <Grid item>
+            <AddReview />
+          </Grid>
+        </Grid>
       </div>
     </div>
   );

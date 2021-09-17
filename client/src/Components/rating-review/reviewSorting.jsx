@@ -2,6 +2,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 const ReviewSort = (props) => {
   const getSortType = () => {
@@ -14,9 +16,14 @@ const ReviewSort = (props) => {
   };
 
   return (
-    <div>
-      {props.count} reviews, sorted by <u>{getSortType()}</u>
-    </div>
+    <Grid
+      container
+      direction="row"
+      justifyContent="flex-start"
+      alignItems="baseline"
+    >
+      <Grid item> {props.count} reviews, sorted by <u>{getSortType()} <KeyboardArrowDownIcon /></u> </Grid>
+    </Grid>
   );
 };
 
