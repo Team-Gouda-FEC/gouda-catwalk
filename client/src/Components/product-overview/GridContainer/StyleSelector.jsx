@@ -27,34 +27,43 @@ export default function StyleSelector(props) {
   const classes = useStyles();
 
   // define state
-  let [selectedStyleName, selectedStylePhotos] = useState(null);
+  const [selectedStyleName, setSelectedStyleName] = useState('SELECTED STYLE');
+  const [selectedStylePhotos, setselectedStylePhotos] = useState(
+    'https://via.placeholder.com/300x300'
+  );
 
-  if (props.currentStyles.length > 0) {
-    selectedStyleName = props.currentStyles[0].name;
-    selectedStylePhotos = props.currentStyles[0].photos[0];
-  } else {
-    selectedStyleName = 'SELECTED STYLE';
-    selectedStylePhotos = 'https://via.placeholder.com/300x300';
-  }
+  const setStyle = () => {
+    if (props.currentStyles.length > 0) {
+      setSelectedStyleName(props.currentStyles[0].name);
+      setselectedStylePhotos(props.currentStyles[0].photos[0]);
+    }
+  };
+
+  useEffect(() => {
+    setStyle();
+  }, []);
 
   return (
-    <div className={classes.root}>
-      <Grid container>
-        <Grid container item xs={12}>
-          <Typography>
-            Style
-            {'>'}
-            {selectedStyleName}
-          </Typography>
+    selectedStyleName,
+    selectedStylePhotos && (
+      <div className={classes.root}>
+        <Grid container>
+          <Grid container item xs={12}>
+            <Typography>
+              Style
+              {'>'}
+              {selectedStyleName}
+            </Typography>
+          </Grid>
+          <Grid container item xs={12}>
+            <Avatar
+              alt={selectedStyleName}
+              src={selectedStylePhotos}
+              sx={{ width: 56, height: 56 }}
+            />
+          </Grid>
         </Grid>
-        <Grid container item xs={12}>
-          <Avatar
-            alt={selectedStyleName}
-            src={selectedStylePhotos}
-            sx={{ width: 56, height: 56 }}
-          />
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+    )
   );
 }

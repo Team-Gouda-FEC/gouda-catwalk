@@ -39,7 +39,7 @@ export default function CategoryInfo(props) {
   return (
     <>
       <Box sx={{ minWidth: 120 }}>
-        <FormControl className={classes.formControlSize}>
+        <FormControl className={classes.formControlSize} variant="outlined">
           <InputLabel id="Select Size">Select Size</InputLabel>
           <Select
             id="select-size"
@@ -53,20 +53,20 @@ export default function CategoryInfo(props) {
           </Select>
         </FormControl>
 
-        <FormControl className={classes.formControlQuantity}>
-          <InputLabel id="Select Quantity"> </InputLabel>
+        <FormControl className={classes.formControlQuantity} variant="outlined">
+          <InputLabel id="Select Quantity">Quantity</InputLabel>
           <Select
             id="select-quantity"
-            value={10}
+            value={1}
             label="Select Quantity"
             onChange={handleQuantityChange}
           >
-            <MenuItem value={10}>1</MenuItem>
-            <MenuItem value={20}>2</MenuItem>
-            <MenuItem value={30}>3</MenuItem>
-            <MenuItem value={10}>4</MenuItem>
-            <MenuItem value={20}>5</MenuItem>
-            <MenuItem value={30}>6</MenuItem>
+            <MenuItem value={1}>1</MenuItem>
+            <MenuItem value={2}>2</MenuItem>
+            <MenuItem value={3}>3</MenuItem>
+            <MenuItem value={4}>4</MenuItem>
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={6}>6</MenuItem>
           </Select>
         </FormControl>
       </Box>
