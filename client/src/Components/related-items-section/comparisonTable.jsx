@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,22 +9,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-
-const columns = [
-  { id: 'name', label: 'Name', minWidth: 20 },
-  { id: 'blank', label: 'Blank', minWidth: 70 },
-  { id: 'iso', label: 'ISO', minWidth: 20 },
-];
-
-function createData(name, blank, iso) {
-  return { name, blank, iso };
-}
-
-const rows = [
-  createData('India', 'IN', '1'),
-  createData('China', 'CN', '2'),
-  createData('Italy', 'IT', '3'),
-];
 
 const useStyles = makeStyles({
   root: {
@@ -34,8 +19,26 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ComparisonTable() {
+// const columns = [
+//   { id: 'hi' , label: 'hi', minWidth: 20 },
+//   { id: 'blank', label: 'Blank', minWidth: 70 },
+//   { id: 'iso', label: 'ISO', minWidth: 20 },
+// ];
+
+// function createData(name, blank, iso) {
+//   return { name, blank, iso };
+// }
+
+// const rows = [
+//   createData('India', 'IN', '1'),
+//   createData('China', 'CN', '2'),
+//   createData('Italy', 'IT', '3'),
+// ];
+
+export default function ComparisonTable(props) {
   const classes = useStyles();
+  const columns = props.columns;
+  const rows = props.rows;
 
   return (
     <Paper className={classes.root}>

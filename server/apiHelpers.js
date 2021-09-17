@@ -40,7 +40,6 @@ const getProdInfo = (productId, callback) => {
 };
 
 const getThumbnail = (productId, callback) => {
-  console.log(productId);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/styles`, { headers})
     .then((response) => {
       callback(null, response);
@@ -49,6 +48,18 @@ const getThumbnail = (productId, callback) => {
       callback(err, null);
     });
 };
+
+// const getProdRating = (productId, callback) => {
+//   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/`, {headers})
+//     .then((response) => {
+//       console.log(response);
+//       callback(null, response.data);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       callback(err, null);
+//     });
+// };
 
 /* **** REVIEWS SECTION **** */
 
@@ -181,6 +192,7 @@ module.exports = {
   getRelatedProducts,
   getProdInfo,
   getThumbnail,
+  // getProdRating,
   getQuestions,
   getAnswers,
   addQuestion,

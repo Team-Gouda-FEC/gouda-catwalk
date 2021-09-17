@@ -27,7 +27,6 @@ export default function AnimatedModal(props) {
 
   const handleOpen = () => {
     setOpen(true);
-    console.log('i am doing something');
   };
 
   const handleClose = () => {
@@ -54,7 +53,7 @@ export default function AnimatedModal(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <ComparisonTable />
+            <ComparisonTable columns={props.columns} rows={props.rows} />
           </div>
         </Fade>
       </Modal>

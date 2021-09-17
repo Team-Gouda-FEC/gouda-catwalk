@@ -17,7 +17,7 @@ export default class App extends React.Component {
       relatedItems: [],
       yourOutfits: [],
       allItems: [],
-      currentItemId: '',
+      currentItemId: '38322',
     };
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.handleAddOutfitClick = this.handleAddOutfitClick.bind(this);
@@ -74,7 +74,7 @@ export default class App extends React.Component {
       .then((response) => {
         this.setState({
           allItems: response.data,
-          currentItemId: response.data[3].id,
+          currentItemId: response.data[0].id,
         });
       })
       .catch((error) => {
@@ -109,7 +109,7 @@ export default class App extends React.Component {
           return (
             <div key={i}>
               <div style={{ padding: 8 }}>
-                <RelatedProductCard key={i} productId={elem} />
+                <RelatedProductCard key={i} productId={elem} currentItemId={this.state.currentItemId} />
               </div>
             </div>
           )
