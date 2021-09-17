@@ -1,6 +1,6 @@
 const express = require("express");
 // const path = require('path');
-const cors = require('cors');
+// const cors = require('cors');
 const apiFn = require('./apiHelpers');
 
 
@@ -9,33 +9,9 @@ const PORT = 1337 || process.env.PORT;
 
 app.use(express.static("client/dist"));
 app.use(express.json());
-app.use(cors());
-
-app.get("/api/test/products", (req, res) => {
-  apiFn.getProducts((err, results) => {
-    if (err) {
-      res.status(500).send("Error requesting Products Data");
-    } else {
-      res.send(results.data);
-    }
-  });
-});
-
-// {
-//   "id": 38326,
-//   "campus": "hr-atx",
-//   "name": "Heir Force Ones",
-//   "slogan": "A sneaker dynasty",
-//   "description": "Now where da boxes where I keep mine?",
-//   "category": "Kicks",
-//   "default_price": "99.00",
-//   "created_at": "2021-08-13T14:38:00.907Z",
-//   "updated_at": "2021-08-13T14:38:00.907Z"
-// }
+// app.use(cors());
 
 /* **** PRODUCTS SECTION **** */
-
-/***** RELATED ITEMS  ****/
 app.get('/products/', (req, res) => {
   const params = {
     page: req.query.page,
@@ -43,7 +19,30 @@ app.get('/products/', (req, res) => {
   };
   apiFn.getProducts(params, (err, response) => {
     if (err) {
-      res.status(405).send(err);
+      res.status(404).send(err);
+    } else {
+      res.status(200).send(response);
+    }
+  });
+});
+
+/***** RELATED ITEMS  ****/
+app.get('/relatedproducts/', (req, res) => {
+  const productId = req.query.product_id;
+  apiFn.getRelatedProducts(productId, (err, response) => {
+    if (err) {
+      res.status(404).send(err);
+    } else {
+      res.status(200).send(response.data);
+    }
+  });
+});
+
+app.get('/getProductInfo/', (req, res) => {
+  const productId = req.query.product_id;
+  apiFn.getProdInfo(productId, (err, response) => {
+    if (err) {
+      res.status(404).send(err);
     } else {
       res.status(200).send(response.data);
     }
@@ -54,8 +53,10 @@ app.get('/getImage/', (req, res) => {
   const productId = req.query.product_id;
   apiFn.getThumbnail(productId, (err, response) => {
     if (err) {
+      console.log('could not fetch styles!', productId);
       res.status(404).send(err);
     } else {
+      console.log('successfully fetched styles!');
       res.status(200).send(response.data);
     }
   });
