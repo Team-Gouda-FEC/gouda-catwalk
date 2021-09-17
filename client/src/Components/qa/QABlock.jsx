@@ -1,13 +1,11 @@
 import React from 'react';
 import QuestionBlock from './QuestionBlock.jsx';
 import AnswerBlock from './AnswerBlock.jsx';
-import TestCard from './testCard.jsx';
 
 const QABlock = ({ questionObj }) => (
   <div className="QA-Block">
-    {/* <QuestionBlock questionObj={questionObj} />
-    <AnswerBlock questionObj={questionObj} /> */}
-    <TestCard />
+    <QuestionBlock questionObj={questionObj} />
+    <AnswerBlock questionObj={questionObj} />
   </div>
 );
 
