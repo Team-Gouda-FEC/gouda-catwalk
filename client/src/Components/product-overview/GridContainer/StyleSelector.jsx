@@ -1,8 +1,9 @@
-import React from 'react';
+/* eslint-disable react/destructuring-assignment */
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import itemData from './itemData';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,8 +23,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function StyleSelector() {
+export default function StyleSelector(props) {
   const classes = useStyles();
+
+  // define state
+  let [selectedStyleName, selectedStylePhotos] = useState(null);
+
+  if (props.currentStyles.length > 0) {
+    selectedStyleName = props.currentStyles[0].name;
+    selectedStylePhotos = props.currentStyles[0].photos[0];
+  } else {
+    selectedStyleName = 'SELECTED STYLE';
+    selectedStylePhotos = 'https://via.placeholder.com/300x300';
+  }
 
   return (
     <div className={classes.root}>
@@ -32,15 +44,15 @@ export default function StyleSelector() {
           <Typography>
             Style
             {'>'}
-            SELECTED STYLE
+            {selectedStyleName}
           </Typography>
         </Grid>
         <Grid container item xs={12}>
-          {itemData.results.map((item) => (
-            <Avatar key={item.name} cols={1} className={classes.large}>
-              <img src="https://via.placeholder.com/300x300" alt={item.name} />
-            </Avatar>
-          ))}
+          <Avatar
+            alt={selectedStyleName}
+            src={selectedStylePhotos}
+            sx={{ width: 56, height: 56 }}
+          />
         </Grid>
       </Grid>
     </div>
