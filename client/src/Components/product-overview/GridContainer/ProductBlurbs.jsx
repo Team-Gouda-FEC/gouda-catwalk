@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react/destructuring-assignment */
+import React, { useStat, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
@@ -16,24 +17,41 @@ const useStyles = makeStyles(() => ({
 
 export default function ProductBlurbs(props) {
   const classes = useStyles();
+  const [featureName, setFeatureName] = React.useState([]);
+  const [featureValue, setFeatureValue] = React.useState([]);
+
+  const useProps = () => {
+    if (props.productInfo) {
+      console.log(props);
+      // props.productInfo.features.map((feature) =>
+      //   setFeatureName(feature.feature)
+      // );
+      // props.productInfo.features.map((feature) =>
+      //   setFeatureValue(feature.value)
+      // );
+    }
+  };
+
+  useEffect(() => {
+    useProps();
+  }, [props]);
 
   return (
-    <Grid container elevation={0} className={classes.root}>
-      <Grid item xs={12}>
-        <List dense className="list of features">
-          <ListItem alignItems="flex-start">
-            {/* {props.productInfo.features.map((feature) => (
-              <>
-                <ListItemText primary={feature.feature} />
-                <ListItemIcon>
-                  <CheckIcon />
-                </ListItemIcon>
-                <ListItemText primary={feature.value} />
-              </>
-            ))} */}
-          </ListItem>
-        </List>
+    featureName,
+    featureValue && (
+      <Grid container elevation={0} className={classes.root}>
+        <Grid item xs={12}>
+          <List dense className="list of features">
+            <ListItem alignItems="flex-start">
+              <ListItemText primary={featureName} />
+              <ListItemIcon>
+                <CheckIcon />
+              </ListItemIcon>
+              <ListItemText primary={featureValue} />
+            </ListItem>
+          </List>
+        </Grid>
       </Grid>
-    </Grid>
+    )
   );
 }
