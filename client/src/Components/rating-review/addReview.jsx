@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
 const AddReview = (props) => {
   const handleClick = (event) => {
@@ -6,9 +7,9 @@ const AddReview = (props) => {
   };
 
   return (
-    <button type="button" onClick={handleClick}>
+    <Button variant="outlined" color="primary" onClick={handleClick}>
       Add A Review
-    </button>
+    </Button>
   );
 };
 

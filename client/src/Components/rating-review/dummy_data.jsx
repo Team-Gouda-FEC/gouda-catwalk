@@ -1,0 +1,41 @@
+const dummyData = [
+  {
+    review_id: 604252,
+    rating: 2,
+    summary: 'These pants are ok!',
+    recommend: false,
+    response: '',
+    body: 'A little tight on the waist.',
+    date: '2019-01-05T00:00:00.000Z',
+    reviewer_name: 'bigbrother',
+    helpfulness: 2,
+    photos: [],
+  },
+  {
+    review_id: 604251,
+    rating: 5,
+    summary: 'These pants are great!',
+    recommend: true,
+    response: '',
+    body: 'I really like these pants. Best fit ever!',
+    date: '2019-02-18T00:00:00.000Z',
+    reviewer_name: 'figuringitout',
+    helpfulness: 2,
+    photos: [],
+  },
+  {
+    review_id: 604250,
+    rating: 4,
+    summary: 'These pants are fine',
+    recommend: true,
+    response: '',
+    body: 'I do like these pants',
+    date: '2019-03-21T00:00:00.000Z',
+    reviewer_name: 'shopaddict',
+    helpfulness: 2,
+    photos: [],
+  },
+];
+export default {
+  dummyData,
+};

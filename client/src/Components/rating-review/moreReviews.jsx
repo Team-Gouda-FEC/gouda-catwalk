@@ -1,14 +1,15 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
-const MoreReviews = () => {
+const MoreReviews = (props) => {
   const handleClick = (event) => {
     console.log(`more button clicked ${event.target}`);
   };
 
   return (
-    <button type="button" onClick={handleClick}>
+    <Button variant="outlined" color="primary" onClick={props.setReviewCount}>
       More Review
-    </button>
+    </Button>
   );
 };
 

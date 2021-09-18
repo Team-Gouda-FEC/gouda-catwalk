@@ -78,7 +78,7 @@ const RelatedProductCard = (props) => {
           <CardContent>
             <AnimatedModal
               onClick={() => {
-                this.handleCompareClick();
+                handleCompareClick();
               }}
             />
             <CardMedia

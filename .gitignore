@@ -1,6 +1,8 @@
-/node_modules
+# local only files
 **/.env
-
+/node_modules
 client/dist/bundle.js
-
 client/src/Components/.DS_Store
+.DS_Store
+
+

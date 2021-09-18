@@ -3,6 +3,7 @@ const express = require('express');
 // const cors = require('cors');
 const apiFn = require('./apiHelpers');
 
+
 const app = express();
 const PORT = 1337 || process.env.PORT;
 
@@ -56,7 +57,7 @@ app.get('/getImage/', (req, res) => {
       res.status(404).send(err);
     } else {
       console.log('successfully fetched styles!');
-      res.status(200).send(response.data);
+      res.send(response.data);
     }
   });
 });
@@ -178,4 +179,28 @@ app.put('/reportAnswer', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
+});
+
+
+/* **** Reviews **** */
+app.get("/reviews", (req, res) => {
+  apiFn.getReviews(req.query, (err, reviewData) => {
+    if (err) {
+      res.status(500).send("Error getting reviews");
+    } else {
+      // console.log(reviewData.results);
+      res.send(reviewData.data);
+    }
+  })
+});
+
+
+app.get("/reviews/meta", (req, res) => {
+  apiFn.getReviewsMeta(req.query, (err, reviewMetaData) => {
+    if (err) {
+      res.status(500).send("Error getting reviews meta data");
+    } else {
+      res.send(reviewMetaData.data);
+    }
+  })
 });
