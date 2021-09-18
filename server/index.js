@@ -1,6 +1,6 @@
 const express = require("express");
 // const path = require('path');
-// const cors = require('cors');
+const cors = require('cors');
 const apiFn = require('./apiHelpers');
 
 
@@ -9,7 +9,7 @@ const PORT = 1337 || process.env.PORT;
 
 app.use(express.static("client/dist"));
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 
 /* **** PRODUCTS SECTION **** */
 app.get('/products/', (req, res) => {
