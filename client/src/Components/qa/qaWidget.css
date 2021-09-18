@@ -1,4 +1,4 @@
-.qa-container {
+/* .qa-container {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -42,9 +42,9 @@ input {
   font-size: 18px;
 }
 
-/* #search-button {
+#search-button {
   height: 50px;
-} */
+}
 
 .qa-accordian {
   display: flex;
@@ -54,3 +54,4 @@ input {
 .MuiAccordionSummary-content {
   flex-direction: column;
 }
+*/

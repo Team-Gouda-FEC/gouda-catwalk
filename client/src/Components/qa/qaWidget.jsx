@@ -3,6 +3,7 @@ import axios from 'axios';
 import './qaWidget.css';
 import SearchBar from './SearchBar.jsx';
 import QuestionsListAccordian from './QuestionsListAccordian.jsx';
+import ButtonGroup from './ButtonGroup.jsx';
 
 export default class QAWidget extends React.Component {
   constructor(props) {
@@ -78,21 +79,11 @@ export default class QAWidget extends React.Component {
     const { questionsList } = this.state;
     return (
       <div className="qa-container">
-        <div className="search-bar">
-          <SearchBar
-            questionSearch={this.handleSearchValue}
-            submission={this.handleSearchSubmit}
-          />
-        </div>
+        <SearchBar />
         <div className="qa-accordian">
           <QuestionsListAccordian questionsList={questionsList} />
         </div>
-        <button type="button" className="more-questions">
-          More Answered Questions
-        </button>
-        <button type="button" className="add-question">
-          Add a Question
-        </button>
+        <ButtonGroup />
       </div>
     );
   }

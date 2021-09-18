@@ -1,13 +1,70 @@
-import React from 'react';
-import QuestionBlock from './QuestionBlock.jsx';
-import AnswerBlock from './AnswerBlock.jsx';
+import React, { useState } from 'react';
+import {
+  Card,
+  CardHeader,
+  IconButton,
+  styled,
+  Typography,
+  ButtonGroup,
+  Button,
+  CardContent,
+  CardMedia,
+  makeStyles,
+} from '@material-ui/core';
 
-const QABlock = ({ questionObj }) => (
-  <div className="QA-Block">
-    <QuestionBlock questionObj={questionObj} />
-    <AnswerBlock questionObj={questionObj} />
-  </div>
-);
+const useStyles = makeStyles((theme) => ({
+  question: {
+    fontWeight: 'bold',
+  },
+}));
+
+const QABlock = ({ questionObj }) => {
+  const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
+
+  const [expanded, setExpanded] = useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  // TODO: conditionally render only 2 answers, then use a button to show all answers
+  // TODO: Helpful btn -> functionality to increase the helpfulness
+  // TODO: Report btn -> functionality to report the question
+  // TODO:
+
+  const classes = useStyles();
+
+  return (
+    <Card>
+      <CardHeader />
+      <CardContent>
+        <Typography
+          className={classes.question}
+          variant="h5"
+          color="textPrimary"
+        >
+          {`Q: ${questionObj.question_body}`}
+          <ButtonGroup variant="text">
+            <Button>Helpful</Button>
+            <Button>Add Answer</Button>
+          </ButtonGroup>
+        </Typography>
+        {Object.entries(questionObj.answers).map((element, key) => (
+          <Typography key={key}>{`A: ${element[1].body}`}</Typography>
+        ))}
+      </CardContent>
+    </Card>
+  );
+};
 
 export default QABlock;
 

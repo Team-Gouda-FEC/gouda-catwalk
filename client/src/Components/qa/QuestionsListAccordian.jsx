@@ -1,39 +1,57 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Typography from '@material-ui/core/Typography';
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  AccordianActions,
+  Typography,
+  Grid,
+  makeStyles,
+  Button,
+} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import QABlock from './QABlock.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: '500px',
   },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
+  accordian: {
+    flexDirection: 'column',
+  },
+  qaBlock: {
+    width: '800px',
   },
 }));
+
+// TODO: Fix size of each card
 
 export default function SimpleAccordion({ questionsList }) {
   const classes = useStyles();
   return (
-    <div className="QA-Accordian">
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
+    <Accordion>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        className={classes.accordian}
+      >
+        <Grid
+          container
+          spacing={2}
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
         >
           {questionsList.results &&
-            questionsList.results.map((element, index) => (
-              <QABlock key={index} questionObj={element} />
+            questionsList.results.map((element, key) => (
+              <Grid key={key} className={classes.qaBlock} item>
+                <QABlock questionObj={element} />
+              </Grid>
             ))}
-        </AccordionSummary>
-        <AccordionDetails>text goes here</AccordionDetails>
-      </Accordion>
-    </div>
+        </Grid>
+      </AccordionSummary>
+      <AccordionDetails>
+        TODO: THIS WILL QUERY THE API FOR THE REMAINING QUESTIONS
+      </AccordionDetails>
+    </Accordion>
   );
 }

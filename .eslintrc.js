@@ -25,5 +25,7 @@ module.exports = {
     'consistent-return': 'off',
     'react/prop-types': 'off',
     'react/button-has-type': 'off',
+    'react/no-array-index-key': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 };
