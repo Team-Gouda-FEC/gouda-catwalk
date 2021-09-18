@@ -1,69 +1,59 @@
-/* eslint-disable react/destructuring-assignment */
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Badge from '@material-ui/core/Badge';
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
   large: {
-    width: theme.spacing(9),
-    height: theme.spacing(9),
+    width: theme.spacing(8),
+    height: theme.spacing(8),
     padding: 5,
     margin: 10,
-    border: '1px solid black',
+    border: '2px solid black',
   },
 }));
 
-export default function StyleSelector(props) {
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    right: -3,
+    top: 13,
+    border: `3px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}))(Badge);
+
+const StyleSelector = (props) => {
   const classes = useStyles();
-
-  // define state
-  const [selectedStyleName, setSelectedStyleName] = useState('SELECTED STYLE');
-  const [selectedStylePhotos, setselectedStylePhotos] = useState(
-    'https://via.placeholder.com/300x300'
-  );
-
-  const setStyle = () => {
-    if (props.currentStyles.length > 0) {
-      setSelectedStyleName(props.currentStyles[0].name);
-      setselectedStylePhotos(props.currentStyles[0].photos[0]);
-    }
-  };
-
-  useEffect(() => {
-    setStyle();
-  }, []);
-
-  return (
-    selectedStyleName,
-    selectedStylePhotos && (
-      <div className={classes.root}>
-        <Grid container>
-          <Grid container item xs={12}>
-            <Typography>
-              Style
-              {'>'}
-              {selectedStyleName}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12}>
+  const { currentStyles } = props;
+  if (currentStyles.length > 0) {
+    return currentStyles.map((style) => {
+      for (let i = 0; i < style.photos.length; i += 1) {
+        const current = style.photos[i];
+        return (
+          <StyledBadge
+            overlap="circular"
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            badgeContent={4}
+            variant="dot"
+            key={style.style_id}
+          >
             <Avatar
-              alt={selectedStyleName}
-              src={selectedStylePhotos}
+              alt={style.name}
+              src={current.thumbnail_url}
               sx={{ width: 56, height: 56 }}
+              className={classes.large}
             />
-          </Grid>
-        </Grid>
-      </div>
-    )
-  );
-}
+          </StyledBadge>
+        );
+      }
+    });
+  }
+  return <CircularProgress />;
+};
+
+export default StyleSelector;

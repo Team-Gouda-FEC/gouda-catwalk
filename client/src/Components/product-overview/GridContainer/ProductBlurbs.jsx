@@ -7,67 +7,41 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import CheckIcon from '@material-ui/icons/Check';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
-    margin: 15,
-    padding: 50,
-    maxWidth: 360,
   },
 }));
 
 export default function ProductBlurbs(props) {
   const classes = useStyles();
-  const [featureName, setFeatureName] = React.useState(false);
-  const [featureValue, setFeatureValue] = React.useState(false);
 
-  const useProps = () => {
-    if (props.productInfo.features) {
-      console.log(props);
-      props.productInfo.features.map((feature) =>
-        setFeatureName(feature.feature)
-      );
-      props.productInfo.features.map((feature) =>
-        setFeatureValue(feature.value)
-      );
-    }
-  };
-
-  useEffect(() => {
-    useProps();
-  }, [ProductBlurbs]);
-
-  return (
-    featureName,
-    (featureValue && (
-      <Grid container elevation={0} className={classes.root}>
+  if (props.currentItemInfo.features) {
+    return props.currentItemInfo.features.map((feature) => (
+      <Grid
+        container
+        elevation={0}
+        className={classes.root}
+        key={feature.feature}
+      >
         <Grid item xs={12}>
           <List dense className="list of features">
             <ListItem alignItems="flex-start">
               <ListItemIcon>
                 <CheckIcon />
               </ListItemIcon>
-              <ListItemText variant="button" primary={`${featureName}: `} />
-              <ListItemText primary={` ${featureValue}`} />
+              <ListItemText
+                variant="button"
+                primary={`${feature.feature} :`}
+                secondary={` ${feature.value}`}
+              />
             </ListItem>
           </List>
         </Grid>
       </Grid>
-    )) || (
-      <Grid container elevation={0} className={classes.root}>
-        <Grid item xs={12}>
-          <List dense className="list of features">
-            <ListItem alignItems="flex-start">
-              <ListItemIcon>
-                <CheckIcon />
-              </ListItemIcon>
-              <ListItemText variant="button" primary="Feature Name: " />
-              <ListItemText primary=" Feature Value" />
-            </ListItem>
-          </List>
-        </Grid>
-      </Grid>
-    )
-  );
+    ));
+  }
+  return <CircularProgress />;
 }

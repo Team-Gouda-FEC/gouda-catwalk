@@ -1,25 +1,10 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-plusplus */
 import React from 'react';
+import axios from 'axios';
 import ImageGallery from 'react-image-gallery';
 import '../../../../../node_modules/react-image-gallery/styles/css/image-gallery.css';
-
-const images = [
-  {
-    original: 'https://picsum.photos/id/1018/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1018/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1015/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1015/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1019/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1019/250/150/',
-  },
-];
-
-const PREFIX_URL =
-  'https://raw.githubusercontent.com/xiaolin/react-image-gallery/master/static/';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default class Carousel extends React.Component {
   constructor(props) {
@@ -27,14 +12,6 @@ export default class Carousel extends React.Component {
     this.state = {
       state: false,
     };
-    this.images = [
-      {
-        original: `${PREFIX_URL}1.jpg`,
-        thumbnail: `${PREFIX_URL}1t.jpg`,
-        originalClass: 'featured-slide',
-        thumbnailClass: 'featured-thumb',
-      },
-    ].concat(this.getStaticImages());
     this.onScreenChange = this.onScreenChange.bind(this);
     this.onPause = this.onPause.bind(this);
     this.onSlide = this.onSlide.bind(this);
@@ -62,28 +39,28 @@ export default class Carousel extends React.Component {
     console.debug('slid to index', index);
   }
 
-
   getStaticImages() {
     const images = [];
-    for (let i = 2; i < 12; i++) {
+    for (let i = 0; i < this.props.currentStyles.results.length; i++) {
+      const style = this.props.currentStyles.results[i];
       images.push({
-        original: `${PREFIX_URL}${i}.jpg`,
-        thumbnail: `${PREFIX_URL}${i}t.jpg`,
-        originalHeight: 400,
-        originalWidth: 400,
-        thumbnailHeight: 100,
-        thumbnailWidth: 100,
+        original: style.photos[0].url,
+        thumbnail: style.photos[0].thumbnail_url,
+        originalHeight: 500,
+        originalWidth: 500,
       });
     }
     return images;
   }
 
   render() {
+    if (this.props.currentStyles.length === 0) {
+      return <CircularProgress />;
+    }
     return (
       <>
-      {console.log('props on new Img Gallery Comp: ', this.props)}
         <ImageGallery
-          items={this.images}
+          items={this.getStaticImages()}
           ref={(i) => (this.imageGallery = i)}
           onClick={() => this.onImageClick}
           onImageLoad={this.onImageLoad}

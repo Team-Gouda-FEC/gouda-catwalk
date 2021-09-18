@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Grid from '@material-ui/core/Grid';
 
-import Carousel from './Images.jsx';
+import Carousel from './Carousel.jsx';
 
 export default function ImageGalleryComponent(props) {
   return (
