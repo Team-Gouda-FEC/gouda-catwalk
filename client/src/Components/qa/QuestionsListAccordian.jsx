@@ -24,12 +24,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// TODO: Fix size of each card
-
 export default function SimpleAccordion({ questionsList }) {
   const classes = useStyles();
   return (
-    <Accordion>
+    <Accordion
+      style={{
+        height: '500px',
+        overflow: 'scroll',
+      }}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         className={classes.accordian}

@@ -39,7 +39,6 @@ const QABlock = ({ questionObj }) => {
   // TODO: conditionally render only 2 answers, then use a button to show all answers
   // TODO: Helpful btn -> functionality to increase the helpfulness
   // TODO: Report btn -> functionality to report the question
-  // TODO:
 
   const classes = useStyles();
 
@@ -54,14 +53,17 @@ const QABlock = ({ questionObj }) => {
         >
           {`Q: ${questionObj.question_body}`}
           <ButtonGroup variant="text">
-            <Button>Helpful</Button>
-            <Button>Add Answer</Button>
+            <Button>TODO: Helpful -> perform the api request</Button>
+            <Button>
+              TODO: Add Answer -> open a modal, then perform an api post request
+            </Button>
           </ButtonGroup>
         </Typography>
         {Object.entries(questionObj.answers).map((element, key) => (
           <Typography key={key}>{`A: ${element[1].body}`}</Typography>
         ))}
       </CardContent>
+      <Button>TODO: LOAD MORE ANSWERS</Button>
     </Card>
   );
 };

@@ -1,15 +1,14 @@
 const express = require('express');
 // const path = require('path');
-// const cors = require('cors');
+const cors = require('cors');
 const apiFn = require('./apiHelpers');
-
 
 const app = express();
 const PORT = 1337 || process.env.PORT;
 
 app.use(express.static('client/dist'));
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 
 /* **** PRODUCTS SECTION **** */
 app.get('/products/', (req, res) => {
@@ -181,26 +180,24 @@ app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
 
-
 /* **** Reviews **** */
-app.get("/reviews", (req, res) => {
+app.get('/reviews', (req, res) => {
   apiFn.getReviews(req.query, (err, reviewData) => {
     if (err) {
-      res.status(500).send("Error getting reviews");
+      res.status(500).send('Error getting reviews');
     } else {
       // console.log(reviewData.results);
       res.send(reviewData.data);
     }
-  })
+  });
 });
 
-
-app.get("/reviews/meta", (req, res) => {
+app.get('/reviews/meta', (req, res) => {
   apiFn.getReviewsMeta(req.query, (err, reviewMetaData) => {
     if (err) {
-      res.status(500).send("Error getting reviews meta data");
+      res.status(500).send('Error getting reviews meta data');
     } else {
       res.send(reviewMetaData.data);
     }
-  })
+  });
 });
