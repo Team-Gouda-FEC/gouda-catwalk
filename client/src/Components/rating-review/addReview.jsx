@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+<<<<<<< HEAD
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Modal from '@material-ui/core/Modal';
@@ -45,6 +46,8 @@ function RedditTextField(props) {
   // eslint-disable-next-line prettier/prettier
   return <TextField InputProps={{ classes, disableUnderline: true }} {...props} />;
 }
+=======
+>>>>>>> master
 
 const AddReview = (props) => {
   const classes = useStyles();
@@ -68,6 +71,7 @@ const AddReview = (props) => {
   }
 
   return (
+<<<<<<< HEAD
     <div>
       <Button variant="outlined" color="primary" onClick={handleOpen}>
         Add A Review
@@ -90,6 +94,11 @@ const AddReview = (props) => {
         </Fade>
       </Modal>
     </div>
+=======
+    <Button variant="outlined" color="primary" onClick={handleClick}>
+      Add A Review
+    </Button>
+>>>>>>> master
   );
 };
 

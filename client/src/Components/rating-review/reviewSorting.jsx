@@ -4,6 +4,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+<<<<<<< HEAD
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -45,6 +46,18 @@ const ReviewSort = (props) => {
       </Select>
     </FormControl>
   );
+=======
+
+const ReviewSort = (props) => {
+  const getSortType = () => {
+    switch (props.sortType) {
+      case 'relevent':
+        return 'relevance';
+      default:
+        return 'none';
+    }
+  };
+>>>>>>> master
 
   return (
     <Grid
@@ -53,6 +66,7 @@ const ReviewSort = (props) => {
       justifyContent="flex-start"
       alignItems="baseline"
     >
+<<<<<<< HEAD
       <Grid
         Item
         container
@@ -62,6 +76,9 @@ const ReviewSort = (props) => {
       >
         {props.count} reviews, sorted by {sortButton}
       </Grid>
+=======
+      <Grid item> {props.count} reviews, sorted by <u>{getSortType()} <KeyboardArrowDownIcon /></u> </Grid>
+>>>>>>> master
     </Grid>
   );
 };

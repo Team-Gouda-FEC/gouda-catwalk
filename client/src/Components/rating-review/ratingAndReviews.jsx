@@ -28,7 +28,11 @@ const RatingAndReviews = (props) => {
       .catch((err) => {
         console.log(err);
       });
+<<<<<<< HEAD
   }, [productId, sortOrder]);
+=======
+  }, [productId]);
+>>>>>>> master
 
   useEffect(() => {
     setProductId(props.productId);
@@ -53,7 +57,10 @@ const RatingAndReviews = (props) => {
             <SortReviews
               sortType={sortOrder}
               count={reviews.length}
+<<<<<<< HEAD
               changeSort={setSortOrder}
+=======
+>>>>>>> master
             />
             <ReviewList
               reviews={reviews}

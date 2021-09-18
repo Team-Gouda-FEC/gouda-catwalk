@@ -57,7 +57,7 @@ app.get('/getImage/', (req, res) => {
       res.status(404).send(err);
     } else {
       console.log('successfully fetched styles!');
-      res.status(200).send(response.data);
+      res.send(response.data);
     }
   });
 });
@@ -65,7 +65,7 @@ app.get('/getImage/', (req, res) => {
 /* **** QUESTIONS & ANSWERS SECTION **** */
 
 // Get Questions List
-app.get("/getQuestions", (req, res) => {
+app.get('/getQuestions', (req, res) => {
   const params = {
     product_id: req.query.product_id,
     page: req.query.page,
