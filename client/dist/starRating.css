@@ -1,12 +1,10 @@
 #starRating {
-  color: black;
   width: 120px;
   position: relative;
   /* margin: auto; */
 }
 
 #starRating #over {
-  color: lightcoral;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -17,6 +15,7 @@
 
 #starRating #under,
 #starRating #over {
+  color: lightcoral;
   top: 0px;
   left: 0px;
 }

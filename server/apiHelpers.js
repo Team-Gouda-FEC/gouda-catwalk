@@ -171,6 +171,35 @@ const reportAnswer = (questionId, callback) => {
     });
 };
 
+/* **** Rating and Reviews **** */
+
+const getReviews = (params, callback) => {
+  axios
+    .get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/', {
+      params,
+      headers,
+    })
+    .then((reviews) => {
+      callback(null, reviews);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
+};
+
+const getReviewsMeta = (params, callback) => {
+  axios
+    .get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews/meta', {
+      params,
+      headers,
+    })
+    .then((reviewMeta) => {
+      callback(null, reviewMeta);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
+};
 /* **** CART SECTION **** */
 
 /* **** INTERACTIONS SECTION **** */
@@ -188,4 +217,6 @@ module.exports = {
   reportQuestion,
   markAnswer,
   reportAnswer,
+  getReviews,
+  getReviewsMeta,
 };
