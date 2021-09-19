@@ -20,14 +20,16 @@ const RatingAndReviews = (props) => {
       sort: sortOrder,
       product_id: productId,
     };
-
-    axios.get('/reviews', {params})
-      .then((reviews) => {
-        setReviews(reviews.data.results);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (productId) {
+      axios
+        .get('/reviews', { params })
+        .then((reviewData) => {
+          setReviews(reviewData.data.results);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [productId, sortOrder]);
 
   useEffect(() => {
@@ -37,7 +39,12 @@ const RatingAndReviews = (props) => {
   return (
     <div>
       <br />
-      <Grid container direction="row" justifyContent="space-around" alignItems="flex-start">
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-around"
+        alignItems="flex-start"
+      >
         <Grid item xs={3}>
           <h2> Ratings Reviews </h2>
           <ProductReview productId={productId} />
@@ -54,6 +61,7 @@ const RatingAndReviews = (props) => {
               sortType={sortOrder}
               count={reviews.length}
               changeSort={setSortOrder}
+              resetCount={setReviewCount}
             />
             <ReviewList
               reviews={reviews}

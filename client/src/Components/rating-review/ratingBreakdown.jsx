@@ -6,9 +6,8 @@ const Breakdown = ({ ratings }) => {
   const breakOut = ratings;
   const breakDown = Object.keys(breakOut);
   const generateBreakdown = breakDown.map((rating, index) => (
-    <div key={index}>
+    <div key={index.toString()}>
       <div>{rating} Star</div>
-      <Container maxWidth="sm" style={{ backgroundColor: 'blue' }}></Container>
     </div>
   ));
 
