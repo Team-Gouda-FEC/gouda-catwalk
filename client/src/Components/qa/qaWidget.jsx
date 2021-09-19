@@ -1,9 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import './qaWidget.css';
 import SearchBar from './SearchBar.jsx';
-import QuestionsListAccordian from './QuestionsListAccordian.jsx';
-import ButtonGroup from './ButtonGroup.jsx';
+import QuestionsList from './QuestionsList.jsx';
 
 export default class QAWidget extends React.Component {
   constructor(props) {
@@ -61,7 +59,7 @@ export default class QAWidget extends React.Component {
         params: {
           product_id: currentProduct,
           page: 1,
-          count: 5,
+          count: 20,
         },
       })
       .then((response) => {
@@ -80,10 +78,7 @@ export default class QAWidget extends React.Component {
     return (
       <div className="qa-container">
         <SearchBar />
-        <div className="qa-accordian">
-          <QuestionsListAccordian questionsList={questionsList} />
-        </div>
-        <ButtonGroup />
+        <QuestionsList questionsList={questionsList} />
       </div>
     );
   }

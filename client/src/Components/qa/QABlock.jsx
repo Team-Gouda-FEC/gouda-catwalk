@@ -16,6 +16,13 @@ const useStyles = makeStyles((theme) => ({
   question: {
     fontWeight: 'bold',
   },
+  questionButtons: {
+    justifyContent: 'flex-end',
+    float: 'right',
+  },
+  loadAnswers: {
+    marginLeft: '10%',
+  },
 }));
 
 const QABlock = ({ questionObj }) => {
@@ -37,11 +44,10 @@ const QABlock = ({ questionObj }) => {
   };
 
   // TODO: conditionally render only 2 answers, then use a button to show all answers
-  // TODO: Helpful btn -> functionality to increase the helpfulness
   // TODO: Report btn -> functionality to report the question
 
   const classes = useStyles();
-
+  // style={{ boxShadow: 'none' }} <- add this to the card to remov ethe shadow
   return (
     <Card>
       <CardHeader />
@@ -52,18 +58,23 @@ const QABlock = ({ questionObj }) => {
           color="textPrimary"
         >
           {`Q: ${questionObj.question_body}`}
-          <ButtonGroup variant="text">
-            <Button>TODO: Helpful -> perform the api request</Button>
-            <Button>
-              TODO: Add Answer -> open a modal, then perform an api post request
-            </Button>
+          <ButtonGroup
+            className={classes.questionButtons}
+            variant="text"
+            size="small"
+            color="secondary"
+          >
+            <Button>Helpful? Yes({questionObj.question_helpfulness})</Button>
+            <Button>Add Answer</Button>
           </ButtonGroup>
         </Typography>
         {Object.entries(questionObj.answers).map((element, key) => (
           <Typography key={key}>{`A: ${element[1].body}`}</Typography>
         ))}
       </CardContent>
-      <Button>TODO: LOAD MORE ANSWERS</Button>
+      <Button className={classes.loadAnswers} variant="text">
+        TODO: LOAD MORE ANSWERS
+      </Button>
     </Card>
   );
 };
