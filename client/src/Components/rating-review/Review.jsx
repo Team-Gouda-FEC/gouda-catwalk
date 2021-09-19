@@ -18,13 +18,12 @@ const months = {
   '07': 'July',
   '08': 'August',
   '09': 'September',
-  '10': 'October',
-  '11': 'November',
-  '12': 'December',
+  10: 'October',
+  11: 'November',
+  12: 'December',
 };
 
 const ReviewTile = (props) => {
-
   const getDate = () => {
     let { date } = props.review;
     const year = date.slice(0, 4);

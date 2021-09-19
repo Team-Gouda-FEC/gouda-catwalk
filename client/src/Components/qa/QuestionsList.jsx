@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
 
 const QuestionsList = ({ questionsList }) => {
   const classes = useStyles();
-  // const { results } = questionsList;
   const [count, setCount] = useState(4);
 
   const getQuestions = () => {

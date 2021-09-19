@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import SearchBar from './SearchBar.jsx';
 import QuestionsList from './QuestionsList.jsx';
-import ButtonGroup from './ButtonGroup.jsx';
 
 export default class QAWidget extends React.Component {
   constructor(props) {

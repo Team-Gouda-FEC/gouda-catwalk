@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Typography, TextField, makeStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
