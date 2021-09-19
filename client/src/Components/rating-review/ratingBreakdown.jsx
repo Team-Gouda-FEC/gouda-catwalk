@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 
 const Breakdown = ({ ratings }) => {
@@ -7,14 +7,8 @@ const Breakdown = ({ ratings }) => {
   const breakDown = Object.keys(breakOut);
   const generateBreakdown = breakDown.map((rating, index) => (
     <div key={index}>
-      <div>
-        {rating} Star
-      </div>
-      <Container
-        maxWidth="sm"
-        style={{backgroundColor: 'blue'}}
-      >
-      </Container>
+      <div>{rating} Star</div>
+      <Container maxWidth="sm" style={{ backgroundColor: 'blue' }}></Container>
     </div>
   ));
 
