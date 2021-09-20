@@ -5,6 +5,7 @@ import Outline from '@material-ui/icons/StarBorderRounded';
 
 const Stars = (props) => {
   const [pxWidth, setPxWidth] = useState(0);
+
   useEffect(() => {
     let size = 0;
     // eslint-disable-next-line react/prop-types
@@ -18,42 +19,63 @@ const Stars = (props) => {
       }
       // use the remaining size to get the next quater pixal
       if (num >= 18) {
-        size += 15;
+        size += 13.75;
       } else if (num >= 12) {
         size += 12;
       } else if (num >= 6) {
-        size += 9;
+        size += 10.25;
       }
     } else if (num >= 5) {
       size = 120;
     }
 
     setPxWidth(size);
-  }, []);
+  }, [props]);
 
   return (
-    <div id="starRating">
-      <div id="under">
-        <Outline id="star" />
-        <Outline id="star" />
-        <Outline id="star" />
-        <Outline id="star" />
-        <Outline id="star" />
+    <div
+      id="starRating"
+      style={{
+        width: '120',
+        position: 'relative',
+      }}
+    >
+      <div
+        id="under"
+        style={{
+          position: 'relative',
+          color: 'lightcoral',
+        }}
+      >
+        <Outline id="star 1" />
+        <Outline id="star 2" />
+        <Outline id="star 3" />
+        <Outline id="star 4" />
+        <Outline id="star 5" />
       </div>
       <div
         id="starSubContainer"
         style={{
           width: pxWidth,
+          position: 'absolute',
+          top: 0,
+          height: 20,
+          overflow: 'hidden',
         }}
       >
         <div
           id="over"
+          style={{
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            color: 'lightcoral',
+          }}
         >
-          <Star id="star" />
-          <Star id="star" />
-          <Star id="star" />
-          <Star id="star" />
-          <Star id="star" />
+          <Star key="star 1" />
+          <Star key="star 2" />
+          <Star key="star 3" />
+          <Star key="star 4" />
+          <Star key="star 5" />
         </div>
       </div>
     </div>

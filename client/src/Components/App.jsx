@@ -2,6 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import NavBar from './product-overview/NavBar.jsx';
 import ProductOverviewGrid from './product-overview/GridContainer/ProductOverviewGrid.jsx';
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
@@ -21,7 +22,7 @@ export default class App extends React.Component {
       currentItemId: '',
       currentItem: '',
       currentStyles: [],
-      productInfo: {},
+      currentItemInfo: [],
     };
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.handleAddOutfitClick = this.handleAddOutfitClick.bind(this);
@@ -77,56 +78,43 @@ export default class App extends React.Component {
     axios
       .get('/products/')
       .then((response) => {
-        this.setState(
-          {
-            allItems: response.data,
-            currentItemId: response.data[3].id,
-            currentItem: response.data[3],
-          },
-          () => {
-            this.getStyles();
-            this.getInfo();
-            this.getRelatedItems();
-          }
-        );
+        this.setState({
+          allItems: response.data,
+          currentItemId: response.data[0].id,
+          currentItem: response.data[0],
+        });
+      })
+      .then(() => {
+        axios
+          .get('/getImage/', {
+            params: { product_id: this.state.currentItemId },
+          })
+          .then((response) => {
+            this.setState({
+              currentStyles: response.data,
+            });
+          })
+          .catch((err) => {
+            console.log('*** get styles in app is not working! ***', err);
+          });
+      })
+      .then(() => {
+        axios
+          .get('http://localhost:1337/getProductInfo/', {
+            params: { product_id: this.state.currentItemId },
+          })
+          .then((response) => {
+            this.setState({
+              currentItemInfo: response.data,
+            });
+          })
+          .catch((error) => {
+            console.log('*** get info in app is not working! ***', error);
+          });
       })
       .catch((error) => {
         console.log(error);
       });
-  }
-
-  getStyles() {
-    if (this.state.currentItemId) {
-      axios
-        .get('/getImage/', {
-          params: { product_id: this.state.currentItemId },
-        })
-        .then((response) => {
-          this.setState({
-            currentStyles: response.data,
-          });
-        })
-        .catch((err) => {
-          console.log('*** get styles is not working! ***', err);
-        });
-    }
-  }
-
-  getInfo() {
-    if (this.state.currentItemId) {
-      axios
-        .get('/getProductInfo/', {
-          params: { product_id: this.state.currentItemId },
-        })
-        .then((response) => {
-          this.setState({
-            productInfo: response.data,
-          });
-        })
-        .catch((err) => {
-          console.log('*** get Product Info is not working! ***', err);
-        });
-    }
   }
 
   updateCurrentItem(itemId, itemObj) {
@@ -163,7 +151,7 @@ export default class App extends React.Component {
           currentItem={this.state.currentItem}
           currentItemId={this.state.currentItemId}
           currentStyles={this.state.currentStyles}
-          productInfo={this.state.productInfo}
+          currentItemInfo={this.state.currentItemInfo}
         />
         <Carousel show={3} >
           {this.state.relatedItems.map((elem, i) => (
@@ -195,8 +183,8 @@ export default class App extends React.Component {
             </div>
           ))}
         </Carousel>
-        <RatingAndReviews />
         <QAWidget />
+        <RatingAndReviews productId={this.state.currentItemId} />
       </div>
     );
   }

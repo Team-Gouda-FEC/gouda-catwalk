@@ -1,16 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Container from '@material-ui/core/Container';
 
 const Breakdown = ({ ratings }) => {
   const breakOut = ratings;
   const breakDown = Object.keys(breakOut);
   const generateBreakdown = breakDown.map((rating, index) => (
-    // eslint-disable-next-line react/no-array-index-key
-    <div key={index}>
-      {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-      <div> {rating} Star </div>
-      {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-      <div> % of {rating} stars </div>
+    <div key={index.toString()}>
+      <div>{rating} Star</div>
     </div>
   ));
 
