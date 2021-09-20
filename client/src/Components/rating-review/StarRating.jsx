@@ -23,7 +23,7 @@ const Stars = (props) => {
       } else if (num >= 12) {
         size += 12;
       } else if (num >= 6) {
-        size += 11;
+        size += 10.25;
       }
     } else if (num >= 5) {
       size = 120;
@@ -37,14 +37,14 @@ const Stars = (props) => {
       id="starRating"
       style={{
         width: '120',
-        position: 'relative'
+        position: 'relative',
       }}
     >
       <div
         id="under"
         style={{
           position: 'relative',
-          color: 'lightcoral'
+          color: 'lightcoral',
         }}
       >
         <Outline id="star 1" />
@@ -60,7 +60,7 @@ const Stars = (props) => {
           position: 'absolute',
           top: 0,
           height: 20,
-          overflow: 'hidden'
+          overflow: 'hidden',
         }}
       >
         <div
@@ -68,14 +68,14 @@ const Stars = (props) => {
           style={{
             overflow: 'hidden',
             whiteSpace: 'nowrap',
-            color: 'lightcoral'
+            color: 'lightcoral',
           }}
         >
-          <Star id="star 1" />
-          <Star id="star 2" />
-          <Star id="star 3" />
-          <Star id="star 4" />
-          <Star id="star 5" />
+          <Star key="star 1" />
+          <Star key="star 2" />
+          <Star key="star 3" />
+          <Star key="star 4" />
+          <Star key="star 5" />
         </div>
       </div>
     </div>

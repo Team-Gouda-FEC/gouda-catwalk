@@ -36,7 +36,8 @@ const ProductReview = (props) => {
   const handleRatingsBreakDown = (breakdownObj) => {
     const newBreakdown = {};
     for (let key in ratingsCount) {
-      newBreakdown[key] = breakdownObj[key] || ratingsCount[key];
+      newBreakdown[key] =
+      Number(breakdownObj[key]) || ratingsCount[key];
     }
     setRatingCount(newBreakdown);
   };
@@ -46,22 +47,25 @@ const ProductReview = (props) => {
   // };
 
   useEffect(() => {
-    const params = {
-      product_id: props.productId,
-    };
-
-    axios
-      .get('/reviews/meta', { params })
-      .then((reviewMetaData) => {
-        const rate = getRatingAverage(reviewMetaData.data.ratings);
-        setRating(rate);
-        handleRatingsBreakDown(reviewMetaData.data.ratings);
-        setPercent(getPercent(reviewMetaData.data.recommended));
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log('failed to get review meta data');
-      });
+    if (props.productId !== undefined) {
+      const params = {
+        product_id: props.productId,
+      };
+      if (props.productId) {
+        axios
+          .get('/reviews/meta', { params })
+          .then((reviewMetaData) => {
+            const rate = getRatingAverage(reviewMetaData.data.ratings);
+            setRating(rate);
+            handleRatingsBreakDown(reviewMetaData.data.ratings);
+            setPercent(getPercent(reviewMetaData.data.recommended));
+          })
+          .catch((err) => {
+            console.log(err);
+            console.log('failed to get review meta data');
+          });
+      }
+    }
   }, [props]);
 
   const getRating = () => {

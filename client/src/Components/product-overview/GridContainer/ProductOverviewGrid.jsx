@@ -41,7 +41,6 @@ export default function ProductOverviewGrid(props) {
               currentItem={props.currentItem}
               currentItemId={props.currentItemId}
               currentItemInfo={props.currentItemInfo}
-              handleUpdateCurrentItem={props.handleUpdateCurrentItem}
             />
           </Grid>
           <Grid item xs={7}>

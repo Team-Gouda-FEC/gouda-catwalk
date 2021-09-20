@@ -29,7 +29,7 @@ const StyleSelector = (props) => {
   const { currentStyles, handleUpdateCurrentItem } = props;
 
   const handleClick = (itemId, itemObj) => {
-    console.log('item clicked! ', itemId)
+    console.log('item clicked! ', itemId);
     handleUpdateCurrentItem(itemId, itemObj);
   };
 
@@ -52,9 +52,8 @@ const StyleSelector = (props) => {
             <Avatar
               alt={style.name}
               src={current.thumbnail_url}
-              sx={{ width: 100, height: 100 }}
+              sx={{ width: 56, height: 56 }}
               className={classes.large}
-              onClick={() => handleClick(style.style_id, style)}
             />
           </StyledBadge>
         );

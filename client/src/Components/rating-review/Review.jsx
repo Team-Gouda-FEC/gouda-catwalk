@@ -4,9 +4,9 @@
 import React from 'react';
 import Divider from '@material-ui/core/Divider';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
-import Stars from './starRating.jsx';
 import CheckIcon from '@material-ui/icons/Check';
 import Grid from '@material-ui/core/Grid';
+import Stars from './starRating.jsx';
 
 const months = {
   '01': 'Janurary',
@@ -54,7 +54,7 @@ const ReviewTile = (props) => {
         </Grid>
       );
     }
-  }
+  };
 
   return (
     <div>
@@ -64,7 +64,7 @@ const ReviewTile = (props) => {
         justifyContent="flex-end"
         alignItems="center"
       >
-        {getPurchaseVerification()}  {props.review.reviewer_name}, {getDate()}
+        {getPurchaseVerification()} {props.review.reviewer_name}, {getDate()}
       </Grid>
       <Stars rating={props.review.rating} />
       <h3> {props.review.summary} </h3>

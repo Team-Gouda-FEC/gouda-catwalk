@@ -7,7 +7,11 @@ const headers = { Authorization: `${process.env.API_KEY}` };
 // only grabs 5 products
 
 const getProducts = (params, callback) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/`, { params,  headers})
+  axios
+    .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/`, {
+      params,
+      headers,
+    })
     .then((response) => {
       callback(null, response.data);
     })
@@ -17,10 +21,14 @@ const getProducts = (params, callback) => {
     });
 };
 
-/*** RELATED ITEMS SECTION *****/
+/* ** RELATED ITEMS SECTION **** */
 
 const getRelatedProducts = (productId, callback) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/related`, {headers})
+  axios
+    .get(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/related`,
+      { headers }
+    )
     .then((response) => {
       callback(null, response);
     })
@@ -30,7 +38,11 @@ const getRelatedProducts = (productId, callback) => {
 };
 
 const getProdInfo = (productId, callback) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/`, {headers})
+  axios
+    .get(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/`,
+      { headers }
+    )
     .then((response) => {
       callback(null, response);
     })
@@ -40,7 +52,11 @@ const getProdInfo = (productId, callback) => {
 };
 
 const getThumbnail = (productId, callback) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/styles`, { headers})
+  axios
+    .get(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/products/${productId}/styles`,
+      { headers }
+    )
     .then((response) => {
       callback(null, response);
     })
