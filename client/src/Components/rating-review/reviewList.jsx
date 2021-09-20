@@ -27,7 +27,7 @@ const ReviewList = (props) => {
   };
 
   const moreReviewsButton = () => {
-    const element = count >= reviews.length ? '' : <MoreReviews setReviewCount={incrementCount} />
+    const element = count >= reviews.length ? <div></div> : <MoreReviews setReviewCount={incrementCount} />
     return ( element );
   };
 
@@ -36,7 +36,11 @@ const ReviewList = (props) => {
       <div style={{ maxHeight: 400, overflow: 'scroll' }}>
         {/* eslint-disable-next-line react/prop-types */}
         {getReviews().map((details, index) => (
-          <ReviewTile key={index.toString()} review={details} />
+          <ReviewTile
+            key={index.toString()}
+            review={details}
+            handleReport={props.handleReport}
+          />
         ))}
       </div>
       <div>

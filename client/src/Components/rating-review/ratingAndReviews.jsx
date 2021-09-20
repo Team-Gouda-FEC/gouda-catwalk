@@ -8,19 +8,21 @@ import ReviewList from './reviewList.jsx';
 import dummyData from './dummy_data.jsx';
 
 const RatingAndReviews = (props) => {
+  // eslint-disable-next-line react/destructuring-assignment
   const [productId, setProductId] = useState(props.productId);
   const [reviews, setReviews] = useState([]);
   const [reviewCount, setReviewCount] = useState(2);
+  const [totalReviewCount, setTotalReviewCount] = useState(0);
   const [sortOrder, setSortOrder] = useState('relevent');
 
   useEffect(() => {
-    const params = {
-      page: 1,
-      count: 5,
-      sort: sortOrder,
-      product_id: productId,
-    };
     if (productId) {
+      const params = {
+        page: 1,
+        count: totalReviewCount || reviewCount,
+        sort: sortOrder,
+        product_id: productId,
+      };
       axios
         .get('/reviews', { params })
         .then((reviewData) => {
@@ -30,11 +32,33 @@ const RatingAndReviews = (props) => {
           console.log(err);
         });
     }
-  }, [productId, sortOrder]);
+  }, [productId, sortOrder, totalReviewCount]);
 
   useEffect(() => {
     setProductId(props.productId);
   }, [props]);
+
+  // eslint-disable-next-line camelcase
+  const handleReport = (review_id) => {
+    axios
+      .put('/review/report', { reviewId: review_id })
+      .then((reportResponse) => {
+        const params = {
+          page: 1,
+          count: totalReviewCount || reviewCount,
+          sort: sortOrder,
+          product_id: productId,
+        };
+        return axios.get('/reviews', { params });
+      })
+      .then((reviewData) => {
+        // reviews don't actually get updated
+        setReviews(reviewData.data.results);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div>
@@ -47,7 +71,11 @@ const RatingAndReviews = (props) => {
       >
         <Grid item xs={3}>
           <h2> Ratings Reviews </h2>
-          <ProductReview productId={productId} />
+          <ProductReview
+            productId={productId}
+            setMoreReviews={setTotalReviewCount}
+            totalReviewCount={totalReviewCount}
+          />
         </Grid>
 
         <Grid item xs={8}>
@@ -67,6 +95,7 @@ const RatingAndReviews = (props) => {
               reviews={reviews}
               count={reviewCount}
               setReviewCount={setReviewCount}
+              handleReport={handleReport}
             />
           </Grid>
         </Grid>

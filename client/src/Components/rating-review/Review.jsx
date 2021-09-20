@@ -6,6 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import CheckIcon from '@material-ui/icons/Check';
 import Grid from '@material-ui/core/Grid';
+import Modal from '@material-ui/core/Modal';
 import Stars from './starRating.jsx';
 
 const months = {
@@ -45,15 +46,37 @@ const ReviewTile = (props) => {
     if (props.review.recommend) {
       return (
         <Grid
-          container
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="center"
+        container
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="center"
         >
           <CheckIcon fontSize="small" /> <div>I recommend this product</div>
         </Grid>
       );
     }
+  };
+
+  const getHelpfulness = () => (
+    <Grid
+    container
+    direction="row"
+    justifyContent="flex-start"
+    alignItems="center"
+    style={{ margin: '1em 0' }}
+    >
+      <Grid item style={{ fontSize: '.7em' }}>
+        Helpful? <u>Yes</u> ({props.review.helpfulness}) |
+        <u style={{marginLeft: ".25em"}} onClick={handleClick} id={props.review.review_id}>
+          Report
+        </u>
+      </Grid>
+    </Grid>
+  );
+
+  const handleClick = (event) => {
+    console.log(event.target);
+    props.handleReport(event.target.id);
   };
 
   return (
@@ -70,6 +93,7 @@ const ReviewTile = (props) => {
       <h3> {props.review.summary} </h3>
       <p> {props.review.body}</p>
       {getUserRecommendation()}
+      {getHelpfulness()}
       <Divider />
       <br />
     </div>

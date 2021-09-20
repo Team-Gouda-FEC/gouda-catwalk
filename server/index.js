@@ -201,3 +201,13 @@ app.get('/reviews/meta', (req, res) => {
     }
   });
 });
+
+app.put('/review/report', (req, res) => {
+  apiFn.reportReview(req.body.reviewId, (err, apiRes) => {
+    if (err) {
+      res.status(500).send('Error getting reviews meta data');
+    } else {
+      res.send(apiRes.data);
+    }
+  });
+});

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Grid from '@material-ui/core/Grid';
 import Stars from './starRating.jsx';
 import Breakdown from './ratingBreakdown.jsx';
 
@@ -13,6 +14,12 @@ const ProductReview = (props) => {
     2: 0,
     1: 0,
   });
+
+  const setReviewCount = (recObj) => {
+    const positiveCount = Number(recObj.true);
+    const negativeCount = Number(recObj.false);
+    props.setMoreReviews(positiveCount + negativeCount);
+  };
 
   const getPercent = (recObj) => {
     const positiveCount = Number(recObj.true);
@@ -58,6 +65,7 @@ const ProductReview = (props) => {
             const rate = getRatingAverage(reviewMetaData.data.ratings);
             setRating(rate);
             handleRatingsBreakDown(reviewMetaData.data.ratings);
+            setReviewCount(reviewMetaData.data.recommended);
             setPercent(getPercent(reviewMetaData.data.recommended));
           })
           .catch((err) => {
@@ -73,12 +81,31 @@ const ProductReview = (props) => {
   };
 
   return (
-    <div>
-      <h1> {rating} </h1>
-      <Stars rating={rating} />
+    <Grid
+      container
+      direction="column"
+      justifyContent="flex-start"
+      alignItems="flex-start"
+    >
+      <Grid
+        container
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        style={{ height: '60px', boxSizing: 'border-box' }}
+      >
+        <Grid item>
+          <b style={{ height: '40px', fontSize: '3em' }}>{rating}</b>
+        </Grid>
+        <Grid item>
+          <div style={{ paddingLeft: '25px' }}>
+            <Stars rating={rating} />
+          </div>
+        </Grid>
+      </Grid>
       <p> {recommendationPercent}% of reviews recommend this product</p>
-      <Breakdown ratings={ratingsCount} />
-    </div>
+      <Breakdown ratings={ratingsCount} reviewCount={props.totalReviewCount}/>
+    </Grid>
   );
 };
 

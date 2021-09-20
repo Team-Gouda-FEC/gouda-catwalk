@@ -216,6 +216,22 @@ const getReviewsMeta = (params, callback) => {
       callback(err, null);
     });
 };
+
+const reportReview = (reviewId, callback) => {
+  axios
+    .put(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${reviewId}/report`,
+      {},
+      { headers }
+    )
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
+};
+
 /* **** CART SECTION **** */
 
 /* **** INTERACTIONS SECTION **** */
@@ -235,4 +251,5 @@ module.exports = {
   reportAnswer,
   getReviews,
   getReviewsMeta,
+  reportReview,
 };
