@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import './qaWidget.css';
 import SearchBar from './SearchBar.jsx';
-import QuestionsList from './QuestionsList.jsx';
+import QuestionsListAccordian from './QuestionsListAccordian.jsx';
+import ButtonGroup from './ButtonGroup.jsx';
 
 export default class QAWidget extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class QAWidget extends React.Component {
       questionsList: [],
       // eslint-disable-next-line react/no-unused-state
       searchValue: '',
+      currentProduct: 38326,
     };
     this.handleSearchValue = this.handleSearchValue.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
@@ -51,11 +53,13 @@ export default class QAWidget extends React.Component {
     filteredSearch(searchValue);
   }
 
+  // TODO: Need to have this grab the current product_id from product overview
   getQuestions() {
+    const { currentProduct } = this.state;
     axios
       .get('/getQuestions', {
         params: {
-          product_id: 38326,
+          product_id: currentProduct,
           page: 1,
           count: 5,
         },
@@ -75,21 +79,11 @@ export default class QAWidget extends React.Component {
     const { questionsList } = this.state;
     return (
       <div className="qa-container">
-        <div className="search-bar">
-          <SearchBar
-            questionSearch={this.handleSearchValue}
-            submission={this.handleSearchSubmit}
-          />
-        </div>
+        <SearchBar />
         <div className="qa-accordian">
-          <QuestionsList questionsList={questionsList} />
+          <QuestionsListAccordian questionsList={questionsList} />
         </div>
-        <button type="button" className="more-questions">
-          More Answered Questions
-        </button>
-        <button type="button" className="add-question">
-          Add a Question
-        </button>
+        <ButtonGroup />
       </div>
     );
   }
