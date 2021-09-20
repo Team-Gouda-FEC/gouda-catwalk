@@ -2,9 +2,7 @@
 import React, { useEffect, useStyles, useState } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-
 import Grid from '@material-ui/core/Grid';
-
 import Carousel from './Carousel.jsx';
 
 export default function ImageGalleryComponent(props) {

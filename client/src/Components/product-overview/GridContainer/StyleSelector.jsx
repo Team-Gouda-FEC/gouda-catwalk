@@ -26,8 +26,15 @@ const StyledBadge = withStyles((theme) => ({
 
 const StyleSelector = (props) => {
   const classes = useStyles();
-  const { currentStyles } = props;
+  const { currentStyles, handleUpdateCurrentItem } = props;
+
+  const handleClick = (itemId, itemObj) => {
+    console.log('item clicked! ', itemId)
+    handleUpdateCurrentItem(itemId, itemObj);
+  };
+
   if (currentStyles.length > 0) {
+    console.log();
     return currentStyles.map((style) => {
       for (let i = 0; i < style.photos.length; i += 1) {
         const current = style.photos[i];
@@ -45,8 +52,9 @@ const StyleSelector = (props) => {
             <Avatar
               alt={style.name}
               src={current.thumbnail_url}
-              sx={{ width: 56, height: 56 }}
+              sx={{ width: 100, height: 100 }}
               className={classes.large}
+              onClick={() => handleClick(style.style_id, style)}
             />
           </StyledBadge>
         );

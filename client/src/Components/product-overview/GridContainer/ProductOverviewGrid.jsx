@@ -30,7 +30,6 @@ export default function ProductOverviewGrid(props) {
         >
           <Grid className="carousel" item xs={7}>
             <ImageGalleryComponent
-              handleUpdateCurrentItem={props.handleUpdateCurrentItem}
               allItems={props.allItems}
               currentItem={props.currentItem}
               currentStyles={props.currentStyles}
@@ -42,6 +41,7 @@ export default function ProductOverviewGrid(props) {
               currentItem={props.currentItem}
               currentItemId={props.currentItemId}
               currentItemInfo={props.currentItemInfo}
+              handleUpdateCurrentItem={props.handleUpdateCurrentItem}
             />
           </Grid>
           <Grid item xs={7}>
