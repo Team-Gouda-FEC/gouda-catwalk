@@ -8,7 +8,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: 460,
   },
   media: {
     height: 150,
@@ -21,7 +21,7 @@ const AddOutfitCard = (props) => {
 
   return (
     <div>
-      <Card>
+      <Card className={classes.root}>
         <CardContent>
           <AddCircleOutlineIcon onClick={() => { props.onClick(prodId)}}/>
           The current product id is: {prodId}

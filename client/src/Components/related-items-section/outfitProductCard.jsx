@@ -7,11 +7,14 @@ import axios from 'axios';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 400,
+    maxWidth: 460,
   },
   media: {
     height: 200,
   },
+  button: {
+    zIndex: 1,
+  }
 });
 
 const OutfitProductCard = (props) => {
@@ -46,12 +49,13 @@ const OutfitProductCard = (props) => {
     getImage();
   }, []);
 
-  return productInfo && (
+  return productInfo && productImage && (
     <div>
-      <Card>
+      <Card className={classes.root}>
         <CardContent>
-          <RemoveOutfitButton onClick={() => { props.onClick(prodId) }} />
-          <CardMedia className={classes.media} image={productImage || "https://via.placeholder.com/300x300"} />
+          <CardMedia className={classes.media} image={productImage || "https://via.placeholder.com/300x300"}>
+            <RemoveOutfitButton onClick={props.onClick} prodId={prodId} />
+          </CardMedia>
           <Typography variant="body1"> {productInfo.category} </Typography>
           <Typography variant="body1" style={{ fontWeight: 600 }}>{productInfo.name} </Typography>
           <Typography variant="body1">{productInfo.default_price} </Typography>

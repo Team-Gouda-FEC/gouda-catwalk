@@ -30,7 +30,6 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.getAllProducts();
-    this.getRelatedItems();
   }
 
   handleAddOutfitClick(productId) {
@@ -39,9 +38,8 @@ export default class App extends React.Component {
       currentOutfits.push(this.state.yourOutfits[i]);
     }
     if (!this.state.yourOutfits.includes(productId)) {
-      console.log('add');
       this.setState({
-        yourOutfits: [...currentOutfits],
+        yourOutfits: [...currentOutfits, productId],
       });
     }
   }
@@ -54,19 +52,21 @@ export default class App extends React.Component {
       }
     }
     this.setState({
-      yourOutfits: [...currentOutfits, productId],
+      yourOutfits: [...currentOutfits],
     });
+    console.log(currentOutfits);
   }
 
   getRelatedItems() {
     axios
       .get('/relatedproducts/', {
-        params: { product_id: 38325 },
+        params: { product_id: this.state.currentItemId },
       })
       .then((response) => {
         this.setState({
           relatedItems: response.data,
-        });
+        },
+        );
       })
       .catch((error) => {
         console.log(error);
@@ -86,6 +86,7 @@ export default class App extends React.Component {
           () => {
             this.getStyles();
             this.getInfo();
+            this.getRelatedItems();
           }
         );
       })
@@ -129,14 +130,19 @@ export default class App extends React.Component {
   }
 
   updateCurrentItem(itemId, itemObj) {
-    this.setState({
-      currentItemId: itemId,
-      currentItem: itemObj,
-    });
+    this.setState(
+      {
+        currentItemId: itemId,
+        currentItem: itemObj,
+      },
+      () => {
+        this.getRelatedItems();
+      }
+    );
   }
 
   render() {
-    return (
+    return this.state.yourOutfits && (
       <div
         className="App"
         style={{
@@ -159,7 +165,7 @@ export default class App extends React.Component {
           currentStyles={this.state.currentStyles}
           productInfo={this.state.productInfo}
         />
-        <Carousel show={3}>
+        <Carousel show={3} >
           {this.state.relatedItems.map((elem, i) => (
             <div key={i}>
               <div style={{ padding: 8 }}>
@@ -168,7 +174,7 @@ export default class App extends React.Component {
             </div>
           ))}
         </Carousel>
-        <Carousel show={3}>
+        <Carousel show={3} >
           <div>
             <div style={{ padding: 8 }}>
               <AddOutfitCard

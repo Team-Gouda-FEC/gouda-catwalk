@@ -13,6 +13,9 @@ const useStyles = makeStyles({
   media: {
     height: 200,
   },
+  button: {
+    zIndex: 1,
+   }
 });
 
 const RelatedProductCard = (props) => {
@@ -107,8 +110,10 @@ const RelatedProductCard = (props) => {
     <div>
       <Card>
         <CardContent>
-          <AnimatedModal columns={columns} rows={rows} />
-          <CardMedia className={classes.media} image={productImage || "https://via.placeholder.com/300x300"} />
+          <CardMedia className={classes.media} image={productImage || "https://via.placeholder.com/300x300"}>
+            <AnimatedModal className={classes.button} columns={columns} rows={rows} />
+          </CardMedia>
+
           <Typography variant="body1"> {productInfo.category} </Typography>
           <Typography variant="body1" style={{ fontWeight: 600 }}>{productInfo.name} </Typography>
           <Typography variant="body1">{productInfo.default_price} </Typography>
