@@ -71,21 +71,6 @@ const RelatedProductCard = (props) => {
     return <AnimatedModal />;
   }
 
-<<<<<<< HEAD
-  return productInfo && (
-    <div>
-      <Card>
-        <CardContent>
-          <AnimatedModal onClick={() => { handleCompareClick() }} />
-          <CardMedia className={classes.media} image={productImage || "https://via.placeholder.com/300x300"} />
-          <Typography variant="body1"> {productInfo.category} </Typography>
-          <Typography variant="body1" style={{ fontWeight: 600 }}>{productInfo.name} </Typography>
-          <Typography variant="body1">{productInfo.default_price} </Typography>
-        </CardContent>
-        <Stars rating={2.5} />
-      </Card>
-    </div>
-=======
   return (
     productInfo && (
       <div>
@@ -112,7 +97,6 @@ const RelatedProductCard = (props) => {
         </Card>
       </div>
     )
->>>>>>> master
   );
 };
 

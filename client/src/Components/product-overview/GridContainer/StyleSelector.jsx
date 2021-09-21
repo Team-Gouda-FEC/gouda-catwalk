@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -25,21 +26,30 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const StyleSelector = (props) => {
+  console.log('props in style selector!: ', props);
   const classes = useStyles();
-  const { currentStyles, handleUpdateCurrentItem } = props;
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const { currentStylesObj, handleUpdateCarousel } = props;
 
-  const handleClick = (itemId, itemObj) => {
-    console.log('item clicked! ', itemId);
-    handleUpdateCurrentItem(itemId, itemObj);
+  const handleClick = (index) => {
+    console.log('handleClick on syle selector: ', index);
+    setCurrentIndex(index);
+    handleUpdateCarousel(index);
   };
 
-  if (currentStyles.length > 0) {
-    console.log();
-    return currentStyles.map((style) => {
-      for (let i = 0; i < style.photos.length; i += 1) {
-        const current = style.photos[i];
-        return (
+  if (currentStylesObj.results) {
+    return (
+      <div>
+        <Grid container item xs={12}>
+          <Typography>
+            Style
+            {' > '}
+            {currentStylesObj.results[0].name}
+          </Typography>
+        </Grid>
+        {currentStylesObj.results.map((style, index) => (
           <StyledBadge
+            key={index}
             overlap="circular"
             anchorOrigin={{
               vertical: 'top',
@@ -47,18 +57,20 @@ const StyleSelector = (props) => {
             }}
             badgeContent={4}
             variant="dot"
-            key={style.style_id}
           >
             <Avatar
-              alt={style.name}
-              src={current.thumbnail_url}
-              sx={{ width: 56, height: 56 }}
+              alt="name"
+              src={style.photos[0].thumbnail_url}
+              sx={{ width: 64, height: 64 }}
               className={classes.large}
+              onClick={() => {
+                handleClick(index);
+              }}
             />
           </StyledBadge>
-        );
-      }
-    });
+        ))}
+      </div>
+    );
   }
   return <CircularProgress />;
 };

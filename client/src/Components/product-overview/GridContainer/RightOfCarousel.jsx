@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -31,9 +30,6 @@ const useStyles = makeStyles((theme) => ({
     margin: 15,
     minWidth: 100,
   },
-  button: {
-    margin: theme.spacing(2),
-  },
   root2: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -54,9 +50,19 @@ const useStyles = makeStyles((theme) => ({
 
 function RightOfCarousel(props) {
   const classes = useStyles();
+  console.log('props in right of carousel: ', props);
+  const {
+    currentStylesObj,
+    currentItemStyles,
+    currentItem,
+    currentItemId,
+    currentItemInfo,
+    handleUpdateCarousel,
+  } = props;
 
   const [size, setSize] = useState();
   const [quantity, setQuantity] = useState();
+  const [styleIndex, setCurrentStyle] = useState();
 
   const handleSizeChange = (event) => {
     setSize(event.target.value);
@@ -66,88 +72,85 @@ function RightOfCarousel(props) {
     setQuantity(event.target.value);
   };
 
-  if (props.currentItemInfo.features && props.currentStyles.results) {
+  const handleUpdateCurrentStyle = (event) => {
+    console.log('handle update style: ', event.target.value);
+    setCurrentStyle(event.target.value);
+    handleUpdateCarousel(event.target.value);
+  };
+
+  if (currentItemInfo) {
     return (
       <div className={classes.root}>
         <Grid container elevation={0} className={classes.root}>
           <Grid item xs={12}>
             <Stars />
             <Typography variant="subtitle2">Read all reviews</Typography>
-            <Typography variant="body2">
-              {props.currentItem.category}
-            </Typography>
-            <Typography variant="h3">{props.currentItem.name}</Typography>
+            <Typography variant="body2">{currentItem.category}</Typography>
+            <Typography variant="h3">{currentItem.name}</Typography>
             <Typography variant="subtitle2">
-              $ {props.currentItem.default_price}
+              $ {currentItem.default_price}
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <div className={classes.root2}>
-              <Grid container>
-                {props.currentStyles.results.map((style) => {
-                  <Grid container item xs={12}>
-                    <Typography>
-                      Style
-                      {'>'}
-                      {style.name}
-                    </Typography>
-                  </Grid>;
-                })}
-                <Grid container item xs={12}>
-                  <StyleSelector currentStyles={props.currentStyles.results} />
-                </Grid>
+              <Grid container item xs={12}>
+                <StyleSelector
+                  currentStylesObj={currentStylesObj}
+                  handleUpdateCurrentStyle={handleUpdateCurrentStyle}
+                  handleUpdateCarousel={handleUpdateCarousel}
+                />
               </Grid>
             </div>
-            <>
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl
-                  className={classes.formControlSize}
-                  variant="outlined"
-                >
-                  <InputLabel id="Select Size">Select Size</InputLabel>
-                  <Select
-                    id="select-size"
-                    value={10}
-                    label="Select Size"
-                    onChange={handleSizeChange}
-                  >
-                    <MenuItem value={10}>Small</MenuItem>
-                    <MenuItem value={20}>Medium</MenuItem>
-                    <MenuItem value={30}>Large</MenuItem>
-                  </Select>
-                </FormControl>
-                <FormControl
-                  className={classes.formControlQuantity}
-                  variant="outlined"
-                >
-                  <InputLabel id="Select Quantity">Quantity</InputLabel>
-                  <Select
-                    id="select-quantity"
-                    value={1}
-                    label="Select Quantity"
-                    onChange={handleQuantityChange}
-                  >
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    <MenuItem value={4}>4</MenuItem>
-                    <MenuItem value={5}>5</MenuItem>
-                    <MenuItem value={6}>6</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-              <Button variant="outlined" color="primary" endIcon={<AddIcon />}>
-                ADD TO BAG
-              </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                size="large"
-                className={classes.button}
-                startIcon={<StarBorderIcon />}
-              />
-            </>
           </Grid>
+          <>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl
+                className={classes.formControlSize}
+                variant="outlined"
+              >
+                <InputLabel id="Select Size">Select Size</InputLabel>
+                <Select
+                  id="select-size"
+                  value={10}
+                  label="Select Size"
+                  onChange={handleSizeChange}
+                >
+                  <MenuItem value={10}>Small</MenuItem>
+                  <MenuItem value={20}>Medium</MenuItem>
+                  <MenuItem value={30}>Large</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl
+                className={classes.formControlQuantity}
+                variant="outlined"
+              >
+                <InputLabel id="Select Quantity">Quantity</InputLabel>
+                <Select
+                  id="select-quantity"
+                  value={1}
+                  label="Select Quantity"
+                  onChange={handleQuantityChange}
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                  <MenuItem value={5}>5</MenuItem>
+                  <MenuItem value={6}>6</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            <Button variant="outlined" color="primary" endIcon={<AddIcon />}>
+              ADD TO BAG
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              size="large"
+              className={classes.button}
+              startIcon={<StarBorderIcon />}
+            />
+          </>
         </Grid>
       </div>
     );
