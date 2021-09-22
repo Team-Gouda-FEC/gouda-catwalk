@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,7 +28,7 @@ export default function ProductOverviewGrid(props) {
 
   function getProductInfo() {
     axios
-      .get('http://localhost:1337/getProductInfo/', {
+      .get('/getProductInfo/', {
         params: { product_id: currentItemId },
       })
       .then((response) => {
@@ -91,11 +90,9 @@ export default function ProductOverviewGrid(props) {
             <Grid className="Product Information" item xs={5}>
               <RightOfCarousel
                 currentStylesObj={currentStylesObj}
-                currentItemStyles={currentStylesObj.results}
                 handleUpdateCurrentItem={handleUpdateCurrentItem}
                 handleUpdateCarousel={handleUpdateCarousel.bind(this)}
                 currentItem={currentItem}
-                currentItemId={currentItemId}
                 currentItemInfo={currentItemInfo}
               />
             </Grid>

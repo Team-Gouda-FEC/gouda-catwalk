@@ -26,13 +26,11 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const StyleSelector = (props) => {
-  console.log('props in style selector!: ', props);
   const classes = useStyles();
   const [currentIndex, setCurrentIndex] = useState(0);
   const { currentStylesObj, handleUpdateCarousel } = props;
 
   const handleClick = (index) => {
-    console.log('handleClick on syle selector: ', index);
     setCurrentIndex(index);
     handleUpdateCarousel(index);
   };
@@ -40,11 +38,11 @@ const StyleSelector = (props) => {
   if (currentStylesObj.results) {
     return (
       <div>
-        <Grid container item xs={12}>
+        <Grid container item xs={8}>
           <Typography>
             Style
             {' > '}
-            {currentStylesObj.results[0].name}
+            {currentStylesObj.results[currentIndex].name}
           </Typography>
         </Grid>
         {currentStylesObj.results.map((style, index) => (

@@ -40,25 +40,3 @@ export default function Carousel(props) {
   }
   return <CircularProgress />;
 }
-// currentItemStyles[currentIndex].photos.map((style) => {
-//   console.log('styles in style selector map', style);
-//   return (
-//     <StyledBadge
-//       key={style.name}
-//       overlap="circular"
-//       anchorOrigin={{
-//         vertical: 'top',
-//         horizontal: 'right',
-//       }}
-//       badgeContent={4}
-//       variant="dot"
-//     >
-//       <Avatar
-//         alt={style.name}
-//         src={style.thumbnail_url}
-//         sx={{ width: 56, height: 56 }}
-//         className={classes.large}
-//       />
-//     </StyledBadge>
-//   );
-// })}

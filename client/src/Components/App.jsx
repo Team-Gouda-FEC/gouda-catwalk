@@ -21,9 +21,6 @@ export default class App extends React.Component {
       allItems: [],
       currentItemId: '',
       currentItem: '',
-      currentStyleId: '',
-      currentStyles: [],
-      currentItemInfo: [],
     };
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.handleAddOutfitClick = this.handleAddOutfitClick.bind(this);

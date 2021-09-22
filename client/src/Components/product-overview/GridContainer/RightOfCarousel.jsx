@@ -13,6 +13,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
+import AddToCart from './AddToCart.jsx';
 import Stars from '../../rating-review/StarRating.jsx';
 import StyleSelector from './StyleSelector.jsx';
 
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     width: '100%',
     margin: 15,
+    minWidth: 100,
   },
   formControlSize: {
     margin: theme.spacing(2),
@@ -50,30 +52,16 @@ const useStyles = makeStyles((theme) => ({
 
 function RightOfCarousel(props) {
   const classes = useStyles();
-  console.log('props in right of carousel: ', props);
   const {
     currentStylesObj,
-    currentItemStyles,
     currentItem,
-    currentItemId,
     currentItemInfo,
     handleUpdateCarousel,
   } = props;
 
-  const [size, setSize] = useState();
-  const [quantity, setQuantity] = useState();
   const [styleIndex, setCurrentStyle] = useState();
 
-  const handleSizeChange = (event) => {
-    setSize(event.target.value);
-  };
-
-  const handleQuantityChange = (event) => {
-    setQuantity(event.target.value);
-  };
-
   const handleUpdateCurrentStyle = (event) => {
-    console.log('handle update style: ', event.target.value);
     setCurrentStyle(event.target.value);
     handleUpdateCarousel(event.target.value);
   };
@@ -103,53 +91,7 @@ function RightOfCarousel(props) {
             </div>
           </Grid>
           <>
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl
-                className={classes.formControlSize}
-                variant="outlined"
-              >
-                <InputLabel id="Select Size">Select Size</InputLabel>
-                <Select
-                  id="select-size"
-                  value={10}
-                  label="Select Size"
-                  onChange={handleSizeChange}
-                >
-                  <MenuItem value={10}>Small</MenuItem>
-                  <MenuItem value={20}>Medium</MenuItem>
-                  <MenuItem value={30}>Large</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl
-                className={classes.formControlQuantity}
-                variant="outlined"
-              >
-                <InputLabel id="Select Quantity">Quantity</InputLabel>
-                <Select
-                  id="select-quantity"
-                  value={1}
-                  label="Select Quantity"
-                  onChange={handleQuantityChange}
-                >
-                  <MenuItem value={1}>1</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
-                  <MenuItem value={5}>5</MenuItem>
-                  <MenuItem value={6}>6</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            <Button variant="outlined" color="primary" endIcon={<AddIcon />}>
-              ADD TO BAG
-            </Button>
-            <Button
-              variant="outlined"
-              color="primary"
-              size="large"
-              className={classes.button}
-              startIcon={<StarBorderIcon />}
-            />
+            <AddToCart currentStylesObj={currentStylesObj} />
           </>
         </Grid>
       </div>
