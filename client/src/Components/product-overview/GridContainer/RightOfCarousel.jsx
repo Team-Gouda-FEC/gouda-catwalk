@@ -68,9 +68,6 @@ function RightOfCarousel(props) {
   };
 
   if (currentItemInfo) {
-    {
-      console.log('** props in Right of carousel: ', props);
-    }
     return (
       <div className={classes.root}>
         <Grid container elevation={0} className={classes.root}>

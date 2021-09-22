@@ -86,7 +86,6 @@ export default function ProductOverviewGrid(props) {
               />
             </Grid>
             <Grid className="Product Information" item xs={5}>
-              {console.log('props in ProdOverviewGrid: ', props)}
               <RightOfCarousel
                 currentStylesObj={currentStylesObj}
                 handleUpdateCarousel={handleUpdateCarousel.bind(this)}

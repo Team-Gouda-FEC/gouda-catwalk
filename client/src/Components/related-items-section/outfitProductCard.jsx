@@ -63,10 +63,10 @@ const OutfitProductCard = (props) => {
 
   useEffect(() => {
     getProductInfo();
-  }, []);
+  }, [prodId]);
   useEffect(() => {
     getImage();
-  }, []);
+  }, [prodId]);
 
   return productInfo && productImage && (
     <div>

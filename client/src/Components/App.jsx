@@ -149,13 +149,14 @@ export default class App extends React.Component {
               <div style={{ padding: 8 }}>
                 <AddOutfitCard
                   productId={this.state.currentItemId}
-                  onClick={this.handleAddOutfitClick}
+                  handleAddOutfitClick={this.handleAddOutfitClick}
                 />
               </div>
             </div>
             {this.state.yourOutfits.map((elem, i) => (
               <div key={i}>
                 <div style={{ padding: 8 }}>
+                  {console.log('*** map! *** ', elem)}
                   <OutfitProductCard key={i} productId={elem} />
                 </div>
               </div>

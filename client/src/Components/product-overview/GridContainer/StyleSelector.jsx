@@ -36,9 +36,6 @@ const StyleSelector = (props) => {
   };
 
   if (currentStyles.results) {
-    {
-      console.log('*** props in styleSelector: ', props);
-    }
     return (
       <div>
         <Grid container item xs={8}>
