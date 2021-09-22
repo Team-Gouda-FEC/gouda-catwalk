@@ -66,6 +66,7 @@ const ProductReview = (props) => {
           .then((reviewMetaData) => {
             const rate = getRatingAverage(reviewMetaData.data.ratings);
             setRating(rate);
+            props.handleProductRatingChange(rate);
             handleRatingsBreakDown(reviewMetaData.data.ratings);
             setReviewCount(reviewMetaData.data.recommended);
             setPercent(getPercent(reviewMetaData.data.recommended));
@@ -110,7 +111,7 @@ const ProductReview = (props) => {
         </Grid>
       </Grid>
       <p> {recommendationPercent}% of reviews recommend this product</p>
-      <Breakdown ratings={ratingsCount} reviewCount={props.totalReviewCount}/>
+      <Breakdown ratings={ratingsCount} reviewCount={props.totalReviewCount} />
     </Grid>
   );
 };

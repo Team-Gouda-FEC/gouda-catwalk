@@ -28,12 +28,9 @@ const RatingAndReviews = (props) => {
       axios
         .get('/reviews', { params })
         .then((reviewData) => {
-          console.log('we good');
           setReviews(reviewData.data.results);
         })
         .catch((err) => {
-          console.log('fuj');
-          console.log(params);
           console.log(err);
         });
     }
@@ -83,6 +80,8 @@ const RatingAndReviews = (props) => {
             productId={productId}
             setMoreReviews={setTotalReviewCount}
             totalReviewCount={totalReviewCount}
+            // eslint-disable-next-line react/destructuring-assignment
+            handleProductRatingChange={props.handleProductRatingChange}
           />
         </Grid>
 
