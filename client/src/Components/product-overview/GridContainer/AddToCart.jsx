@@ -46,7 +46,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddToCart = function (props) {
+<<<<<<< HEAD
   console.debug(props);
+=======
+  // console.debug(props);
+>>>>>>> dbb39428fbb91c3f8957ae859ae5ca99784344d2
   const classes = useStyles();
   const { currentStylesObj } = props;
   const [size, setSize] = useState();

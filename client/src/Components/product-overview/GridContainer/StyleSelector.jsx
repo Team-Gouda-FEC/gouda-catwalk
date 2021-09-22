@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -26,13 +27,27 @@ const StyledBadge = withStyles((theme) => ({
 
 const StyleSelector = (props) => {
   const classes = useStyles();
-  const { currentStyles } = props;
-  if (currentStyles.length > 0) {
-    return currentStyles.map((style) => {
-      for (let i = 0; i < style.photos.length; i += 1) {
-        const current = style.photos[i];
-        return (
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const { currentStylesObj, handleUpdateCarousel } = props;
+
+  const handleClick = (index) => {
+    setCurrentIndex(index);
+    handleUpdateCarousel(index);
+  };
+
+  if (currentStylesObj.results) {
+    return (
+      <div>
+        <Grid container item xs={8}>
+          <Typography>
+            Style
+            {' > '}
+            {currentStylesObj.results[currentIndex].name}
+          </Typography>
+        </Grid>
+        {currentStylesObj.results.map((style, index) => (
           <StyledBadge
+            key={index}
             overlap="circular"
             anchorOrigin={{
               vertical: 'top',
@@ -40,18 +55,20 @@ const StyleSelector = (props) => {
             }}
             badgeContent={4}
             variant="dot"
-            key={style.style_id}
           >
             <Avatar
-              alt={style.name}
-              src={current.thumbnail_url}
-              sx={{ width: 56, height: 56 }}
+              alt="name"
+              src={style.photos[0].thumbnail_url}
+              sx={{ width: 64, height: 64 }}
               className={classes.large}
+              onClick={() => {
+                handleClick(index);
+              }}
             />
           </StyledBadge>
-        );
-      }
-    });
+        ))}
+      </div>
+    );
   }
   return <CircularProgress />;
 };

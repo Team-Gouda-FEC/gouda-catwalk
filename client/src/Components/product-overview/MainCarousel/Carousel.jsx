@@ -1,79 +1,42 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-plusplus */
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import ImageGallery from 'react-image-gallery';
 import '../../../../../node_modules/react-image-gallery/styles/css/image-gallery.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default class Carousel extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      state: false,
-    };
-    this.onScreenChange = this.onScreenChange.bind(this);
-    this.onPause = this.onPause.bind(this);
-    this.onSlide = this.onSlide.bind(this);
-    this.onImageClick = this.onImageClick.bind(this);
+export default function Carousel(props) {
+  const { images } = props;
+  const [currentIndex, setCurrentIndex] = useState([]);
+
+  function onImageClick(index) {
+    setCurrentIndex(index);
   }
 
-  onImageClick(event) {
-    console.debug(
-      'clicked on image',
-      event.target,
-      'at index',
-      this.imageGallery.getCurrentIndex()
-    );
-  }
-
-  onScreenChange(fullScreenElement) {
+  function onScreenChange(fullScreenElement) {
     console.debug('isFullScreen?', !!fullScreenElement);
   }
 
-  onPause(index) {
-    console.debug('paused on index', index);
+  function onSlide(index) {
+    setCurrentIndex(index);
   }
 
-  onSlide(index) {
-    console.debug('slid to index', index);
-  }
-
-  getStaticImages() {
-    const images = [];
-    for (let i = 0; i < this.props.currentStyles.results.length; i++) {
-      const style = this.props.currentStyles.results[i];
-      images.push({
-        original: style.photos[0].url,
-        thumbnail: style.photos[0].thumbnail_url,
-        originalHeight: 500,
-        originalWidth: 500,
-      });
-    }
-    return images;
-  }
-
-  render() {
-    if (this.props.currentStyles.length === 0) {
-      return <CircularProgress />;
-    }
+  if (images.length !== 0) {
     return (
       <>
         <ImageGallery
-          items={this.getStaticImages()}
-          ref={(i) => (this.imageGallery = i)}
-          onClick={() => this.onImageClick}
-          onImageLoad={this.onImageLoad}
+          items={images}
           useBrowserFullscreen={false}
-          onSlide={this.onSlide}
-          onScreenChange={this.onScreenChange}
           showPlayButton={false}
           thumbnailPosition="left"
           slideOnThumbnailOver={false}
-          additionalClass="app-image-gallery"
-          onErrorImageURL="https://via.placeholder.com/300x300"
+          ref={(i) => setCurrentIndex(i)}
+          onClick={(i) => onImageClick(i)}
+          onSlide={(i) => {
+            onSlide(i);
+          }}
         />
       </>
     );
   }
+  return <CircularProgress />;
 }

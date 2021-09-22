@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -17,9 +16,10 @@ const useStyles = makeStyles(() => ({
 
 export default function ProductBlurbs(props) {
   const classes = useStyles();
+  const { currentItemInfo } = props;
 
-  if (props.currentItemInfo.features) {
-    return props.currentItemInfo.features.map((feature) => (
+  if (currentItemInfo.features) {
+    return currentItemInfo.features.map((feature) => (
       <Grid
         container
         elevation={0}
