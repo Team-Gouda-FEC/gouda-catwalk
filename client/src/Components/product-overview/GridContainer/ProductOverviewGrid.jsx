@@ -19,8 +19,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductOverviewGrid(props) {
   const classes = useStyles();
-  const { currentItemId, handleUpdateCurrentItem, allItems, currentItem } =
-    props;
+  const {
+    currentItemId,
+    handleUpdateCurrentItem,
+    allItems,
+    currentItem,
+    productRating,
+  } = props;
   const [currentStylesObj, setCurrentStyleObj] = useState('');
   const [currentStyleId, setCurrentStyleId] = useState('');
   const [currentItemInfo, setCurrentItemInfo] = useState('');
@@ -94,6 +99,7 @@ export default function ProductOverviewGrid(props) {
                 handleUpdateCarousel={handleUpdateCarousel.bind(this)}
                 currentItem={currentItem}
                 currentItemInfo={currentItemInfo}
+                productRating={productRating}
               />
             </Grid>
             <Grid item xs={7}>

@@ -30,7 +30,6 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.getAllProducts();
-    this.getRelatedItems();
   }
 
   handleAddOutfitClick(productId) {
@@ -62,21 +61,6 @@ export default class App extends React.Component {
     });
   }
 
-  getRelatedItems() {
-    axios
-      .get('/relatedproducts/', {
-        params: { product_id: 38325 },
-      })
-      .then((response) => {
-        this.setState({
-          relatedItems: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
   getAllProducts() {
     axios
       .get('/products/')
@@ -86,6 +70,20 @@ export default class App extends React.Component {
           currentItemId: response.data[0].id,
           currentItem: response.data[0],
         });
+      })
+      .then(() => {
+        axios
+          .get('/relatedproducts/', {
+            params: { product_id: this.state.currentItemId },
+          })
+          .then((response) => {
+            this.setState({
+              relatedItems: response.data,
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         console.log(error);
@@ -121,6 +119,7 @@ export default class App extends React.Component {
             allItems={this.state.allItems}
             currentItem={this.state.currentItem}
             currentItemId={this.state.currentItemId}
+            productRating={this.state.productRating}
           />
           <Carousel show={3}>
             {this.state.relatedItems.map((elem, i) => (
@@ -156,11 +155,13 @@ export default class App extends React.Component {
           <RatingAndReviews
             productId={this.state.currentItemId}
             // eslint-disable-next-line react/jsx-no-bind
-            handleProductRatingChange={this.handleProductRatingChange.bind(this)}
+            handleProductRatingChange={this.handleProductRatingChange.bind(
+              this
+            )}
           />
         </div>
       );
     }
-    return <CircularProgress />
+    return <CircularProgress />;
   }
 }

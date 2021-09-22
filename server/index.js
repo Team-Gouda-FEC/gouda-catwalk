@@ -55,7 +55,6 @@ app.get('/getImage/', (req, res) => {
       console.log('could not fetch styles!', productId);
       res.status(404).send(err);
     } else {
-      console.log('successfully fetched styles!');
       res.send(response.data);
     }
   });
