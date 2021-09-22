@@ -21,6 +21,7 @@ export default class App extends React.Component {
       allItems: [],
       currentItemId: '',
       currentItem: '',
+      productRating: 0,
     };
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.handleAddOutfitClick = this.handleAddOutfitClick.bind(this);
@@ -43,6 +44,10 @@ export default class App extends React.Component {
         yourOutfits: [...currentOutfits],
       });
     }
+  }
+
+  handleProductRatingChange(num) {
+    this.setState({ productRating: num });
   }
 
   handleRemoveOutfitClick(productId) {
@@ -148,7 +153,11 @@ export default class App extends React.Component {
             ))}
           </Carousel>
           <QAWidget />
-          <RatingAndReviews productId={this.state.currentItemId} />
+          <RatingAndReviews
+            productId={this.state.currentItemId}
+            // eslint-disable-next-line react/jsx-no-bind
+            handleProductRatingChange={this.handleProductRatingChange.bind(this)}
+          />
         </div>
       );
     }

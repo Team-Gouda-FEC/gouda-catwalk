@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Star from '@material-ui/icons/StarRounded';
-import Outline from '@material-ui/icons/StarBorderRounded';
+import Star from '@material-ui/icons/Star';
+import Outline from '@material-ui/icons/StarBorderOutlined';
 // import '../../../dist/starRating.css';
 
 const Stars = (props) => {
@@ -19,11 +19,11 @@ const Stars = (props) => {
       }
       // use the remaining size to get the next quater pixal
       if (num >= 18) {
-        size += 13.75;
+        size += 14;
       } else if (num >= 12) {
         size += 12;
       } else if (num >= 6) {
-        size += 10.25;
+        size += 10;
       }
     } else if (num >= 5) {
       size = 120;
@@ -44,7 +44,7 @@ const Stars = (props) => {
         id="under"
         style={{
           position: 'relative',
-          color: 'lightcoral',
+          color: '#FF9529',
         }}
       >
         <Outline id="star 1" />
@@ -68,7 +68,7 @@ const Stars = (props) => {
           style={{
             overflow: 'hidden',
             whiteSpace: 'nowrap',
-            color: 'lightcoral',
+            color: '#FF9529',
           }}
         >
           <Star key="star 1" />
