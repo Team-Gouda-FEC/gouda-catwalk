@@ -8,6 +8,7 @@ import ProductOverviewGrid from './product-overview/GridContainer/ProductOvervie
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
 import AddOutfitCard from './related-items-section/addOutfitCard.jsx';
 import OutfitProductCard from './related-items-section/outfitProductCard.jsx';
+import PlaceHolder from './related-items-section/placeHolder.jsx';
 import Carousel from './carousel/carousel.jsx';
 import RatingAndReviews from './rating-review/ratingAndReviews.jsx';
 import QAWidget from './qa/qaWidget.jsx';
@@ -16,10 +17,11 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showNumCarouselItems: 3,
       relatedItems: [],
       yourOutfits: [],
       allItems: [],
-      currentItemId: '',
+      currentItemId: '38327', //MK needs this to be a product id to render her related items section, team discussion needed
       currentItem: '',
       currentStyles: [],
       currentItemInfo: [],
@@ -31,6 +33,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.getAllProducts();
+    this.getRelatedItems();
   }
 
   handleAddOutfitClick(productId) {
@@ -40,7 +43,7 @@ export default class App extends React.Component {
     }
     if (!this.state.yourOutfits.includes(productId)) {
       this.setState({
-        yourOutfits: [...currentOutfits, productId],
+        yourOutfits: [productId, ...currentOutfits],
       });
     }
   }
@@ -58,6 +61,14 @@ export default class App extends React.Component {
     console.log(currentOutfits);
   }
 
+  handleOutfitPlaceholders() {
+    const count = this.state.showNumCarouselItems - this.state.yourOutfits.length - 1;
+    console.log(count);
+    return (
+      <PlaceHolder ></PlaceHolder>
+    )
+  }
+
   getRelatedItems() {
     axios
       .get('/relatedproducts/', {
@@ -66,8 +77,7 @@ export default class App extends React.Component {
       .then((response) => {
         this.setState({
           relatedItems: response.data,
-        },
-        );
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -122,15 +132,12 @@ export default class App extends React.Component {
       {
         currentItemId: itemId,
         currentItem: itemObj,
-      },
-      () => {
-        this.getRelatedItems();
       }
     );
   }
 
   render() {
-    return this.state.yourOutfits && (
+    return (
       <div
         className="App"
         style={{
@@ -153,16 +160,18 @@ export default class App extends React.Component {
           currentStyles={this.state.currentStyles}
           currentItemInfo={this.state.currentItemInfo}
         />
-        <Carousel show={3} >
+        <h4> RELATED PRODUCTS </h4>
+        <Carousel show={this.state.showNumCarouselItems}>
           {this.state.relatedItems.map((elem, i) => (
             <div key={i}>
               <div style={{ padding: 8 }}>
-                <RelatedProductCard key={i} productId={elem} currentItemId={this.state.currentItemId} />
+                <RelatedProductCard key={i} productId={elem} currentItemInfo={this.state.currentItemInfo} />
               </div>
             </div>
           ))}
         </Carousel>
-        <Carousel show={3} >
+        <h4> YOUR OUTFITS </h4>
+        <Carousel show={this.state.showNumCarouselItems}>
           <div>
             <div style={{ padding: 8 }}>
               <AddOutfitCard
@@ -182,6 +191,8 @@ export default class App extends React.Component {
               </div>
             </div>
           ))}
+        <PlaceHolder />
+        <PlaceHolder />
         </Carousel>
         <QAWidget />
         <RatingAndReviews productId={this.state.currentItemId} />

@@ -13,6 +13,10 @@ const useStyles = makeStyles({
   media: {
     height: 150,
   },
+  circle: {
+    height: 250,
+    width: 250,
+  },
 });
 
 const AddOutfitCard = (props) => {
@@ -23,8 +27,8 @@ const AddOutfitCard = (props) => {
     <div>
       <Card className={classes.root}>
         <CardContent>
-          <AddCircleOutlineIcon onClick={() => { props.onClick(prodId)}}/>
-          The current product id is: {prodId}
+          <AddCircleOutlineIcon className={classes.circle} onClick={() => { props.onClick(prodId)}}/>
+          <Typography variant='h5'> ADD OUTFIT </Typography>
         </CardContent>
       </Card>
     </div>
