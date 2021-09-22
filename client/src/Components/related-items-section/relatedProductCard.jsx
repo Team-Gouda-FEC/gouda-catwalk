@@ -29,6 +29,7 @@ const RelatedProductCard = (props) => {
   const [productInfo, setProductInfo] = useState(null);
   const [productImage, setProductImage] = useState(null);
   const prodId = props.productId;
+  const { handleUpdateCurrentItem } = props;
 
   const getProductInfo = () => {
     axios
@@ -67,6 +68,10 @@ const RelatedProductCard = (props) => {
     getImage();
   }, []);
 
+  function handleUpdateItem(id, info) {
+    handleUpdateCurrentItem(id, info);
+  }
+
   function handleCompareClick() {
     return <AnimatedModal />;
   }
@@ -84,6 +89,9 @@ const RelatedProductCard = (props) => {
             <CardMedia
               className={classes.media}
               image={productImage || 'https://via.placeholder.com/300x300'}
+              onClick={() => {
+                handleUpdateItem(productInfo.id, productInfo);
+              }}
             />
             <Typography variant="body1"> {productInfo.category} </Typography>
             <Typography variant="body1" style={{ fontWeight: 600 }}>

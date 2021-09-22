@@ -68,11 +68,14 @@ function RightOfCarousel(props) {
   };
 
   if (currentItemInfo) {
+    {
+      console.log('** props in Right of carousel: ', props);
+    }
     return (
       <div className={classes.root}>
         <Grid container elevation={0} className={classes.root}>
           <Grid item xs={12}>
-            <Stars rating={productRating}/>
+            <Stars rating={productRating} />
             <Typography variant="subtitle2">Read all reviews</Typography>
             <Typography variant="body2">{currentItem.category}</Typography>
             <Typography variant="h3">{currentItem.name}</Typography>
@@ -84,7 +87,7 @@ function RightOfCarousel(props) {
             <div className={classes.root2}>
               <Grid container item xs={12}>
                 <StyleSelector
-                  currentStylesObj={currentStylesObj}
+                  currentStyles={currentStylesObj}
                   handleUpdateCurrentStyle={handleUpdateCurrentStyle}
                   handleUpdateCarousel={handleUpdateCarousel}
                 />
@@ -92,7 +95,7 @@ function RightOfCarousel(props) {
             </div>
           </Grid>
           <>
-            <AddToCart currentStylesObj={currentStylesObj} />
+            <AddToCart currentStyles={currentStylesObj} />
           </>
         </Grid>
       </div>

@@ -115,8 +115,6 @@ export default class App extends React.Component {
             HIGHLIGHT!
           </Typography>
           <ProductOverviewGrid
-            handleUpdateCurrentItem={this.updateCurrentItem}
-            allItems={this.state.allItems}
             currentItem={this.state.currentItem}
             currentItemId={this.state.currentItemId}
             productRating={this.state.productRating}
@@ -125,7 +123,11 @@ export default class App extends React.Component {
             {this.state.relatedItems.map((elem, i) => (
               <div key={i}>
                 <div style={{ padding: 8 }}>
-                  <RelatedProductCard key={i} productId={elem} />
+                  <RelatedProductCard
+                    key={i}
+                    productId={elem}
+                    handleUpdateCurrentItem={this.updateCurrentItem}
+                  />
                 </div>
               </div>
             ))}
@@ -145,7 +147,7 @@ export default class App extends React.Component {
                   <OutfitProductCard
                     key={i}
                     productId={elem}
-                    onClick={this.handleRemoveOutfitClick}
+                    updateCurrentItem={this.handleRemoveOutfitClick}
                   />
                 </div>
               </div>
