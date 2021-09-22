@@ -88,7 +88,7 @@ function RightOfCarousel(props) {
               <Grid container item xs={12}>
                 <StyleSelector
                   currentStyles={currentStylesObj}
-                  handleUpdateCurrentStyle={handleUpdateCurrentStyle}
+                  handleUpdateCurrentStyle={handleUpdateCurrentStyle.bind(this)}
                   handleUpdateCarousel={handleUpdateCarousel}
                 />
               </Grid>

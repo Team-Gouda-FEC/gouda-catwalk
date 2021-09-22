@@ -7,13 +7,14 @@ import {
   Typography,
   makeStyles,
   IconButton,
-  MoreVertIcon,
   Avatar,
   Button,
+  Grid,
 } from '@material-ui/core';
 import axios from 'axios';
 import Stars from '../rating-review/StarRating.jsx';
 import AnimatedModal from './animatedModal.jsx';
+import ComparisonTable from './comparisonTable.jsx';
 
 const useStyles = makeStyles({
   root: {
@@ -22,14 +23,19 @@ const useStyles = makeStyles({
   media: {
     height: 200,
   },
+  button: {
+    zIndex: 1,
+  },
 });
 
 const RelatedProductCard = (props) => {
   const classes = useStyles();
   const [productInfo, setProductInfo] = useState(null);
   const [productImage, setProductImage] = useState(null);
+  const [rating, setRating] = useState(0);
   const prodId = props.productId;
   const { handleUpdateCurrentItem } = props;
+  const { currentItemInfo } = props;
 
   const getProductInfo = () => {
     axios
@@ -58,7 +64,38 @@ const RelatedProductCard = (props) => {
       });
   };
 
-  const getProductRating = () => {};
+  const getRatingAverage = (obj) => {
+    let sum = 0;
+    let count = 0;
+    const keys = Object.keys(obj);
+    for (let i = 0; i < keys.length; i += 1) {
+      const value = Number(obj[keys[i]]);
+      sum += Number(keys[i]) * value;
+      count += value;
+    }
+    return Math.floor((sum * 10) / count) * 0.1;
+  };
+
+  const getProductRating = () => {
+    const params = {
+      product_id: prodId,
+    };
+
+    axios
+      .get('/reviews/meta', { params })
+      .then((reviewMetaData) => {
+        const rate = getRatingAverage(reviewMetaData.data.ratings);
+        setRating(rate);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log('failed to get review meta data');
+      });
+  };
+
+  function handleUpdateItem(id, info) {
+    handleUpdateCurrentItem(id, info);
+  }
 
   useEffect(() => {
     getProductInfo();
@@ -68,31 +105,31 @@ const RelatedProductCard = (props) => {
     getImage();
   }, []);
 
-  function handleUpdateItem(id, info) {
-    handleUpdateCurrentItem(id, info);
-  }
-
-  function handleCompareClick() {
-    return <AnimatedModal />;
-  }
+  useEffect(() => {
+    getProductRating();
+  }, []);
 
   return (
     productInfo && (
       <div>
         <Card>
           <CardContent>
-            <AnimatedModal
-              onClick={() => {
-                handleCompareClick();
-              }}
-            />
             <CardMedia
               className={classes.media}
               image={productImage || 'https://via.placeholder.com/300x300'}
               onClick={() => {
                 handleUpdateItem(productInfo.id, productInfo);
               }}
-            />
+            >
+              <Grid item container justify="flex-end">
+                <AnimatedModal
+                  className={classes.button}
+                  relatedItemInfo={productInfo}
+                  currentItemInfo={currentItemInfo}
+                />
+              </Grid>
+            </CardMedia>
+
             <Typography variant="body1"> {productInfo.category} </Typography>
             <Typography variant="body1" style={{ fontWeight: 600 }}>
               {productInfo.name}{' '}
@@ -101,7 +138,7 @@ const RelatedProductCard = (props) => {
               {productInfo.default_price}{' '}
             </Typography>
           </CardContent>
-          <Stars rating={2.5} />
+          <Stars rating={rating} />
         </Card>
       </div>
     )
