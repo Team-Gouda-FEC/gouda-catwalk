@@ -1,10 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import AlarmIcon from '@material-ui/icons/Alarm';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,12 +11,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RemoveOutfitButton() {
+export default function RemoveOutfitButton(props) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <IconButton aria-label="delete">
+      <IconButton aria-label="delete" onClick={() => { props.onClick(props.prodId) }}>
         <HighlightOffIcon />
       </IconButton>
     </div>
