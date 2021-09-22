@@ -8,6 +8,7 @@ import ProductOverviewGrid from './product-overview/GridContainer/ProductOvervie
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
 import AddOutfitCard from './related-items-section/addOutfitCard.jsx';
 import OutfitProductCard from './related-items-section/outfitProductCard.jsx';
+import PlaceHolder from './related-items-section/placeHolder.jsx';
 import Carousel from './carousel/carousel.jsx';
 import RatingAndReviews from './rating-review/ratingAndReviews.jsx';
 import QAWidget from './qa/qaWidget.jsx';
@@ -16,10 +17,11 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showNumCarouselItems: 3,
       relatedItems: [],
       yourOutfits: [],
       allItems: [],
-      currentItemId: '',
+      currentItemId: '38327', //MK needs this to be a product id to render her related items section, team discussion needed
       currentItem: '',
       productRating: 0,
     };
@@ -39,9 +41,8 @@ export default class App extends React.Component {
       currentOutfits.push(this.state.yourOutfits[i]);
     }
     if (!this.state.yourOutfits.includes(productId)) {
-      console.log('add');
       this.setState({
-        yourOutfits: [...currentOutfits],
+        yourOutfits: [productId, ...currentOutfits],
       });
     }
   }
@@ -58,14 +59,23 @@ export default class App extends React.Component {
       }
     }
     this.setState({
-      yourOutfits: [...currentOutfits, productId],
+      yourOutfits: [...currentOutfits],
     });
+    console.log(currentOutfits);
+  }
+
+  handleOutfitPlaceholders() {
+    const count = this.state.showNumCarouselItems - this.state.yourOutfits.length - 1;
+    console.log(count);
+    return (
+      <PlaceHolder ></PlaceHolder>
+    )
   }
 
   getRelatedItems() {
     axios
       .get('/relatedproducts/', {
-        params: { product_id: 38325 },
+        params: { product_id: this.state.currentItemId },
       })
       .then((response) => {
         this.setState({
@@ -93,13 +103,17 @@ export default class App extends React.Component {
   }
 
   updateCurrentItem(itemId, itemObj) {
-    this.setState({
-      currentItemId: itemId,
-      currentItem: itemObj,
-    });
+    this.setState(
+      {
+        currentItemId: itemId,
+        currentItem: itemObj,
+      }
+    );
   }
 
   render() {
+    return (
+
     if (this.state.currentItem !== '') {
       return (
         <div
@@ -122,37 +136,37 @@ export default class App extends React.Component {
             currentItem={this.state.currentItem}
             currentItemId={this.state.currentItemId}
           />
-          <Carousel show={3}>
-            {this.state.relatedItems.map((elem, i) => (
-              <div key={i}>
-                <div style={{ padding: 8 }}>
-                  <RelatedProductCard key={i} productId={elem} />
-                </div>
-              </div>
-            ))}
-          </Carousel>
-          <Carousel show={3}>
-            <div>
+          <h4> RELATED PRODUCTS </h4>
+        <Carousel show={this.state.showNumCarouselItems}>
+          {this.state.relatedItems.map((elem, i) => (
+            <div key={i}>
               <div style={{ padding: 8 }}>
-                <AddOutfitCard
-                  productId={this.state.currentItemId}
-                  onClick={this.handleAddOutfitClick}
-                />
+                <RelatedProductCard key={i} productId={elem} currentItemInfo={this.state.currentItemInfo} />
               </div>
             </div>
-            {this.state.yourOutfits.map((elem, i) => (
-              <div key={i}>
-                <div style={{ padding: 8 }}>
-                  <OutfitProductCard
-                    key={i}
-                    productId={elem}
-                    onClick={this.handleRemoveOutfitClick}
-                  />
-                </div>
+          ))}
+        </Carousel>
+        <h4> YOUR OUTFITS </h4>
+        <Carousel show={this.state.showNumCarouselItems}>
+          <div>
+            <div style={{ padding: 8 }}>
+              <AddOutfitCard
+                productId={this.state.currentItemId}
+                onClick={this.handleAddOutfitClick}
+              />
+            </div>
+          </div>
+          {this.state.yourOutfits.map((elem, i) => (
+            <div key={i}>
+              <div style={{ padding: 8 }}>
+                <OutfitProductCard key={i} productId={elem} />
               </div>
-            ))}
-          </Carousel>
-          <QAWidget />
+            </div>
+          ))}
+        <PlaceHolder />
+        <PlaceHolder />
+        </Carousel>
+        <QAWidget />
           <RatingAndReviews
             productId={this.state.currentItemId}
             // eslint-disable-next-line react/jsx-no-bind
