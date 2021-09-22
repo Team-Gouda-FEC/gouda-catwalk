@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 import ProductReview from './productReview.jsx';
 import SortReviews from './reviewSorting.jsx';
@@ -14,8 +15,9 @@ const RatingAndReviews = (props) => {
   const [reviewCount, setReviewCount] = useState(2);
   const [totalReviewCount, setTotalReviewCount] = useState(0);
   const [sortOrder, setSortOrder] = useState('relevent');
+  const [characteristics, setCharacteristics] = useState({});
 
-  useEffect(() => {
+  const getReviews = () => {
     if (productId) {
       const params = {
         page: 1,
@@ -26,13 +28,18 @@ const RatingAndReviews = (props) => {
       axios
         .get('/reviews', { params })
         .then((reviewData) => {
+          console.log('we good');
           setReviews(reviewData.data.results);
         })
         .catch((err) => {
+          console.log('fuj');
+          console.log(params);
           console.log(err);
         });
     }
-  }, [productId, sortOrder, totalReviewCount]);
+  };
+
+  useEffect(getReviews, [productId, sortOrder, totalReviewCount]);
 
   useEffect(() => {
     setProductId(props.productId);
@@ -72,6 +79,7 @@ const RatingAndReviews = (props) => {
         <Grid item xs={3}>
           <h2> Ratings Reviews </h2>
           <ProductReview
+            setChar={setCharacteristics}
             productId={productId}
             setMoreReviews={setTotalReviewCount}
             totalReviewCount={totalReviewCount}
@@ -96,10 +104,15 @@ const RatingAndReviews = (props) => {
               count={reviewCount}
               setReviewCount={setReviewCount}
               handleReport={handleReport}
+              productId={productId}
+              characteristics={characteristics}
+              updateReviews={getReviews}
             />
           </Grid>
         </Grid>
       </Grid>
+      <br />
+      <br />
     </div>
   );
 };

@@ -232,6 +232,18 @@ const reportReview = (reviewId, callback) => {
     });
 };
 
+const postReview = (data, callback) => {
+  axios
+    // eslint-disable-next-line prettier/prettier
+    .post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/reviews', data, { headers })
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch((err) => {
+      callback(err, null);
+    });
+};
+
 /* **** CART SECTION **** */
 
 /* **** INTERACTIONS SECTION **** */
@@ -252,4 +264,5 @@ module.exports = {
   getReviews,
   getReviewsMeta,
   reportReview,
+  postReview,
 };

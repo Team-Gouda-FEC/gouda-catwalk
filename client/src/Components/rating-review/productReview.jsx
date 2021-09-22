@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import Stars from './starRating.jsx';
 import Breakdown from './ratingBreakdown.jsx';
 
@@ -37,7 +38,8 @@ const ProductReview = (props) => {
       sum += Number(keys[i]) * value;
       count += value;
     }
-    return Math.floor((sum * 10) / count) * 0.1;
+    sum = Math.round((sum * 10) / count) / 10;
+    return sum;
   };
 
   const handleRatingsBreakDown = (breakdownObj) => {
@@ -67,6 +69,7 @@ const ProductReview = (props) => {
             handleRatingsBreakDown(reviewMetaData.data.ratings);
             setReviewCount(reviewMetaData.data.recommended);
             setPercent(getPercent(reviewMetaData.data.recommended));
+            props.setChar(reviewMetaData.data.characteristics);
           })
           .catch((err) => {
             console.log(err);
@@ -74,7 +77,8 @@ const ProductReview = (props) => {
           });
       }
     }
-  }, [props]);
+    // eslint-disable-next-line react/destructuring-assignment
+  }, [props.productId]);
 
   const getRating = () => {
     // get the average of all reviews
@@ -95,7 +99,9 @@ const ProductReview = (props) => {
         style={{ height: '60px', boxSizing: 'border-box' }}
       >
         <Grid item>
-          <b style={{ height: '40px', fontSize: '3em' }}>{rating}</b>
+          <Typography style={{ height: '40px', fontSize: '3em' }}>
+            {rating}
+          </Typography>
         </Grid>
         <Grid item>
           <div style={{ paddingLeft: '25px' }}>

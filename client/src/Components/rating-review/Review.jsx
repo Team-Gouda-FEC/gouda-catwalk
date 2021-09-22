@@ -7,6 +7,7 @@ import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import CheckIcon from '@material-ui/icons/Check';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
+import Typography from '@material-ui/core/Typography';
 import Stars from './starRating.jsx';
 
 const months = {
@@ -25,7 +26,6 @@ const months = {
 };
 
 const ReviewTile = (props) => {
-
   const getDate = () => {
     let { date } = props.review;
     const year = date.slice(0, 4);
@@ -46,10 +46,10 @@ const ReviewTile = (props) => {
     if (props.review.recommend) {
       return (
         <Grid
-        container
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="center"
+          container
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center"
         >
           <CheckIcon fontSize="small" /> <div>I recommend this product</div>
         </Grid>
@@ -59,11 +59,11 @@ const ReviewTile = (props) => {
 
   const getHelpfulness = () => (
     <Grid
-    container
-    direction="row"
-    justifyContent="flex-start"
-    alignItems="center"
-    style={{ margin: '1em 0' }}
+      container
+      direction="row"
+      justifyContent="flex-start"
+      alignItems="center"
+      style={{ margin: '1em 0' }}
     >
       <Grid item style={{ fontSize: '.7em' }}>
         Helpful? <u>Yes</u> ({props.review.helpfulness}) |
@@ -90,8 +90,8 @@ const ReviewTile = (props) => {
         {getPurchaseVerification()} {props.review.reviewer_name}, {getDate()}
       </Grid>
       <Stars rating={props.review.rating} />
-      <h3> {props.review.summary} </h3>
-      <p> {props.review.body}</p>
+      <Typography> {props.review.summary} </Typography>
+      <Typography> {props.review.body}</Typography>
       {getUserRecommendation()}
       {getHelpfulness()}
       <Divider />

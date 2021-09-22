@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
 const Breakdown = (props) => {
   const { ratings } = props;
@@ -14,13 +15,15 @@ const Breakdown = (props) => {
       // get the percent by comparing the total and amount
       // use that percent from the fill total
       const percent = (amount * 100) / reviewCount;
-      return fillTotal * (percent * 0.01);
+      let fill = fillTotal * (percent / 100);
+      fill = fill > fillTotal ? fillTotal : fill;
+      return fill;
     };
 
     return (
       <div
         style={{
-          paddingLeft: '2em',
+          paddingLeft: '1em',
           position: 'relative',
         }}
       >
@@ -31,6 +34,7 @@ const Breakdown = (props) => {
             backgroundColor: 'lightgrey',
             width: `${fillTotal}px`,
             height: '10px',
+            flexShrink: 1,
           }}
         />
         <div

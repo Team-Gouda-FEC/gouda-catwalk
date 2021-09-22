@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import ReviewTile from './review.jsx';
 import AddReview from './addReview.jsx';
 import MoreReviews from './moreReviews.jsx';
@@ -10,6 +11,7 @@ const ReviewList = (props) => {
   const { reviews } = props;
   const { setReviewCount } = props;
   const { count } = props;
+  const { productId } = props;
 
   const getReviews = () => {
     const reviewList = [];
@@ -53,7 +55,13 @@ const ReviewList = (props) => {
         >
           <Grid item>{moreReviewsButton()}</Grid>
           <Grid item>
-            <AddReview />
+            <AddReview
+              // eslint-disable-next-line react/destructuring-assignment
+              updateReviews={props.updateReviews}
+              product_id={productId}
+              // eslint-disable-next-line react/destructuring-assignment
+              characteristics={props.characteristics}
+            />
           </Grid>
         </Grid>
       </div>

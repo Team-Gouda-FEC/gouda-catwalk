@@ -211,3 +211,13 @@ app.put('/review/report', (req, res) => {
     }
   });
 });
+
+app.post('/reviews', (req, res) => {
+  apiFn.postReview(req.body.body, (err, apiRes) => {
+    if (err) {
+      res.status(500).send('Failed to post');
+    } else {
+      res.send(apiRes.data);
+    }
+  });
+});
