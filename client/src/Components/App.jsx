@@ -136,7 +136,7 @@ export default class App extends React.Component {
                   <RelatedProductCard
                     key={i}
                     productId={elem}
-                    currentItemInfo={this.state.currentItemInfo}
+                    currentItemInfo={this.state.currentItem}
                     handleUpdateCurrentItem={this.updateCurrentItem}
                   />
                 </div>

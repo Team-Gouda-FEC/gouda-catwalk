@@ -117,9 +117,6 @@ const RelatedProductCard = (props) => {
             <CardMedia
               className={classes.media}
               image={productImage || 'https://via.placeholder.com/300x300'}
-              onClick={() => {
-                handleUpdateItem(productInfo.id, productInfo);
-              }}
             >
               <Grid item container justify="flex-end">
                 <AnimatedModal
@@ -131,7 +128,13 @@ const RelatedProductCard = (props) => {
             </CardMedia>
 
             <Typography variant="body1"> {productInfo.category} </Typography>
-            <Typography variant="body1" style={{ fontWeight: 600 }}>
+            <Typography
+              variant="body1"
+              style={{ fontWeight: 600 }}
+              onClick={() => {
+                handleUpdateItem(productInfo.id, productInfo);
+              }}
+            >
               {productInfo.name}{' '}
             </Typography>
             <Typography variant="body1">
