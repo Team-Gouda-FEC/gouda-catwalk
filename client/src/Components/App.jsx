@@ -23,8 +23,7 @@ export default class App extends React.Component {
       allItems: [],
       currentItemId: '38327', //MK needs this to be a product id to render her related items section, team discussion needed
       currentItem: '',
-      currentStyles: [],
-      currentItemInfo: [],
+      productRating: 0,
     };
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.handleAddOutfitClick = this.handleAddOutfitClick.bind(this);
@@ -46,6 +45,10 @@ export default class App extends React.Component {
         yourOutfits: [productId, ...currentOutfits],
       });
     }
+  }
+
+  handleProductRatingChange(num) {
+    this.setState({ productRating: num });
   }
 
   handleRemoveOutfitClick(productId) {
@@ -94,34 +97,6 @@ export default class App extends React.Component {
           currentItem: response.data[0],
         });
       })
-      .then(() => {
-        axios
-          .get('/getImage/', {
-            params: { product_id: this.state.currentItemId },
-          })
-          .then((response) => {
-            this.setState({
-              currentStyles: response.data,
-            });
-          })
-          .catch((err) => {
-            console.log('*** get styles in app is not working! ***', err);
-          });
-      })
-      .then(() => {
-        axios
-          .get('http://localhost:1337/getProductInfo/', {
-            params: { product_id: this.state.currentItemId },
-          })
-          .then((response) => {
-            this.setState({
-              currentItemInfo: response.data,
-            });
-          })
-          .catch((error) => {
-            console.log('*** get info in app is not working! ***', error);
-          });
-      })
       .catch((error) => {
         console.log(error);
       });
@@ -138,29 +113,30 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div
-        className="App"
-        style={{
-          maxWidth: 1600,
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          marginTop: 64,
-        }}
-      >
-        <NavBar />
-        <Typography variant="subtitle1" align="center">
-          SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT
-          HIGHLIGHT!
-        </Typography>
-        <ProductOverviewGrid
-          handleUpdateCurrentItem={this.updateCurrentItem}
-          allItems={this.state.allItems}
-          currentItem={this.state.currentItem}
-          currentItemId={this.state.currentItemId}
-          currentStyles={this.state.currentStyles}
-          currentItemInfo={this.state.currentItemInfo}
-        />
-        <h4> RELATED PRODUCTS </h4>
+
+    if (this.state.currentItem !== '') {
+      return (
+        <div
+          className="App"
+          style={{
+            maxWidth: 1600,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            marginTop: 64,
+          }}
+        >
+          <NavBar />
+          <Typography variant="subtitle1" align="center">
+            SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT
+            HIGHLIGHT!
+          </Typography>
+          <ProductOverviewGrid
+            handleUpdateCurrentItem={this.updateCurrentItem}
+            allItems={this.state.allItems}
+            currentItem={this.state.currentItem}
+            currentItemId={this.state.currentItemId}
+          />
+          <h4> RELATED PRODUCTS </h4>
         <Carousel show={this.state.showNumCarouselItems}>
           {this.state.relatedItems.map((elem, i) => (
             <div key={i}>
@@ -183,11 +159,7 @@ export default class App extends React.Component {
           {this.state.yourOutfits.map((elem, i) => (
             <div key={i}>
               <div style={{ padding: 8 }}>
-                <OutfitProductCard
-                  key={i}
-                  productId={elem}
-                  onClick={this.handleRemoveOutfitClick}
-                />
+                <OutfitProductCard key={i} productId={elem} />
               </div>
             </div>
           ))}
@@ -195,8 +167,14 @@ export default class App extends React.Component {
         <PlaceHolder />
         </Carousel>
         <QAWidget />
-        <RatingAndReviews productId={this.state.currentItemId} />
-      </div>
-    );
+          <RatingAndReviews
+            productId={this.state.currentItemId}
+            // eslint-disable-next-line react/jsx-no-bind
+            handleProductRatingChange={this.handleProductRatingChange.bind(this)}
+          />
+        </div>
+      );
+    }
+    return <CircularProgress />
   }
 }

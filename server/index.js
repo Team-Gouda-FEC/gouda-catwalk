@@ -214,3 +214,23 @@ app.get('/reviews/meta', (req, res) => {
     }
   });
 });
+
+app.put('/review/report', (req, res) => {
+  apiFn.reportReview(req.body.reviewId, (err, apiRes) => {
+    if (err) {
+      res.status(500).send('Error getting reviews meta data');
+    } else {
+      res.send(apiRes.data);
+    }
+  });
+});
+
+app.post('/reviews', (req, res) => {
+  apiFn.postReview(req.body.body, (err, apiRes) => {
+    if (err) {
+      res.status(500).send('Failed to post');
+    } else {
+      res.send(apiRes.data);
+    }
+  });
+});

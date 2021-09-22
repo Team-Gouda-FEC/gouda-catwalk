@@ -11,16 +11,17 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
 
 const sortValue = {
   '0': 'relevent',
-  '1': 'recent',
+  '1': 'newest',
   '2': 'helpful',
 };
 
 const sortKey = {
   relevent: 0,
-  recent: 1,
+  newest: 1,
   helpful: 2,
 };
 
@@ -35,9 +36,15 @@ const ReviewSort = (props) => {
     <div style={{ paddingLeft: '.2em' }}>
       <FormControl>
         <Select id="sortOrder" value={sortKey[props.sortType]}>
-          <MenuItem value={0} onClick={handleClick} id={0}>relevance</MenuItem>
-          <MenuItem value={1} onClick={handleClick} id={1}>most recent</MenuItem>
-          <MenuItem value={2} onClick={handleClick} id={2}>helpfulness</MenuItem>
+          <MenuItem value={0} onClick={handleClick} id={0}>
+            relevance
+          </MenuItem>
+          <MenuItem value={1} onClick={handleClick} id={1}>
+            most recent
+          </MenuItem>
+          <MenuItem value={2} onClick={handleClick} id={2}>
+            helpfulness
+          </MenuItem>
         </Select>
       </FormControl>
     </div>
@@ -62,7 +69,7 @@ const ReviewSort = (props) => {
           justifyContent="flex-start"
           alignItems="center"
         >
-          {props.count} reviews, sorted by {sortButton}
+          <Typography>{props.count} reviews, sorted by </Typography> {sortButton}
         </Grid>
       </Grid>
     </div>
