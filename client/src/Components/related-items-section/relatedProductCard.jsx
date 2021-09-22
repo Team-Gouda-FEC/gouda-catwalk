@@ -9,7 +9,7 @@ import {
   IconButton,
   Avatar,
   Button,
-  Grid
+  Grid,
 } from '@material-ui/core';
 import axios from 'axios';
 import Stars from '../rating-review/StarRating.jsx';
@@ -33,9 +33,9 @@ const RelatedProductCard = (props) => {
   const [productInfo, setProductInfo] = useState(null);
   const [productImage, setProductImage] = useState(null);
   const [rating, setRating] = useState(0);
-
   const prodId = props.productId;
-  const currentItemInfo = props.currentItemInfo;
+  const { handleUpdateCurrentItem } = props;
+  const { currentItemInfo } = props;
 
   const getProductInfo = () => {
     axios
@@ -93,6 +93,10 @@ const RelatedProductCard = (props) => {
       });
   };
 
+  function handleUpdateItem(id, info) {
+    handleUpdateCurrentItem(id, info);
+  }
+
   useEffect(() => {
     getProductInfo();
   }, []);
@@ -105,28 +109,42 @@ const RelatedProductCard = (props) => {
     getProductRating();
   }, []);
 
-  return productInfo && (
-    <div>
-      <Card>
-        <CardContent>
-          <CardMedia
-          className={classes.media}
-          image={productImage || 'https://via.placeholder.com/300x300'}
-          >
-          <Grid item container justify="flex-end">
-              <AnimatedModal className={classes.button} relatedItemInfo={productInfo} currentItemInfo={currentItemInfo} />
-            </Grid>
-          </CardMedia>
+  return (
+    productInfo && (
+      <div>
+        <Card>
+          <CardContent>
+            <CardMedia
+              className={classes.media}
+              image={productImage || 'https://via.placeholder.com/300x300'}
+            >
+              <Grid item container justify="flex-end">
+                <AnimatedModal
+                  className={classes.button}
+                  relatedItemInfo={productInfo}
+                  currentItemInfo={currentItemInfo}
+                />
+              </Grid>
+            </CardMedia>
 
-          <Typography variant="body1"> {productInfo.category} </Typography>
-          <Typography variant="body1" style={{ fontWeight: 600 }}>
-            {productInfo.name}{' '}
-          </Typography>
-          <Typography variant="body1">{productInfo.default_price} </Typography>
-        </CardContent>
-        <Stars rating={rating} />
-      </Card>
-    </div>
+            <Typography variant="body1"> {productInfo.category} </Typography>
+            <Typography
+              variant="body1"
+              style={{ fontWeight: 600 }}
+              onClick={() => {
+                handleUpdateItem(productInfo.id, productInfo);
+              }}
+            >
+              {productInfo.name}{' '}
+            </Typography>
+            <Typography variant="body1">
+              {productInfo.default_price}{' '}
+            </Typography>
+          </CardContent>
+          <Stars rating={rating} />
+        </Card>
+      </div>
+    )
   );
 };
 

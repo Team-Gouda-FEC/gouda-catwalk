@@ -21,7 +21,7 @@ export default class App extends React.Component {
       relatedItems: [],
       yourOutfits: [],
       allItems: [],
-      currentItemId: '38327', //MK needs this to be a product id to render her related items section, team discussion needed
+      currentItemId: '',
       currentItem: '',
       productRating: 0,
     };
@@ -32,7 +32,6 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.getAllProducts();
-    this.getRelatedItems();
   }
 
   handleAddOutfitClick(productId) {
@@ -65,26 +64,10 @@ export default class App extends React.Component {
   }
 
   handleOutfitPlaceholders() {
-    const count = this.state.showNumCarouselItems - this.state.yourOutfits.length - 1;
+    const count =
+      this.state.showNumCarouselItems - this.state.yourOutfits.length - 1;
     console.log(count);
-    return (
-      <PlaceHolder ></PlaceHolder>
-    )
-  }
-
-  getRelatedItems() {
-    axios
-      .get('/relatedproducts/', {
-        params: { product_id: this.state.currentItemId },
-      })
-      .then((response) => {
-        this.setState({
-          relatedItems: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    return <PlaceHolder />;
   }
 
   getAllProducts() {
@@ -97,23 +80,33 @@ export default class App extends React.Component {
           currentItem: response.data[0],
         });
       })
+      .then(() => {
+        axios
+          .get('/relatedproducts/', {
+            params: { product_id: this.state.currentItemId },
+          })
+          .then((response) => {
+            this.setState({
+              relatedItems: response.data,
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
       .catch((error) => {
         console.log(error);
       });
   }
 
   updateCurrentItem(itemId, itemObj) {
-    this.setState(
-      {
-        currentItemId: itemId,
-        currentItem: itemObj,
-      }
-    );
+    this.setState({
+      currentItemId: itemId,
+      currentItem: itemObj,
+    });
   }
 
   render() {
-    return (
-
     if (this.state.currentItem !== '') {
       return (
         <div
@@ -131,50 +124,57 @@ export default class App extends React.Component {
             HIGHLIGHT!
           </Typography>
           <ProductOverviewGrid
-            handleUpdateCurrentItem={this.updateCurrentItem}
-            allItems={this.state.allItems}
             currentItem={this.state.currentItem}
             currentItemId={this.state.currentItemId}
+            productRating={this.state.productRating}
           />
           <h4> RELATED PRODUCTS </h4>
-        <Carousel show={this.state.showNumCarouselItems}>
-          {this.state.relatedItems.map((elem, i) => (
-            <div key={i}>
+          <Carousel show={this.state.showNumCarouselItems}>
+            {this.state.relatedItems.map((elem, i) => (
+              <div key={i}>
+                <div style={{ padding: 8 }}>
+                  <RelatedProductCard
+                    key={i}
+                    productId={elem}
+                    currentItemInfo={this.state.currentItem}
+                    handleUpdateCurrentItem={this.updateCurrentItem}
+                  />
+                </div>
+              </div>
+            ))}
+          </Carousel>
+          <h4> YOUR OUTFITS </h4>
+          <Carousel show={this.state.showNumCarouselItems}>
+            <div>
               <div style={{ padding: 8 }}>
-                <RelatedProductCard key={i} productId={elem} currentItemInfo={this.state.currentItemInfo} />
+                <AddOutfitCard
+                  productId={this.state.currentItemId}
+                  handleAddOutfitClick={this.handleAddOutfitClick}
+                />
               </div>
             </div>
-          ))}
-        </Carousel>
-        <h4> YOUR OUTFITS </h4>
-        <Carousel show={this.state.showNumCarouselItems}>
-          <div>
-            <div style={{ padding: 8 }}>
-              <AddOutfitCard
-                productId={this.state.currentItemId}
-                onClick={this.handleAddOutfitClick}
-              />
-            </div>
-          </div>
-          {this.state.yourOutfits.map((elem, i) => (
-            <div key={i}>
-              <div style={{ padding: 8 }}>
-                <OutfitProductCard key={i} productId={elem} />
+            {this.state.yourOutfits.map((elem, i) => (
+              <div key={i}>
+                <div style={{ padding: 8 }}>
+                  {console.log('*** map! *** ', elem)}
+                  <OutfitProductCard key={i} productId={elem} />
+                </div>
               </div>
-            </div>
-          ))}
-        <PlaceHolder />
-        <PlaceHolder />
-        </Carousel>
-        <QAWidget />
+            ))}
+            <PlaceHolder />
+            <PlaceHolder />
+          </Carousel>
+          <QAWidget />
           <RatingAndReviews
             productId={this.state.currentItemId}
             // eslint-disable-next-line react/jsx-no-bind
-            handleProductRatingChange={this.handleProductRatingChange.bind(this)}
+            handleProductRatingChange={this.handleProductRatingChange.bind(
+              this
+            )}
           />
         </div>
       );
     }
-    return <CircularProgress />
+    return <CircularProgress />;
   }
 }

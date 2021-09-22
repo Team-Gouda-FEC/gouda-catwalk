@@ -1,10 +1,19 @@
-
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardMedia, CardContent, Typography, makeStyles, IconButton, MoreVertIcon, Button } from '@material-ui/core';
-import Stars from '../rating-review/StarRating.jsx';
-import AnimatedModal from './animatedModal.jsx';
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  Typography,
+  makeStyles,
+  IconButton,
+  MoreVertIcon,
+  Button,
+} from '@material-ui/core';
 import axios from 'axios';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import Stars from '../rating-review/StarRating.jsx';
+import AnimatedModal from './animatedModal.jsx';
 
 const useStyles = makeStyles({
   root: {
@@ -20,19 +29,29 @@ const useStyles = makeStyles({
 });
 
 const AddOutfitCard = (props) => {
-  const prodId = props.productId;
+  const { handleAddOutfitClick, productId } = props;
   const classes = useStyles();
+
+  function handleClick(id) {
+    handleAddOutfitClick(id);
+  }
 
   return (
     <div>
       <Card className={classes.root}>
+        {console.log('current item ID in Add outfit Card: ', productId)}
         <CardContent>
-          <AddCircleOutlineIcon className={classes.circle} onClick={() => { props.onClick(prodId)}}/>
-          <Typography variant='h5'> ADD OUTFIT </Typography>
+          <AddCircleOutlineIcon
+            className={classes.circle}
+            onClick={() => {
+              handleClick(productId);
+            }}
+          />
+          <Typography variant="h5"> ADD OUTFIT </Typography>
         </CardContent>
       </Card>
     </div>
   );
-}
+};
 
 export default AddOutfitCard;
