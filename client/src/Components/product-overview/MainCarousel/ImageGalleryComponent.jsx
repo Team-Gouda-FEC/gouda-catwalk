@@ -15,15 +15,15 @@ export default function ImageGalleryComponent(props) {
       imagesArr.push({
         original: currentStyle.url,
         thumbnail: currentStyle.thumbnail_url,
-        originalHeight: 500,
-        originalWidth: 500,
+        // originalHeight: 500,
+        // originalWidth: 500,
       });
     }
   }
 
   return (
     <>
-      <Grid item elevation={0}>
+      <Grid item elevation={0} xs={12} m={6}>
         <Carousel images={imagesArr} />
       </Grid>
     </>

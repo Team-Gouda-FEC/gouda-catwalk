@@ -33,7 +33,6 @@ export default function ProductBlurbs(props) {
                 <CheckIcon />
               </ListItemIcon>
               <ListItemText
-                variant="button"
                 primary={`${feature.feature} :`}
                 secondary={` ${feature.value}`}
               />
