@@ -56,7 +56,7 @@ const AddReview = (props) => {
   const [traitsIds, setTraitsIds] = useState({});
   const [traitObj, setTraitObj] = useState({});
   const [userRating, setUserRating] = useState(5);
-  const [userPics, setUserPics] = useState([]);
+  const [userPics, setUserPics] = useState('');
 
   const handleClick = (event) => {
     console.log(`eventTarget: ${event.target} props: ${props}`);
@@ -80,6 +80,11 @@ const AddReview = (props) => {
     }
     setBody(update);
   };
+
+  const handleUrlChange = (event) => {
+    setUserPics(event.target.value);
+  };
+
 
   const handleSummaryChange = (event) => {let update = event.target.value;
     if (update.length > 60) {
@@ -156,6 +161,10 @@ const AddReview = (props) => {
       traitsIds[key] = value;
     };
 
+    const getUserPics = () => {
+
+    }
+
     const getCharButtons = () => {
       // generate a form controller
       // iterate over the traits
@@ -219,6 +228,10 @@ const AddReview = (props) => {
         photos: [],
         characteristics: traitsIds,
       };
+      if(userPics !== '') {
+        bodyObj.photos.push(userPics);
+      }
+      setUserPics('')
       setBody('');
       setName('');
       setEmail('');
@@ -293,6 +306,16 @@ const AddReview = (props) => {
               onChange={handleBodyChange}
               placeholder="Body"
               variant="outlined"
+            />
+            <br />
+            <TextField
+              id="userImage"
+              size="medium"
+              label="Image Url"
+              multiline
+              onChange={handleUrlChange}
+              placeholder="Image Url"
+              // variant="outlined"
             />
             <Grid
               container
