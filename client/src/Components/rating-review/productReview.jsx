@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Stars from './starRating.jsx';
+import Stars from './StarRating.jsx';
 import Breakdown from './ratingBreakdown.jsx';
 import TraitBreakout from './traitBreakout.jsx';
 
 const ProductReview = (props) => {
-  const { filterBy } = props;
+  const { filterBy, maxCount, setMaxCount, setTotalReviewCount, totalReviewCount } = props;
   const [rating, setRating] = useState(0);
+
   const [recommendationPercent, setPercent] = useState(0);
   const [traitObj, setTraitObj] = useState({});
   const [traitsArr, setTraitsArr] = useState([]);
@@ -34,7 +35,13 @@ const ProductReview = (props) => {
   const setReviewCount = (recObj) => {
     const positiveCount = Number(recObj.true);
     const negativeCount = Number(recObj.false);
-    props.setTotalReviewCount(positiveCount + negativeCount);
+    const total = positiveCount + negativeCount;
+    if(filterBy === 0) {
+      setMaxCount(total);
+    } else {
+      setMaxCount(ratingsCount[filterBy]);
+    }
+    setTotalReviewCount(total);
   };
 
   const getPercent = (recObj) => {
@@ -57,14 +64,21 @@ const ProductReview = (props) => {
     return sum || 0;
   };
 
-  const handleRatingsBreakDown = (breakdownObj) => {
+  const setRatingsBreakDown = (breakdownObj) => {
     const newBreakdown = {};
     for (let key in ratingsCount) {
-      newBreakdown[key] =
-      Number(breakdownObj[key]) || ratingsCount[key];
+      newBreakdown[key] = Number(breakdownObj[key]) || ratingsCount[key];
     }
     setRatingCount(newBreakdown);
   };
+
+  useEffect(()=> {
+    if(filterBy === 0) {
+      setMaxCount( totalReviewCount );
+    } else {
+      setMaxCount(ratingsCount[filterBy]);
+    }
+  }, [filterBy])
 
   useEffect(() => {
     if (props.productId !== undefined) {
@@ -78,7 +92,7 @@ const ProductReview = (props) => {
             const rate = getRatingAverage(reviewMetaData.data.ratings);
             setRating(rate);
             props.handleProductRatingChange(rate);
-            handleRatingsBreakDown(reviewMetaData.data.ratings);
+            setRatingsBreakDown(reviewMetaData.data.ratings);
             setReviewCount(reviewMetaData.data.recommended);
             setPercent(getPercent(reviewMetaData.data.recommended));
             props.setChar(reviewMetaData.data.characteristics);
@@ -118,7 +132,7 @@ const ProductReview = (props) => {
           </div>
         </Grid>
       </Grid>
-      <p> {recommendationPercent || 0}% of reviews recommend this product</p>
+      <Typography variant='caption'> {recommendationPercent || 0}% of reviews recommend this product</Typography>
       <Breakdown
         filterBy={filterBy}
         ratings={ratingsCount}
@@ -128,7 +142,7 @@ const ProductReview = (props) => {
       <br />
       <TraitBreakout traits={traitsArr} traitObj={traitObj} />
     </Grid>
-  );
+  )
 };
 
 export default ProductReview;

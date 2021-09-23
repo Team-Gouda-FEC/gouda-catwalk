@@ -17,6 +17,7 @@ const RatingAndReviews = (props) => {
   const [sortOrder, setSortOrder] = useState('relevent');
   const [characteristics, setCharacteristics] = useState({});
   const [filterBy, setFilterBy] = useState(0);
+  const [maxCount, setMaxCount] = useState(2);
 
   const getReviews = () => {
     if (productId) {
@@ -66,7 +67,7 @@ const RatingAndReviews = (props) => {
   };
 
   return (
-    <div>
+    <div id="ratings">
       <br />
       <Grid
         container
@@ -86,6 +87,8 @@ const RatingAndReviews = (props) => {
             handleProductRatingChange={props.handleProductRatingChange}
             setFilterBy={setFilterBy}
             filterBy={filterBy}
+            setMaxCount={setMaxCount}
+            maxCount={maxCount}
           />
         </Grid>
 
@@ -112,6 +115,7 @@ const RatingAndReviews = (props) => {
               productId={productId}
               characteristics={characteristics}
               updateReviews={getReviews}
+              maxCount={maxCount}
             />
           </Grid>
         </Grid>
