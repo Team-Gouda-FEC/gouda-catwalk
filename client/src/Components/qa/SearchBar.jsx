@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  Typography,
+  TextField,
+  makeStyles,
+  Autocomplete,
+} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,9 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchBar = () => {
-  const classes = useStyles();
+const SearchBar = ({ questions }) => {
   const [filter, setFilter] = useState('');
+  const classes = useStyles();
+  const questionsArr = [];
+  // for (let i = 0; i < questions.results.length; i += 1) {
+  //   questionsArr.push(questions.results[i].question_body);
+  // }
 
   const handleSearchChange = (e) => {
     setFilter(e.target.value);
@@ -39,6 +47,15 @@ const SearchBar = () => {
         label="HAVE A QUESTION? SEARCH FOR ANSWERS"
         variant="standard"
       />
+      {/* <Autocomplete
+        disablePortal
+        id="combo-box-demo"
+        options={questionsArr}
+        sx={{ width: 300 }}
+        renderInput={(params) => (
+          <TextField {...params} label="Search for a question" />
+        )}
+      /> */}
     </div>
   );
 };

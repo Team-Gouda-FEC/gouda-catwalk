@@ -176,7 +176,7 @@ export default class App extends React.Component {
             <PlaceHolder />
             <PlaceHolder />
           </Carousel>
-          <QAWidget />
+          <QAWidget productId={this.state.currentItemId} />
           <RatingAndReviews
             productId={this.state.currentItemId}
             // eslint-disable-next-line react/jsx-no-bind

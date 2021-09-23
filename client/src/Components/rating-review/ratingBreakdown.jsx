@@ -5,12 +5,13 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
 const Breakdown = (props) => {
+  const { filterBy } = props;
   const { ratings } = props;
   const { reviewCount } = props;
   const fillTotal = 180;
   const breakDown = [5, 4, 3, 2, 1];
 
-  const getRatingBar = (amount) => {
+  const getRatingBar = (amount, id) => {
     const getFillAmount = () => {
       // get the percent by comparing the total and amount
       // use that percent from the fill total
@@ -28,13 +29,12 @@ const Breakdown = (props) => {
         }}
       >
         <div
-          id="wholeBar"
+          id={id}
           style={{
             position: 'relative',
             backgroundColor: 'lightgrey',
             width: `${fillTotal}px`,
-            height: '10px',
-            flexShrink: 1,
+            height: '.5em',
           }}
         />
         <div
@@ -44,24 +44,34 @@ const Breakdown = (props) => {
             top: '0',
             backgroundColor: 'black',
             width: `${getFillAmount()}px`,
-            height: '10px',
+            height: '.5em',
           }}
         />
       </div>
     );
   };
 
+  const handleClick = (event) => {
+    let value = event.target.id;
+    value = filterBy === value ? 0 : value;
+    props.setFilterBy(value);
+  };
+
   const generateBreakdown = breakDown.map((rating) => (
     <Grid
       container
+      id={rating}
       direction="row"
       justifyContent="flex-start"
       alignItems="center"
       key={rating.toString()}
-      style={{ paddingBottom: '.5em' }}
+      style={{ paddingBottom: '.1em', borderRadius: '5px' }}
+      onClick={handleClick}
     >
-      <div>{rating} Star</div>
-      {getRatingBar(ratings[rating])}
+      <div id={rating}>
+        <Typography id={rating}> {rating} Star </Typography>
+      </div>
+      {getRatingBar(ratings[rating], rating)}
     </Grid>
   ));
 
