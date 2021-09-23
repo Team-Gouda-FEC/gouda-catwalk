@@ -1,17 +1,31 @@
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardMedia, CardContent, Typography, makeStyles, IconButton, MoreVertIcon, Button } from '@material-ui/core';
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  Typography,
+  makeStyles,
+  IconButton,
+  MoreVertIcon,
+  Button,
+  Grid
+} from '@material-ui/core';
+import axios from 'axios';
 import Stars from '../rating-review/StarRating.jsx';
 import RemoveOutfitButton from './removeOutfitButton.jsx';
-import axios from 'axios';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 400,
+    maxWidth: 460,
   },
   media: {
     height: 200,
   },
+  button: {
+    zIndex: 1,
+  }
 });
 
 const OutfitProductCard = (props) => {
@@ -21,37 +35,49 @@ const OutfitProductCard = (props) => {
   const prodId = props.productId;
 
   const getProductInfo = () => {
-    axios.get('http://localhost:1337/getProductInfo/', { params: { product_id: prodId } })
+    axios
+      .get('http://localhost:1337/getProductInfo/', {
+        params: { product_id: prodId },
+      })
       .then((response) => {
         setProductInfo(response.data);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log(error);
       });
   };
 
   const getImage = () => {
-    axios.get('http://localhost:1337/getImage/', { params: { product_id: prodId } })
+    axios
+      .get('http://localhost:1337/getImage/', {
+        params: { product_id: prodId },
+      })
       .then((response) => {
         setProductImage(response.data.results[0].photos[0].thumbnail_url);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log(error);
-        setProductImage("https://via.placeholder.com/300x300");
+        setProductImage('https://via.placeholder.com/300x300');
       });
   };
 
   useEffect(() => {
     getProductInfo();
-  }, []);
+  }, [prodId]);
   useEffect(() => {
     getImage();
-  }, []);
+  }, [prodId]);
 
-  return productInfo && (
+  return productInfo && productImage && (
     <div>
-      <Card>
+      <Card className={classes.root}>
         <CardContent>
-          <RemoveOutfitButton onClick={() => { props.onClick(prodId) }} />
-          <CardMedia className={classes.media} image={productImage || "https://via.placeholder.com/300x300"} />
+          <CardMedia className={classes.media} image={productImage || "https://via.placeholder.com/300x300"}>
+          <Grid item container justify="flex-end">
+            <RemoveOutfitButton onClick={props.onClick} prodId={prodId} />
+            </Grid>
+
+          </CardMedia>
           <Typography variant="body1"> {productInfo.category} </Typography>
           <Typography variant="body1" style={{ fontWeight: 600 }}>{productInfo.name} </Typography>
           <Typography variant="body1">{productInfo.default_price} </Typography>

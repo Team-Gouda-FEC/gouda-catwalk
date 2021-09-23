@@ -19,8 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductOverviewGrid(props) {
   const classes = useStyles();
-  const { currentItemId, handleUpdateCurrentItem, allItems, currentItem } =
-    props;
+  const { currentItemId, currentItem, productRating } = props;
   const [currentStylesObj, setCurrentStyleObj] = useState('');
   const [currentStyleId, setCurrentStyleId] = useState('');
   const [currentItemInfo, setCurrentItemInfo] = useState('');
@@ -59,16 +58,15 @@ export default function ProductOverviewGrid(props) {
   }
 
   function handleUpdateCarousel(index) {
-    console.log('handleUpdateCarousel triggered!', index);
     setCurrentItemIndex(index);
   }
 
   useEffect(() => {
     getProductInfo();
-  }, []);
+  }, [currentItemId]);
   useEffect(() => {
     getProductStyles();
-  }, []);
+  }, [currentItemId]);
 
   if (currentStylesObj.results) {
     return (
@@ -90,10 +88,10 @@ export default function ProductOverviewGrid(props) {
             <Grid className="Product Information" item xs={5}>
               <RightOfCarousel
                 currentStylesObj={currentStylesObj}
-                handleUpdateCurrentItem={handleUpdateCurrentItem}
                 handleUpdateCarousel={handleUpdateCarousel.bind(this)}
                 currentItem={currentItem}
                 currentItemInfo={currentItemInfo}
+                productRating={productRating}
               />
             </Grid>
             <Grid item xs={7}>

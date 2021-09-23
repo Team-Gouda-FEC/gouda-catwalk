@@ -28,24 +28,24 @@ const StyledBadge = withStyles((theme) => ({
 const StyleSelector = (props) => {
   const classes = useStyles();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { currentStylesObj, handleUpdateCarousel } = props;
+  const { currentStyles, handleUpdateCarousel } = props;
 
   const handleClick = (index) => {
     setCurrentIndex(index);
     handleUpdateCarousel(index);
   };
 
-  if (currentStylesObj.results) {
+  if (currentStyles.results) {
     return (
       <div>
         <Grid container item xs={8}>
           <Typography>
             Style
             {' > '}
-            {currentStylesObj.results[currentIndex].name}
+            {currentStyles.results[currentIndex].name}
           </Typography>
         </Grid>
-        {currentStylesObj.results.map((style, index) => (
+        {currentStyles.results.map((style, index) => (
           <StyledBadge
             key={index}
             overlap="circular"

@@ -55,11 +55,23 @@ app.get('/getImage/', (req, res) => {
       console.log('could not fetch styles!', productId);
       res.status(404).send(err);
     } else {
-      console.log('successfully fetched styles!');
       res.send(response.data);
     }
   });
 });
+
+// app.get('/productRating/', (req, res) => {
+//   const productId = req.query.product_id;
+//   apiFn.getProdRating(productId, (err, response) => {
+//     if (err) {
+//       console.log(err)
+//       res.status(404).send(err);
+//     } else {
+//       console.log(response)
+//       res.status(200).send(response);
+//     }
+//   });
+// });
 
 /* **** QUESTIONS & ANSWERS SECTION **** */
 
@@ -134,40 +146,40 @@ app.put('/markQuestion', (req, res) => {
     if (err) {
       res.status(500).send('Error marking the question');
     } else {
-      res.status(204).send(confirmed);
+      res.status(204).send(confirmed.data);
     }
   });
 });
 
 // Report a Question
 app.put('/reportQuestion', (req, res) => {
-  apiFn.reportQuestion(req.query.question_id, (err, confirmed) => {
+  apiFn.reportQuestion(req.body.question_id, (err, confirmed) => {
     if (err) {
       res.status(500).send('Error reporting the question');
     } else {
-      res.status(204).send(confirmed);
+      res.status(204).send(confirmed.data);
     }
   });
 });
 
 // Mark Answer as helpful
 app.put('/markAnswer', (req, res) => {
-  apiFn.markAnswer(req.query.question_id, (err, confirmed) => {
+  apiFn.markAnswer(req.body.answer_id, (err, confirmed) => {
     if (err) {
       res.status(500).send('Error marking the answer');
     } else {
-      res.status(204).send(confirmed);
+      res.status(204).send(confirmed.data);
     }
   });
 });
 
 // Report an Answer
 app.put('/reportAnswer', (req, res) => {
-  apiFn.reportAnswer(req.query.question_id, (err, confirmed) => {
+  apiFn.reportAnswer(req.body.answer_id, (err, confirmed) => {
     if (err) {
       res.status(500).send('Error reporting the answer');
     } else {
-      res.status(204).send(confirmed);
+      res.status(204).send(confirmed.data);
     }
   });
 });

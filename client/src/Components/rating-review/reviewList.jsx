@@ -42,7 +42,7 @@ const ReviewList = (props) => {
 
   const moreReviewsButton = () => {
     const element = count >= props.totalReviewCount ? <div></div> : <MoreReviews setReviewCount={incrementCount} />
-    return ( element );
+    return element;
   };
 
   return (
