@@ -16,6 +16,7 @@ const RatingAndReviews = (props) => {
   const [totalReviewCount, setTotalReviewCount] = useState(0);
   const [sortOrder, setSortOrder] = useState('relevent');
   const [characteristics, setCharacteristics] = useState({});
+  const [filterBy, setFilterBy] = useState(0);
 
   const getReviews = () => {
     if (productId) {
@@ -78,10 +79,13 @@ const RatingAndReviews = (props) => {
           <ProductReview
             setChar={setCharacteristics}
             productId={productId}
-            setMoreReviews={setTotalReviewCount}
+            setTotalReviewCount={setTotalReviewCount}
+            setReviewRenderCount={setReviewCount}
             totalReviewCount={totalReviewCount}
             // eslint-disable-next-line react/destructuring-assignment
             handleProductRatingChange={props.handleProductRatingChange}
+            setFilterBy={setFilterBy}
+            filterBy={filterBy}
           />
         </Grid>
 
@@ -100,7 +104,9 @@ const RatingAndReviews = (props) => {
             />
             <ReviewList
               reviews={reviews}
+              filterBy={filterBy}
               count={reviewCount}
+              totalReviewCount={totalReviewCount}
               setReviewCount={setReviewCount}
               handleReport={handleReport}
               productId={productId}

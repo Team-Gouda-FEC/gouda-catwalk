@@ -56,6 +56,7 @@ const AddReview = (props) => {
   const [traitsIds, setTraitsIds] = useState({});
   const [traitObj, setTraitObj] = useState({});
   const [userRating, setUserRating] = useState(5);
+  const [userPics, setUserPics] = useState([]);
 
   const handleClick = (event) => {
     console.log(`eventTarget: ${event.target} props: ${props}`);
@@ -79,7 +80,13 @@ const AddReview = (props) => {
   };
 
   const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+    let update = event.target.value;
+    if (update.length > 60) {
+      update = update.slice(0, 60);
+      // eslint-disable-next-line no-param-reassign
+      event.target.value = update;
+    }
+    setEmail(update);
   };
 
   const handleNameChange = (event) => {
@@ -230,15 +237,17 @@ const AddReview = (props) => {
             {ratingInput}
             <TextField
               id="Name"
+              required
               placeholder="Name"
               onChange={handleNameChange}
               label="Name"
               fullWidth
-              variant="outlined"
+              variant="filled"
             />
             <br />
             <TextField
               id="Email"
+              required
               placeholder="Email"
               onChange={handleEmailChange}
               label="Email"
@@ -249,15 +258,17 @@ const AddReview = (props) => {
             <TextField
               id="summary"
               xs={6}
+              required
               placeholder="Summary"
               onChange={handleSummaryChange}
               label="Summary"
               fullWidth
-              variant="outlined"
+              variant="filled"
             />
             <br />
             <TextField
               id="body"
+              required
               minRows={2}
               size="medium"
               label="Body"
