@@ -33,14 +33,12 @@ const RelatedProductCard = (props) => {
   const [productInfo, setProductInfo] = useState(null);
   const [productImage, setProductImage] = useState(null);
   const [rating, setRating] = useState(0);
-  const prodId = props.productId;
-  const { handleUpdateCurrentItem } = props;
-  const { currentItemInfo } = props;
+  const { handleUpdateCurrentItem, currentItemInfo, productId } = props;
 
   const getProductInfo = () => {
     axios
       .get('http://localhost:1337/getProductInfo/', {
-        params: { product_id: prodId },
+        params: { product_id: productId },
       })
       .then((response) => {
         setProductInfo(response.data);
@@ -53,7 +51,7 @@ const RelatedProductCard = (props) => {
   const getImage = () => {
     axios
       .get('http://localhost:1337/getImage/', {
-        params: { product_id: prodId },
+        params: { product_id: productId },
       })
       .then((response) => {
         setProductImage(response.data.results[0].photos[0].thumbnail_url);
@@ -78,7 +76,7 @@ const RelatedProductCard = (props) => {
 
   const getProductRating = () => {
     const params = {
-      product_id: prodId,
+      product_id: productId,
     };
 
     axios
@@ -99,15 +97,15 @@ const RelatedProductCard = (props) => {
 
   useEffect(() => {
     getProductInfo();
-  }, [prodId]);
+  }, [productId]);
 
   useEffect(() => {
     getImage();
-  }, [prodId]);
+  }, [productId]);
 
   useEffect(() => {
     getProductRating();
-  }, [prodId]);
+  }, [productId]);
 
   return (
     productInfo && (

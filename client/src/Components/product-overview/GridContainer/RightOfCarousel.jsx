@@ -17,23 +17,22 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 // import AddToCart from './AddToCart.jsx';
 import Stars from '../../rating-review/StarRating.jsx';
 import StyleSelector from './StyleSelector.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    margin: theme.spacing(1),
     width: '100%',
-    margin: 20,
-    minWidth: 100,
   },
   formControlSize: {
-    margin: theme.spacing(2),
-    minWidth: 200,
+    margin: theme.spacing(1),
+    minWidth: 150,
   },
   formControlQuantity: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(1),
     minWidth: 100,
   },
   root2: {
@@ -65,6 +64,8 @@ function RightOfCarousel(props) {
     productRating,
   } = props;
 
+  const checkmarkIcon = <CheckCircleIcon />;
+
   const [styleIndex, setCurrentStyleIndex] = useState(0);
   const [size, setSize] = useState();
   const [quantity, setQuantity] = useState();
@@ -87,10 +88,27 @@ function RightOfCarousel(props) {
   if (currentItemInfo) {
     return (
       <div className={classes.root}>
-        <Grid container elevation={0} className={classes.root}>
-          <Grid item xs={12}>
+        <Grid
+          container
+          elevation={0}
+          className={classes.root}
+          justifyContent="flex-start"
+          alignItems="flex-start"
+        >
+          <Grid item xs={6}>
             <Stars rating={productRating} />
-            <Typography variant="subtitle1">Read all reviews</Typography>
+            <br />
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="button">
+              <AnchorLink href="#ratings" color="primary">
+                {' '}
+                Read all reviews{' '}
+              </AnchorLink>
+            </Typography>
+            <br />
+          </Grid>
+          <Grid item xs={12}>
             <Typography variant="h5">{currentItem.category}</Typography>
             <Typography variant="h3">{currentItem.name}</Typography>
             <Typography variant="h5">$ {currentItem.default_price}</Typography>

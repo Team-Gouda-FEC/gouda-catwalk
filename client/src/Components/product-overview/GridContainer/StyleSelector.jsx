@@ -10,8 +10,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   large: {
-    width: theme.spacing(13),
-    height: theme.spacing(13),
+    width: theme.spacing(10),
+    height: theme.spacing(10),
     margin: 12,
     border: '4px solid black',
   },
@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SmallAvatar = withStyles((theme) => ({
   root: {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
     border: '3px solid black',
   },
 }))(Avatar);
@@ -59,9 +59,7 @@ const StyleSelector = (props) => {
                   vertical: 'top',
                   horizontal: 'right',
                 }}
-                badgeContent={
-                  <SmallAvatar alt="selected" src="" />
-                }
+                badgeContent={<SmallAvatar alt="selected" src="" />}
               >
                 <Avatar
                   alt={currentStyles.results[currentItemIndex].name}

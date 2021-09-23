@@ -23,7 +23,7 @@ export default function ImageGalleryComponent(props) {
 
   return (
     <>
-      <Grid item elevation={0}>
+      <Grid item elevation={0} xs={12} m={6}>
         <Carousel images={imagesArr} />
       </Grid>
     </>

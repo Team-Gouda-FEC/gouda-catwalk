@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Card,
+  Grid,
   CardHeader,
   CardMedia,
   CardContent,
@@ -39,15 +40,20 @@ const AddOutfitCard = (props) => {
   return (
     <div>
       <Card className={classes.root}>
-        <CardContent>
-          <AddCircleOutlineIcon
-            className={classes.circle}
-            onClick={() => {
-              handleClick(productId);
-            }}
-          />
-          <Typography variant="h5"> ADD OUTFIT </Typography>
-        </CardContent>
+        <Grid container justifyContent="center" alignItems="center">
+          <CardContent>
+            <AddCircleOutlineIcon
+              className={classes.circle}
+              onClick={() => {
+                handleClick(productId);
+              }}
+            />
+            <Typography variant="h5" align="center">
+              {' '}
+              ADD OUTFIT{' '}
+            </Typography>
+          </CardContent>
+        </Grid>
       </Card>
     </div>
   );

@@ -12,8 +12,13 @@ import RightOfCarousel from './RightOfCarousel.jsx';
 const useStyles = makeStyles((theme) => ({
   ProductOverviewGrid: {
     flexGrow: 1,
-    margin: 15,
-    padding: theme.spacing(4),
+    margin: 10,
+    padding: 15,
+  },
+  ProductInformation: {
+    flexGrow: 1,
+    margin: 10,
+    padding: 15,
   },
 }));
 
@@ -75,8 +80,9 @@ export default function ProductOverviewGrid(props) {
           <Grid
             container
             elevation={0}
-            justifyContent="space-evenly"
+            justifyContent="space-between"
             alignItems="center"
+            spacing={8}
           >
             <Grid className="carousel" item xs={7}>
               <ImageGalleryComponent
@@ -85,7 +91,7 @@ export default function ProductOverviewGrid(props) {
                 }
               />
             </Grid>
-            <Grid className="Product Information" item xs={5}>
+            <Grid className="Product Information" item xs={5} >
               <RightOfCarousel
                 currentStylesObj={currentStylesObj}
                 handleUpdateCarousel={handleUpdateCarousel.bind(this)}

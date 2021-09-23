@@ -130,12 +130,10 @@ export default class App extends React.Component {
           }}
         >
           <NavBar />
-          <br/>
           <Typography variant="h5" align="center">
             SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT
             HIGHLIGHT!
           </Typography>
-          <br></>
           <ProductOverviewGrid
             currentItem={this.state.currentItem}
             currentItemId={this.state.currentItemId}
@@ -176,14 +174,17 @@ export default class App extends React.Component {
             <PlaceHolder />
             <PlaceHolder />
           </Carousel>
-          <QAWidget productId={this.state.currentItemId} />
-          <RatingAndReviews
-            productId={this.state.currentItemId}
-            // eslint-disable-next-line react/jsx-no-bind
-            handleProductRatingChange={this.handleProductRatingChange.bind(
-              this
-            )}
-          />
+          <QAWidget productId={38326} />
+          <section id="ratings">
+            <RatingAndReviews
+              id="reviews"
+              productId={this.state.currentItemId}
+              // eslint-disable-next-line react/jsx-no-bind
+              handleProductRatingChange={this.handleProductRatingChange.bind(
+                this
+              )}
+            />
+          </section>
         </div>
       );
     }
