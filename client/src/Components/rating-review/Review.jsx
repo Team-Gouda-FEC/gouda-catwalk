@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-import Stars from './starRating.jsx';
+import Stars from './StarRating.jsx';
 
 const months = {
   '01': 'Janurary',
@@ -56,7 +56,7 @@ const ReviewTile = (props) => {
           justifyContent="flex-start"
           alignItems="center"
         >
-          <CheckIcon fontSize="small" /> <div>I recommend this product</div>
+          <CheckIcon fontSize="small" /> <Typography>I recommend this product</Typography>
         </Grid>
       );
     }
@@ -71,10 +71,12 @@ const ReviewTile = (props) => {
       style={{ margin: '1em 0' }}
     >
       <Grid item style={{ fontSize: '.7em' }}>
+        <Typography>
         Helpful? <u>Yes</u> ({review.helpfulness}) |
         <u style={{marginLeft: ".25em"}} onClick={handleClick} id={review.review_id}>
           Report
         </u>
+        </Typography>
       </Grid>
     </Grid>
   );
@@ -126,7 +128,7 @@ const ReviewTile = (props) => {
         justifyContent="flex-end"
         alignItems="center"
       >
-        {getPurchaseVerification()} {review.reviewer_name}, {getDate()}
+        {getPurchaseVerification()} <Typography> {review.reviewer_name}, {getDate()} </Typography>
       </Grid>
       <Stars rating={review.rating} />
       <Typography> {review.summary} </Typography>
