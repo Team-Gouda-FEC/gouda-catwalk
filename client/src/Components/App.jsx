@@ -135,7 +135,7 @@ export default class App extends React.Component {
             SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT
             HIGHLIGHT!
           </Typography>
-          <br/>
+          <br></>
           <ProductOverviewGrid
             currentItem={this.state.currentItem}
             currentItemId={this.state.currentItemId}
