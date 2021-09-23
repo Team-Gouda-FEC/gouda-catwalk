@@ -55,11 +55,23 @@ app.get('/getImage/', (req, res) => {
       console.log('could not fetch styles!', productId);
       res.status(404).send(err);
     } else {
-      console.log('successfully fetched styles!');
       res.send(response.data);
     }
   });
 });
+
+// app.get('/productRating/', (req, res) => {
+//   const productId = req.query.product_id;
+//   apiFn.getProdRating(productId, (err, response) => {
+//     if (err) {
+//       console.log(err)
+//       res.status(404).send(err);
+//     } else {
+//       console.log(response)
+//       res.status(200).send(response);
+//     }
+//   });
+// });
 
 /* **** QUESTIONS & ANSWERS SECTION **** */
 
@@ -198,6 +210,26 @@ app.get('/reviews/meta', (req, res) => {
       res.status(500).send('Error getting reviews meta data');
     } else {
       res.send(reviewMetaData.data);
+    }
+  });
+});
+
+app.put('/review/report', (req, res) => {
+  apiFn.reportReview(req.body.reviewId, (err, apiRes) => {
+    if (err) {
+      res.status(500).send('Error getting reviews meta data');
+    } else {
+      res.send(apiRes.data);
+    }
+  });
+});
+
+app.post('/reviews', (req, res) => {
+  apiFn.postReview(req.body.body, (err, apiRes) => {
+    if (err) {
+      res.status(500).send('Failed to post');
+    } else {
+      res.send(apiRes.data);
     }
   });
 });

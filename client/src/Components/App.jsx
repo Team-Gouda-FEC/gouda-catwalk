@@ -8,6 +8,7 @@ import ProductOverviewGrid from './product-overview/GridContainer/ProductOvervie
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
 import AddOutfitCard from './related-items-section/addOutfitCard.jsx';
 import OutfitProductCard from './related-items-section/outfitProductCard.jsx';
+import PlaceHolder from './related-items-section/placeHolder.jsx';
 import Carousel from './carousel/carousel.jsx';
 import RatingAndReviews from './rating-review/ratingAndReviews.jsx';
 import QAWidget from './qa/qaWidget.jsx';
@@ -16,13 +17,13 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showNumCarouselItems: 3,
       relatedItems: [],
       yourOutfits: [],
       allItems: [],
       currentItemId: '',
       currentItem: '',
-      currentStyles: [],
-      currentItemInfo: [],
+      productRating: 0,
     };
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.handleAddOutfitClick = this.handleAddOutfitClick.bind(this);
@@ -31,7 +32,6 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.getAllProducts();
-    this.getRelatedItems();
   }
 
   handleAddOutfitClick(productId) {
@@ -40,11 +40,14 @@ export default class App extends React.Component {
       currentOutfits.push(this.state.yourOutfits[i]);
     }
     if (!this.state.yourOutfits.includes(productId)) {
-      console.log('add');
       this.setState({
-        yourOutfits: [...currentOutfits],
+        yourOutfits: [productId, ...currentOutfits],
       });
     }
+  }
+
+  handleProductRatingChange(num) {
+    this.setState({ productRating: num });
   }
 
   handleRemoveOutfitClick(productId) {
@@ -55,23 +58,16 @@ export default class App extends React.Component {
       }
     }
     this.setState({
-      yourOutfits: [...currentOutfits, productId],
+      yourOutfits: [...currentOutfits],
     });
+    console.log(currentOutfits);
   }
 
-  getRelatedItems() {
-    axios
-      .get('/relatedproducts/', {
-        params: { product_id: 38325 },
-      })
-      .then((response) => {
-        this.setState({
-          relatedItems: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  handleOutfitPlaceholders() {
+    const count =
+      this.state.showNumCarouselItems - this.state.yourOutfits.length - 1;
+    console.log(count);
+    return <PlaceHolder />;
   }
 
   getAllProducts() {
@@ -86,30 +82,16 @@ export default class App extends React.Component {
       })
       .then(() => {
         axios
-          .get('/getImage/', {
+          .get('/relatedproducts/', {
             params: { product_id: this.state.currentItemId },
           })
           .then((response) => {
             this.setState({
-              currentStyles: response.data,
-            });
-          })
-          .catch((err) => {
-            console.log('*** get styles in app is not working! ***', err);
-          });
-      })
-      .then(() => {
-        axios
-          .get('http://localhost:1337/getProductInfo/', {
-            params: { product_id: this.state.currentItemId },
-          })
-          .then((response) => {
-            this.setState({
-              currentItemInfo: response.data,
+              relatedItems: response.data,
             });
           })
           .catch((error) => {
-            console.log('*** get info in app is not working! ***', error);
+            console.log(error);
           });
       })
       .catch((error) => {
@@ -125,62 +107,74 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (
-      <div
-        className="App"
-        style={{
-          maxWidth: 1600,
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          marginTop: 64,
-        }}
-      >
-        <NavBar />
-        <Typography variant="subtitle1" align="center">
-          SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT
-          HIGHLIGHT!
-        </Typography>
-        <ProductOverviewGrid
-          handleUpdateCurrentItem={this.updateCurrentItem}
-          allItems={this.state.allItems}
-          currentItem={this.state.currentItem}
-          currentItemId={this.state.currentItemId}
-          currentStyles={this.state.currentStyles}
-          currentItemInfo={this.state.currentItemInfo}
-        />
-        <Carousel show={3}>
-          {this.state.relatedItems.map((elem, i) => (
-            <div key={i}>
-              <div style={{ padding: 8 }}>
-                <RelatedProductCard key={i} productId={elem} />
+    if (this.state.currentItem !== '') {
+      return (
+        <div
+          className="App"
+          style={{
+            maxWidth: 1600,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            marginTop: 64,
+          }}
+        >
+          <NavBar />
+          <Typography variant="subtitle1" align="center">
+            SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT
+            HIGHLIGHT!
+          </Typography>
+          <ProductOverviewGrid
+            currentItem={this.state.currentItem}
+            currentItemId={this.state.currentItemId}
+            productRating={this.state.productRating}
+          />
+          <h4> RELATED PRODUCTS </h4>
+          <Carousel show={this.state.showNumCarouselItems}>
+            {this.state.relatedItems.map((elem, i) => (
+              <div key={i}>
+                <div style={{ padding: 8 }}>
+                  <RelatedProductCard
+                    key={i}
+                    productId={elem}
+                    currentItemInfo={this.state.currentItem}
+                    handleUpdateCurrentItem={this.updateCurrentItem}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
-        </Carousel>
-        <Carousel show={3}>
-          <div>
-            <div style={{ padding: 8 }}>
-              <AddOutfitCard
-                productId={this.state.currentItemId}
-                onClick={this.handleAddOutfitClick}
-              />
-            </div>
-          </div>
-          {this.state.yourOutfits.map((elem, i) => (
-            <div key={i}>
+            ))}
+          </Carousel>
+          <h4> YOUR OUTFITS </h4>
+          <Carousel show={this.state.showNumCarouselItems}>
+            <div>
               <div style={{ padding: 8 }}>
-                <OutfitProductCard
-                  key={i}
-                  productId={elem}
-                  onClick={this.handleRemoveOutfitClick}
+                <AddOutfitCard
+                  productId={this.state.currentItemId}
+                  handleAddOutfitClick={this.handleAddOutfitClick}
                 />
               </div>
             </div>
-          ))}
-        </Carousel>
-        <QAWidget productId={this.state.currentItemId} />
-        <RatingAndReviews productId={this.state.currentItemId} />
-      </div>
-    );
+            {this.state.yourOutfits.map((elem, i) => (
+              <div key={i}>
+                <div style={{ padding: 8 }}>
+                  {console.log('*** map! *** ', elem)}
+                  <OutfitProductCard key={i} productId={elem} />
+                </div>
+              </div>
+            ))}
+            <PlaceHolder />
+            <PlaceHolder />
+          </Carousel>
+          <QAWidget productId={this.state.currentItemId} />
+          <RatingAndReviews
+            productId={this.state.currentItemId}
+            // eslint-disable-next-line react/jsx-no-bind
+            handleProductRatingChange={this.handleProductRatingChange.bind(
+              this
+            )}
+          />
+        </div>
+      );
+    }
+    return <CircularProgress />;
   }
 }

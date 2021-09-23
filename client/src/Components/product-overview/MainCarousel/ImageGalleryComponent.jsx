@@ -1,21 +1,30 @@
-/* eslint-disable react/destructuring-assignment */
-import React, { useEffect, useStyles, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
-
+import { makeStyles, useStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-
 import Carousel from './Carousel.jsx';
 
 export default function ImageGalleryComponent(props) {
+  const { currentItemStylesArr } = props;
+  const imagesArr = [];
+
+  if (currentItemStylesArr !== undefined) {
+    for (let i = 0; i < currentItemStylesArr.length; i += 1) {
+      const currentStyle = currentItemStylesArr[i];
+      imagesArr.push({
+        original: currentStyle.url,
+        thumbnail: currentStyle.thumbnail_url,
+        originalHeight: 500,
+        originalWidth: 500,
+      });
+    }
+  }
+
   return (
     <>
       <Grid item elevation={0}>
-        <Carousel
-          allItems={props.allItems}
-          currentItem={props.currentItem}
-          currentStyles={props.currentStyles}
-        />
+        <Carousel images={imagesArr} />
       </Grid>
     </>
   );
