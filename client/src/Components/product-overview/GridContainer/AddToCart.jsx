@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -47,7 +48,17 @@ const useStyles = makeStyles((theme) => ({
 
 const AddToCart = function (props) {
   const classes = useStyles();
-  const { currentStylesObj } = props;
+  const { currentStyles, currentItemIndex } = props;
+  const styleSkus = currentStyles.results[currentItemIndex].skus;
+  const skuData = [];
+
+  // const parseSkuData = function () {
+  //   for (const key of styleSkus) {
+  //     skuData.push({ key: styleSkus[key] });
+  //   }
+  // };
+  console.log(styleSkus);
+
   const [size, setSize] = useState();
   const [quantity, setQuantity] = useState();
 
@@ -59,11 +70,11 @@ const AddToCart = function (props) {
     setQuantity(event.target.value);
   };
 
-  // const renderData = function () {
-  //   for (var key in currentStylesObj) {
-
-  //   };
-  // };
+  // if (styleSkus !== undefined) {
+  //   useEffect(() => {
+  //     parseSkuData();
+  //   }, [currentStyles]);
+  // }
 
   return (
     <Grid container elevation={0} className={classes.root}>
@@ -73,13 +84,13 @@ const AddToCart = function (props) {
             <InputLabel id="Select Size">Select Size</InputLabel>
             <Select
               id="select-size"
-              value={10}
+              value={1}
               label="Select Size"
               onChange={handleSizeChange}
             >
-              <MenuItem value={10}>Small</MenuItem>
-              <MenuItem value={20}>Medium</MenuItem>
-              <MenuItem value={30}>Large</MenuItem>
+              <MenuItem value={1}>Small</MenuItem>
+              <MenuItem value={2}>Medium</MenuItem>
+              <MenuItem value={3}>Large</MenuItem>
             </Select>
           </FormControl>
           <FormControl

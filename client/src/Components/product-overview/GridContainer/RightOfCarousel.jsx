@@ -11,25 +11,28 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AddIcon from '@material-ui/icons/Add';
+import PinterestIcon from '@material-ui/icons/Pinterest';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
-import AddToCart from './AddToCart.jsx';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
+// import AddToCart from './AddToCart.jsx';
 import Stars from '../../rating-review/StarRating.jsx';
 import StyleSelector from './StyleSelector.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    margin: theme.spacing(1),
     width: '100%',
-    margin: 15,
-    minWidth: 100,
   },
   formControlSize: {
-    margin: theme.spacing(2),
-    minWidth: 200,
+    margin: theme.spacing(1),
+    minWidth: 150,
   },
   formControlQuantity: {
-    margin: 15,
+    margin: theme.spacing(1),
     minWidth: 100,
   },
   root2: {
@@ -42,8 +45,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   large: {
-    width: theme.spacing(8),
-    height: theme.spacing(8),
+    width: theme.spacing(10),
+    height: theme.spacing(10),
     padding: 5,
     margin: 10,
     border: '1px solid black',
@@ -55,45 +58,133 @@ function RightOfCarousel(props) {
   const {
     currentStylesObj,
     currentItem,
+    currentItemIndex,
     currentItemInfo,
     handleUpdateCarousel,
     productRating,
   } = props;
 
-  const [styleIndex, setCurrentStyle] = useState();
+  const checkmarkIcon = <CheckCircleIcon />;
 
-  const handleUpdateCurrentStyle = (event) => {
-    setCurrentStyle(event.target.value);
-    handleUpdateCarousel(event.target.value);
+  const [styleIndex, setCurrentStyleIndex] = useState(0);
+  const [size, setSize] = useState();
+  const [quantity, setQuantity] = useState();
+
+  const handleSizeChange = (event) => {
+    setSize(event.target.value);
+  };
+
+  const handleQuantityChange = (event) => {
+    setQuantity(event.target.value);
+  };
+
+  const handleUpdateCurrentStyle = (index) => {
+    setCurrentStyleIndex(index);
+    console.log('index in right of carousel', currentItemIndex);
+    console.log('event', index);
+    handleUpdateCarousel(index);
   };
 
   if (currentItemInfo) {
     return (
       <div className={classes.root}>
-        <Grid container elevation={0} className={classes.root}>
-          <Grid item xs={12}>
+        <Grid
+          container
+          elevation={0}
+          className={classes.root}
+          justifyContent="flex-start"
+          alignItems="flex-start"
+        >
+          <Grid item xs={6}>
             <Stars rating={productRating} />
-            <Typography variant="subtitle2">Read all reviews</Typography>
-            <Typography variant="body2">{currentItem.category}</Typography>
-            <Typography variant="h3">{currentItem.name}</Typography>
-            <Typography variant="subtitle2">
-              $ {currentItem.default_price}
+            <br />
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="button">
+              <AnchorLink href="#ratings" color="primary">
+                {' '}
+                Read all reviews{' '}
+              </AnchorLink>
             </Typography>
+            <br />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h5">{currentItem.category}</Typography>
+            <Typography variant="h3">{currentItem.name}</Typography>
+            <Typography variant="h5">$ {currentItem.default_price}</Typography>
           </Grid>
           <Grid item xs={12}>
             <div className={classes.root2}>
               <Grid container item xs={12}>
                 <StyleSelector
                   currentStyles={currentStylesObj}
-                  handleUpdateCurrentStyle={handleUpdateCurrentStyle.bind(this)}
+                  handleUpdateCurrentStyle={handleUpdateCurrentStyle}
                   handleUpdateCarousel={handleUpdateCarousel}
+                  currentItemIndex={currentItemIndex}
                 />
               </Grid>
             </div>
           </Grid>
-          <>
-            <AddToCart currentStyles={currentStylesObj} />
-          </>
+          <Grid container elevation={0} className={classes.root}>
+            <Grid item xs={12}>
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl
+                  className={classes.formControlSize}
+                  variant="outlined"
+                >
+                  <InputLabel id="Select Size">Select Size</InputLabel>
+                  <Select
+                    id="select-size"
+                    value={1}
+                    label="Select Size"
+                    onChange={handleSizeChange}
+                  >
+                    <MenuItem value={1}>Small</MenuItem>
+                    <MenuItem value={2}>Medium</MenuItem>
+                    <MenuItem value={3}>Large</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl
+                  className={classes.formControlQuantity}
+                  color="primary"
+                  variant="outlined"
+                >
+                  <InputLabel id="Select Quantity">Quantity</InputLabel>
+                  <Select
+                    id="select-quantity"
+                    value={1}
+                    label="Select Quantity"
+                    onChange={handleQuantityChange}
+                  >
+                    <MenuItem value={1}>1</MenuItem>
+                    <MenuItem value={2}>2</MenuItem>
+                    <MenuItem value={3}>3</MenuItem>
+                    <MenuItem value={4}>4</MenuItem>
+                    <MenuItem value={5}>5</MenuItem>
+                    <MenuItem value={6}>6</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              <Button
+                variant="outlined"
+                color="primary"
+                size="large"
+                endIcon={<AddIcon />}
+              >
+                ADD TO BAG
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                size="large"
+                startIcon={<StarBorderIcon />}
+              />
+              <br />
+              <Grid item xs={12}>
+                <FacebookIcon /> <TwitterIcon /> <PinterestIcon />
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
       </div>
     );
