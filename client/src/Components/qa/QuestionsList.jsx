@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, makeStyles, Box, Button } from '@material-ui/core';
 import QABlock from './QABlock.jsx';
-import FooterButtons from './FooterButtons.jsx';
+import MoreAnsweredQuestions from './MoreAnsweredQuestions.jsx';
+import AddQuestion from './AddQuestion.jsx';
 
 const useStyles = makeStyles((theme) => ({
   qaBlock: {
@@ -9,15 +10,15 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: 'center',
   },
   footerButtons: {
-    justifySelf: 'space-around',
+    justifySelf: 'center',
   },
 }));
 
-const QuestionsList = ({ questionsList }) => {
+const QuestionsList = ({ questionsList, productName }) => {
   const classes = useStyles();
   const [count, setCount] = useState(4);
 
-  const getQuestions = () => {
+  const createQuestionsArr = () => {
     const questionsArr = [];
     for (let i = 0; i < count; i += 1) {
       if (questionsList.results[i] === undefined) {
@@ -29,13 +30,20 @@ const QuestionsList = ({ questionsList }) => {
   };
 
   const incrementCount = () => {
-    console.log('count clicked');
-    setCount(questionsList.results.length);
+    setCount(count + 2);
   };
 
-  // const moreQuestionsButton = () => {
-  //   const element = count >= questionsList.results.length ? '' :
-  // };
+  const moreQuestionsButton = () => {
+    const element =
+      count >= questionsList.results.length ? (
+        <Button variant="outlined" color="textPrimary" onClick={setCount(4)}>
+          Close Questions
+        </Button>
+      ) : (
+        <MoreAnsweredQuestions changeCount={incrementCount} />
+      );
+    return element;
+  };
 
   return (
     <Box
@@ -52,15 +60,15 @@ const QuestionsList = ({ questionsList }) => {
         alignItems="center"
       >
         {questionsList.results &&
-          getQuestions().map((element, key) => (
+          createQuestionsArr().map((element, key) => (
             <Grid key={key} className={classes.qaBlock} item>
               <QABlock questionObj={element} />
             </Grid>
           ))}
-        <FooterButtons
-          className={classes.footerButtons}
-          changeCount={incrementCount}
-        />
+        <Grid item className={classes.footerButtons}>
+          {questionsList.results && moreQuestionsButton()}
+          <AddQuestion productName={productName} />
+        </Grid>
       </Grid>
     </Box>
   );

@@ -157,10 +157,10 @@ const reportQuestion = (questionId, callback) => {
     });
 };
 
-const markAnswer = (questionId, callback) => {
+const markAnswer = (answerId, callback) => {
   axios
     .put(
-      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${questionId}/helpful`,
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${answerId}/helpful`,
       {},
       { headers }
     )
@@ -172,10 +172,10 @@ const markAnswer = (questionId, callback) => {
     });
 };
 
-const reportAnswer = (questionId, callback) => {
+const reportAnswer = (answerId, callback) => {
   axios
     .put(
-      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${questionId}/report`,
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-atx/qa/answers/${answerId}/report`,
       {},
       { headers }
     )

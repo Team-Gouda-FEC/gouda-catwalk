@@ -134,40 +134,40 @@ app.put('/markQuestion', (req, res) => {
     if (err) {
       res.status(500).send('Error marking the question');
     } else {
-      res.status(204).send(confirmed);
+      res.status(204).send(confirmed.data);
     }
   });
 });
 
 // Report a Question
 app.put('/reportQuestion', (req, res) => {
-  apiFn.reportQuestion(req.query.question_id, (err, confirmed) => {
+  apiFn.reportQuestion(req.body.question_id, (err, confirmed) => {
     if (err) {
       res.status(500).send('Error reporting the question');
     } else {
-      res.status(204).send(confirmed);
+      res.status(204).send(confirmed.data);
     }
   });
 });
 
 // Mark Answer as helpful
 app.put('/markAnswer', (req, res) => {
-  apiFn.markAnswer(req.query.question_id, (err, confirmed) => {
+  apiFn.markAnswer(req.body.answer_id, (err, confirmed) => {
     if (err) {
       res.status(500).send('Error marking the answer');
     } else {
-      res.status(204).send(confirmed);
+      res.status(204).send(confirmed.data);
     }
   });
 });
 
 // Report an Answer
 app.put('/reportAnswer', (req, res) => {
-  apiFn.reportAnswer(req.query.question_id, (err, confirmed) => {
+  apiFn.reportAnswer(req.body.answer_id, (err, confirmed) => {
     if (err) {
       res.status(500).send('Error reporting the answer');
     } else {
-      res.status(204).send(confirmed);
+      res.status(204).send(confirmed.data);
     }
   });
 });
