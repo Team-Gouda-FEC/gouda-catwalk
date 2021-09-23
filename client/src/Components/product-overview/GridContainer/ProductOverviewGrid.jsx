@@ -89,13 +89,15 @@ export default function ProductOverviewGrid(props) {
               <RightOfCarousel
                 currentStylesObj={currentStylesObj}
                 handleUpdateCarousel={handleUpdateCarousel.bind(this)}
+                currentItemIndex={currentItemIndex}
                 currentItem={currentItem}
                 currentItemInfo={currentItemInfo}
                 productRating={productRating}
               />
             </Grid>
             <Grid item xs={7}>
-              <Typography variant="h5">{currentItem.slogan}.</Typography>
+              <Typography variant="h4">{currentItem.slogan}.</Typography>
+              <br/>
               <Typography variant="body1">{currentItem.description}</Typography>
             </Grid>
             <Divider orientation="vertical" flexItem />

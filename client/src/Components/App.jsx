@@ -74,25 +74,31 @@ export default class App extends React.Component {
     axios
       .get('/products/')
       .then((response) => {
-        this.setState({
-          allItems: response.data,
-          currentItemId: response.data[0].id,
-          currentItem: response.data[0],
-        });
+        this.setState(
+          {
+            allItems: response.data,
+            currentItemId: response.data[0].id,
+            currentItem: response.data[0],
+          },
+          () => {
+            this.getRelated();
+          }
+        );
       })
-      .then(() => {
-        axios
-          .get('/relatedproducts/', {
-            params: { product_id: this.state.currentItemId },
-          })
-          .then((response) => {
-            this.setState({
-              relatedItems: response.data,
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  getRelated() {
+    axios
+      .get('/relatedproducts/', {
+        params: { product_id: this.state.currentItemId },
+      })
+      .then((response) => {
+        this.setState({
+          relatedItems: response.data,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -100,10 +106,15 @@ export default class App extends React.Component {
   }
 
   updateCurrentItem(itemId, itemObj) {
-    this.setState({
-      currentItemId: itemId,
-      currentItem: itemObj,
-    });
+    this.setState(
+      {
+        currentItemId: itemId,
+        currentItem: itemObj,
+      },
+      () => {
+        this.getRelated();
+      }
+    );
   }
 
   render() {
@@ -115,20 +126,22 @@ export default class App extends React.Component {
             maxWidth: 1600,
             marginLeft: 'auto',
             marginRight: 'auto',
-            marginTop: 64,
+            marginTop: 0,
           }}
         >
           <NavBar />
-          <Typography variant="subtitle1" align="center">
+          <br/>
+          <Typography variant="h5" align="center">
             SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT
             HIGHLIGHT!
           </Typography>
+          <br/>
           <ProductOverviewGrid
             currentItem={this.state.currentItem}
             currentItemId={this.state.currentItemId}
             productRating={this.state.productRating}
           />
-          <h4> RELATED PRODUCTS </h4>
+          <Typography variant="h4"> RELATED PRODUCTS </Typography>
           <Carousel show={this.state.showNumCarouselItems}>
             {this.state.relatedItems.map((elem, i) => (
               <div key={i}>
@@ -143,7 +156,7 @@ export default class App extends React.Component {
               </div>
             ))}
           </Carousel>
-          <h4> YOUR OUTFITS </h4>
+          <Typography variant="h4"> YOUR OUTFITS </Typography>
           <Carousel show={this.state.showNumCarouselItems}>
             <div>
               <div style={{ padding: 8 }}>
@@ -156,7 +169,6 @@ export default class App extends React.Component {
             {this.state.yourOutfits.map((elem, i) => (
               <div key={i}>
                 <div style={{ padding: 8 }}>
-                  {console.log('*** map! *** ', elem)}
                   <OutfitProductCard key={i} productId={elem} />
                 </div>
               </div>

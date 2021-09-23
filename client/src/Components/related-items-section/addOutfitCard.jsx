@@ -39,7 +39,6 @@ const AddOutfitCard = (props) => {
   return (
     <div>
       <Card className={classes.root}>
-        {console.log('current item ID in Add outfit Card: ', productId)}
         <CardContent>
           <AddCircleOutlineIcon
             className={classes.circle}
