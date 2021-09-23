@@ -119,10 +119,10 @@ const ProductReview = (props) => {
         direction="row"
         justifyContent="flex-start"
         alignItems="flex-start"
-        style={{ height: '60px', boxSizing: 'border-box' }}
+        style={{ height: '80px', boxSizing: 'border-box' }}
       >
         <Grid item>
-          <Typography style={{ height: '40px', fontSize: '3em' }}>
+          <Typography style={{ height: '50px', fontSize: '3em' }}>
             {rating}
           </Typography>
         </Grid>

@@ -76,7 +76,8 @@ const RatingAndReviews = (props) => {
         alignItems="flex-start"
       >
         <Grid item xs={3}>
-          <h2> Ratings Reviews </h2>
+          <Typography variant='h5'> Ratings Reviews </Typography>
+          <br />
           <ProductReview
             setChar={setCharacteristics}
             productId={productId}
