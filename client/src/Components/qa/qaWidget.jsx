@@ -26,8 +26,11 @@ const QAWidget = ({ productId }) => {
   }, [currentId]);
 
   useEffect(() => {
+    console.log('changing product id');
     setCurrentId(productId);
-  }, []);
+  }, [productId]);
+
+  console.log('questionList rending');
 
   return (
     <div className="qa-container">

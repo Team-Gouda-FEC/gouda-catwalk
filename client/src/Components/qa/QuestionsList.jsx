@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, makeStyles, Box, Button } from '@material-ui/core';
+import {
+  Grid,
+  makeStyles,
+  Box,
+  Button,
+  CircularProgress,
+} from '@material-ui/core';
 import QABlock from './QABlock.jsx';
 import MoreAnsweredQuestions from './MoreAnsweredQuestions.jsx';
 import AddQuestion from './AddQuestion.jsx';
@@ -34,6 +40,7 @@ const QuestionsList = ({ questionsList, productName }) => {
   };
 
   const moreQuestionsButton = () => {
+    console.log('test point');
     const element =
       count >= questionsList.results.length ? (
         <Button variant="outlined" color="textPrimary" onClick={setCount(4)}>
@@ -45,33 +52,38 @@ const QuestionsList = ({ questionsList, productName }) => {
     return element;
   };
 
-  return (
-    <Box
-      style={{
-        height: '500px',
-        overflow: 'scroll',
-      }}
-    >
-      <Grid
-        container
-        spacing={2}
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
+  if (questionsList.results) {
+    return (
+      <Box
+        style={{
+          height: '500px',
+          overflow: 'scroll',
+        }}
       >
-        {questionsList.results &&
-          createQuestionsArr().map((element, key) => (
-            <Grid key={key} className={classes.qaBlock} item>
-              <QABlock questionObj={element} />
-            </Grid>
-          ))}
-        <Grid item className={classes.footerButtons}>
-          {questionsList.results && moreQuestionsButton()}
-          <AddQuestion productName={productName} />
+        <Grid
+          container
+          spacing={2}
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Grid item>
+            {createQuestionsArr().map((element, key) => (
+              <Grid key={key} className={classes.qaBlock} item>
+                <QABlock questionObj={element} />
+              </Grid>
+            ))}
+          </Grid>
+          <Grid item className={classes.footerButtons}>
+            {moreQuestionsButton()}
+            <AddQuestion productName={productName} />
+          </Grid>
         </Grid>
-      </Grid>
-    </Box>
-  );
+      </Box>
+    );
+  }
+
+  return <CircularProgress />;
 };
 
 export default QuestionsList;
