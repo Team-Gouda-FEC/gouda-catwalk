@@ -2,6 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
+import Marquee from 'react-fast-marquee';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import NavBar from './product-overview/NavBar.jsx';
 import ProductOverviewGrid from './product-overview/GridContainer/ProductOverviewGrid.jsx';
@@ -130,10 +131,12 @@ export default class App extends React.Component {
           }}
         >
           <NavBar />
-          <Typography variant="h5" align="center">
-            SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW PRODUCT
-            HIGHLIGHT!
-          </Typography>
+          <Marquee speed={15}>
+            <Typography variant="h5" color="secondary">
+              SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW
+              PRODUCT HIGHLIGHT!
+            </Typography>
+          </Marquee>
           <ProductOverviewGrid
             currentItem={this.state.currentItem}
             currentItemId={this.state.currentItemId}

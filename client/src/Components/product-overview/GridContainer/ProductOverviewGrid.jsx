@@ -80,9 +80,9 @@ export default function ProductOverviewGrid(props) {
           <Grid
             container
             elevation={0}
-            justifyContent="space-between"
+            spacing={1}
+            justifyContent="center"
             alignItems="center"
-            spacing={8}
           >
             <Grid className="carousel" item xs={7}>
               <ImageGalleryComponent
@@ -91,7 +91,7 @@ export default function ProductOverviewGrid(props) {
                 }
               />
             </Grid>
-            <Grid className="Product Information" item xs={5} >
+            <Grid className="ProductInformation" item xs={5}>
               <RightOfCarousel
                 currentStylesObj={currentStylesObj}
                 handleUpdateCarousel={handleUpdateCarousel.bind(this)}
@@ -102,8 +102,10 @@ export default function ProductOverviewGrid(props) {
               />
             </Grid>
             <Grid item xs={7}>
-              <Typography variant="h4">{currentItem.slogan}.</Typography>
-              <br/>
+              <Typography variant="h4" color="secondary">
+                {currentItem.slogan}.
+              </Typography>
+              <br />
               <Typography variant="body1">{currentItem.description}</Typography>
             </Grid>
             <Divider orientation="vertical" flexItem />

@@ -102,14 +102,15 @@ function RightOfCarousel(props) {
           <Grid item xs={6}>
             <Typography variant="button">
               <AnchorLink href="#ratings" color="primary">
-                {' '}
-                Read all reviews{' '}
+                Read all reviews
               </AnchorLink>
             </Typography>
             <br />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h5">{currentItem.category}</Typography>
+            <Typography variant="h5" color="primary">
+              {currentItem.category}
+            </Typography>
             <Typography variant="h3">{currentItem.name}</Typography>
             <Typography variant="h5">$ {currentItem.default_price}</Typography>
           </Grid>

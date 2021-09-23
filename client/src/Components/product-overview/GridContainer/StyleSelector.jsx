@@ -46,7 +46,7 @@ const StyleSelector = (props) => {
             Style
             {' > '}
           </Typography>
-          <Typography variant="h5">
+          <Typography variant="h5" color="primary">
             {currentStyles.results[currentItemIndex].name}
           </Typography>
           <br />
