@@ -47,11 +47,11 @@ const Stars = (props) => {
           color: '#FF9529',
         }}
       >
-        <Outline id="star 1" />
-        <Outline id="star 2" />
-        <Outline id="star 3" />
-        <Outline id="star 4" />
-        <Outline id="star 5" />
+        <Outline key="star 1" id="star 1" />
+        <Outline key="star 2" id="star 2" />
+        <Outline key="star 3" id="star 3" />
+        <Outline key="star 4" id="star 4" />
+        <Outline key="star 5" id="star 5" />
       </div>
       <div
         id="starSubContainer"
@@ -71,11 +71,11 @@ const Stars = (props) => {
             color: '#FF9529',
           }}
         >
-          <Star key="star 1" />
-          <Star key="star 2" />
-          <Star key="star 3" />
-          <Star key="star 4" />
-          <Star key="star 5" />
+          <Star key="star 1" id="star 1" />
+          <Star key="star 2" id="star 2" />
+          <Star key="star 3" id="star 3" />
+          <Star key="star 4" id="star 4" />
+          <Star key="star 5" id="star 5" />
         </div>
       </div>
     </div>

@@ -4,10 +4,14 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Stars from './starRating.jsx';
 import Breakdown from './ratingBreakdown.jsx';
+import TraitBreakout from './traitBreakout.jsx';
 
 const ProductReview = (props) => {
+  const { filterBy } = props;
   const [rating, setRating] = useState(0);
   const [recommendationPercent, setPercent] = useState(0);
+  const [traitObj, setTraitObj] = useState({});
+  const [traitsArr, setTraitsArr] = useState([]);
   const [ratingsCount, setRatingCount] = useState({
     5: 0,
     4: 0,
@@ -16,10 +20,21 @@ const ProductReview = (props) => {
     1: 0,
   });
 
+  const setTraits = (traits) => {
+    const traitNames = Object.keys(traits);
+    const tObj = {};
+    const ids = {};
+    traitNames.map((traitDetails) => {
+      tObj[traitDetails] = traits[traitDetails].value;
+    });
+    setTraitsArr(traitNames);
+    setTraitObj(tObj);
+  };
+
   const setReviewCount = (recObj) => {
     const positiveCount = Number(recObj.true);
     const negativeCount = Number(recObj.false);
-    props.setMoreReviews(positiveCount + negativeCount);
+    props.setTotalReviewCount(positiveCount + negativeCount);
   };
 
   const getPercent = (recObj) => {
@@ -39,7 +54,7 @@ const ProductReview = (props) => {
       count += value;
     }
     sum = Math.round((sum * 10) / count) / 10;
-    return sum;
+    return sum || 0;
   };
 
   const handleRatingsBreakDown = (breakdownObj) => {
@@ -50,10 +65,6 @@ const ProductReview = (props) => {
     }
     setRatingCount(newBreakdown);
   };
-
-  // const getStarRating = (ratingObj) => {
-
-  // };
 
   useEffect(() => {
     if (props.productId !== undefined) {
@@ -71,6 +82,7 @@ const ProductReview = (props) => {
             setReviewCount(reviewMetaData.data.recommended);
             setPercent(getPercent(reviewMetaData.data.recommended));
             props.setChar(reviewMetaData.data.characteristics);
+            setTraits(reviewMetaData.data.characteristics);
           })
           .catch((err) => {
             console.log(err);
@@ -80,10 +92,6 @@ const ProductReview = (props) => {
     }
     // eslint-disable-next-line react/destructuring-assignment
   }, [props.productId]);
-
-  const getRating = () => {
-    // get the average of all reviews
-  };
 
   return (
     <Grid
@@ -110,8 +118,15 @@ const ProductReview = (props) => {
           </div>
         </Grid>
       </Grid>
-      <p> {recommendationPercent}% of reviews recommend this product</p>
-      <Breakdown ratings={ratingsCount} reviewCount={props.totalReviewCount} />
+      <p> {recommendationPercent || 0}% of reviews recommend this product</p>
+      <Breakdown
+        filterBy={filterBy}
+        ratings={ratingsCount}
+        reviewCount={props.totalReviewCount}
+        setFilterBy={props.setFilterBy}
+      />
+      <br />
+      <TraitBreakout traits={traitsArr} traitObj={traitObj} />
     </Grid>
   );
 };
