@@ -29,8 +29,13 @@ const ReviewList = (props) => {
   };
 
   const moreReviewsButton = () => {
-    const element = count >= reviews.length ? <div></div> : <MoreReviews setReviewCount={incrementCount} />
-    return ( element );
+    const element =
+      count >= reviews.length ? (
+        <div />
+      ) : (
+        <MoreReviews setReviewCount={incrementCount} />
+      );
+    return element;
   };
 
   return (

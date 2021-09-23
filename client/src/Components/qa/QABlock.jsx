@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import {
   Card,
   CardHeader,
@@ -11,59 +12,72 @@ import {
   CardMedia,
   makeStyles,
 } from '@material-ui/core';
+import Question from './Question.jsx';
+import Answer from './Answer.jsx';
 
 const useStyles = makeStyles((theme) => ({
-  question: {
-    fontWeight: 'bold',
+  loadAnswers: {
+    marginLeft: '10%',
   },
 }));
 
 const QABlock = ({ questionObj }) => {
-  const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-  })(({ theme, expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  }));
+  const { answers } = questionObj;
+  const classes = useStyles();
+  const [count, setCount] = useState(2);
+  const answersData = Object.values(questionObj.answers);
+  const [testValue, setTestValue] = useState(0);
 
-  const [expanded, setExpanded] = useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const incrementTest = () => {
+    console.log('before setTestValue: ', testValue);
+    setTestValue(testValue + 1);
+    console.log('after setTestValue: ', testValue);
   };
 
-  // TODO: conditionally render only 2 answers, then use a button to show all answers
-  // TODO: Helpful btn -> functionality to increase the helpfulness
-  // TODO: Report btn -> functionality to report the question
+  const createAnswersArr = () => {
+    const answersArr = [];
+    for (let i = 0; i < count; i += 1) {
+      if (answersData[i] === undefined) {
+        break;
+      }
+      answersArr.push(answersData[i]);
+    }
+    return answersArr;
+  };
 
-  const classes = useStyles();
+  const incrementCount = () => {
+    setCount(answersData.length);
+  };
+
+  const moreAnswersButton = () => {
+    const element =
+      count >= answersData.length ? (
+        ''
+      ) : (
+        <Button
+          className={classes.loadAnswers}
+          variant="outlined"
+          color="secondary"
+          onClick={incrementCount}
+        >
+          More Answers
+        </Button>
+      );
+    return element;
+  };
 
   return (
     <Card>
-      <CardHeader />
       <CardContent>
-        <Typography
-          className={classes.question}
-          variant="h5"
-          color="textPrimary"
-        >
-          {`Q: ${questionObj.question_body}`}
-          <ButtonGroup variant="text">
-            <Button>TODO: Helpful -> perform the api request</Button>
-            <Button>
-              TODO: Add Answer -> open a modal, then perform an api post request
-            </Button>
-          </ButtonGroup>
-        </Typography>
-        {Object.entries(questionObj.answers).map((element, key) => (
-          <Typography key={key}>{`A: ${element[1].body}`}</Typography>
-        ))}
+        <Question questionObj={questionObj} onChange={incrementTest} />
+        {answers &&
+          createAnswersArr().map((element, key) => (
+            <div key={key}>
+              <Answer answerObj={element} />
+            </div>
+          ))}
       </CardContent>
-      <Button>TODO: LOAD MORE ANSWERS</Button>
+      {answers && moreAnswersButton()}
     </Card>
   );
 };

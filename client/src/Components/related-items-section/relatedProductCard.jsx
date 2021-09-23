@@ -118,7 +118,7 @@ const RelatedProductCard = (props) => {
               className={classes.media}
               image={productImage || 'https://via.placeholder.com/300x300'}
             >
-              <Grid item container justify="flex-end">
+              <Grid item container justifyContent="flex-end">
                 <AnimatedModal
                   className={classes.button}
                   relatedItemInfo={productInfo}
