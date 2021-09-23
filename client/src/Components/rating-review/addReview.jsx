@@ -72,11 +72,22 @@ const AddReview = (props) => {
   };
 
   const handleBodyChange = (event) => {
-    setBody(event.target.value);
+    let update = event.target.value;
+    if (update.length > 1000) {
+      update = update.slice(0, 1000);
+      // eslint-disable-next-line no-param-reassign
+      event.target.value = update;
+    }
+    setBody(update);
   };
 
-  const handleSummaryChange = (event) => {
-    setSummary(event.target.value);
+  const handleSummaryChange = (event) => {let update = event.target.value;
+    if (update.length > 60) {
+      update = update.slice(0, 60);
+      // eslint-disable-next-line no-param-reassign
+      event.target.value = update;
+    }
+    setSummary(update);
   };
 
   const handleEmailChange = (event) => {
@@ -89,8 +100,13 @@ const AddReview = (props) => {
     setEmail(update);
   };
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
+  const handleNameChange = (event) => {let update = event.target.value;
+    if (update.length > 60) {
+      update = update.slice(0, 60);
+      // eslint-disable-next-line no-param-reassign
+      event.target.value = update;
+    }
+    setName(update);
   };
 
   const handleRecommededChange = (event) => {

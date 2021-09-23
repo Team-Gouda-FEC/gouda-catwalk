@@ -17,6 +17,7 @@ const RatingAndReviews = (props) => {
   const [sortOrder, setSortOrder] = useState('relevent');
   const [characteristics, setCharacteristics] = useState({});
   const [filterBy, setFilterBy] = useState(0);
+  const [maxCount, setMaxCount] = useState(2);
 
   const getReviews = () => {
     if (productId) {
@@ -66,7 +67,7 @@ const RatingAndReviews = (props) => {
   };
 
   return (
-    <div>
+    <div id="ratings">
       <br />
       <Grid
         container
@@ -75,7 +76,8 @@ const RatingAndReviews = (props) => {
         alignItems="flex-start"
       >
         <Grid item xs={3}>
-          <h2> Ratings Reviews </h2>
+          <Typography variant='h5'> Ratings Reviews </Typography>
+          <br />
           <ProductReview
             setChar={setCharacteristics}
             productId={productId}
@@ -86,6 +88,8 @@ const RatingAndReviews = (props) => {
             handleProductRatingChange={props.handleProductRatingChange}
             setFilterBy={setFilterBy}
             filterBy={filterBy}
+            setMaxCount={setMaxCount}
+            maxCount={maxCount}
           />
         </Grid>
 
@@ -112,6 +116,7 @@ const RatingAndReviews = (props) => {
               productId={productId}
               characteristics={characteristics}
               updateReviews={getReviews}
+              maxCount={maxCount}
             />
           </Grid>
         </Grid>
