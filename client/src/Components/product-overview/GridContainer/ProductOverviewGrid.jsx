@@ -12,19 +12,17 @@ import RightOfCarousel from './RightOfCarousel.jsx';
 const useStyles = makeStyles((theme) => ({
   ProductOverviewGrid: {
     flexGrow: 1,
-    margin: 10,
-    padding: 15,
+    margin: 5,
   },
   ProductInformation: {
     flexGrow: 1,
-    margin: 10,
-    padding: 15,
   },
 }));
 
 export default function ProductOverviewGrid(props) {
   const classes = useStyles();
-  const { currentItemId, currentItem, productRating } = props;
+  const { currentItemId, currentItem, productRating, updateCurrentIndex } =
+    props;
   const [currentStylesObj, setCurrentStyleObj] = useState('');
   const [currentStyleId, setCurrentStyleId] = useState('');
   const [currentItemInfo, setCurrentItemInfo] = useState('');
@@ -64,6 +62,7 @@ export default function ProductOverviewGrid(props) {
 
   function handleUpdateCarousel(index) {
     setCurrentItemIndex(index);
+    updateCurrentIndex(index);
   }
 
   useEffect(() => {
@@ -76,22 +75,25 @@ export default function ProductOverviewGrid(props) {
   if (currentStylesObj.results) {
     return (
       <>
-        <div className="ProductOverviewGrid">
+        <div className={classes.ProductOverviewGrid}>
+          {
+            // Carousel
+          }
           <Grid
             container
-            elevation={0}
-            spacing={1}
-            justifyContent="center"
+            elevation={4}
+            justifyContent="flex-start"
             alignItems="center"
           >
-            <Grid className="carousel" item xs={7}>
+            <Grid item className="carousel" xs={7}>
+              {console.log('currentStylesObj', currentStylesObj)}
               <ImageGalleryComponent
                 currentItemStylesArr={
                   currentStylesObj.results[currentItemIndex].photos
                 }
               />
             </Grid>
-            <Grid className="ProductInformation" item xs={5}>
+            <Grid item className={classes.ProductInformation} xs={5}>
               <RightOfCarousel
                 currentStylesObj={currentStylesObj}
                 handleUpdateCarousel={handleUpdateCarousel.bind(this)}
@@ -101,19 +103,21 @@ export default function ProductOverviewGrid(props) {
                 productRating={productRating}
               />
             </Grid>
-            <Grid item xs={7}>
-              <Typography variant="h4" color="secondary">
-                {currentItem.slogan}.
-              </Typography>
-              <br />
-              <Typography variant="body1">{currentItem.description}</Typography>
-            </Grid>
-            <Divider orientation="vertical" flexItem />
-            <Grid item xs={4}>
-              <ProductBlurbs currentItemInfo={currentItemInfo} />
-            </Grid>
           </Grid>
         </div>
+        <Grid container elevation={5} spacing={2}>
+          <Grid item className="blurbs" xs={7}>
+            <Typography variant="h4" color="secondary">
+              {currentItem.slogan}.
+            </Typography>
+            <br />
+            <Typography variant="body1">{currentItem.description}</Typography>
+          </Grid>
+
+          <Divider orientation="vertical" flexItem />
+
+          <ProductBlurbs currentItemInfo={currentItemInfo} />
+        </Grid>
       </>
     );
   }

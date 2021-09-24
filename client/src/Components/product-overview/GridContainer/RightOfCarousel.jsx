@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
@@ -11,14 +12,12 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AddIcon from '@material-ui/icons/Add';
+import Avatar from '@material-ui/core/Avatar';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 import PinterestIcon from '@material-ui/icons/Pinterest';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import axios from 'axios';
-import Avatar from '@material-ui/core/Avatar';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
-// import AddToCart from './AddToCart.jsx';
+import AddToCart from './AddToCart.jsx';
 import Stars from '../../rating-review/StarRating.jsx';
 import StyleSelector from './StyleSelector.jsx';
 
@@ -64,8 +63,6 @@ function RightOfCarousel(props) {
     productRating,
   } = props;
 
-  const checkmarkIcon = <CheckCircleIcon />;
-
   const [styleIndex, setCurrentStyleIndex] = useState(0);
   const [size, setSize] = useState();
   const [quantity, setQuantity] = useState();
@@ -88,18 +85,18 @@ function RightOfCarousel(props) {
   if (currentItemInfo) {
     return (
       <div className={classes.root}>
+        {
+          // stars and read all reviews
+        }
         <Grid
           container
-          elevation={0}
+          elevation={2}
           className={classes.root}
           justifyContent="flex-start"
           alignItems="flex-start"
         >
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Stars rating={productRating} />
-            <br />
-          </Grid>
-          <Grid item xs={6}>
             <Typography variant="button">
               <AnchorLink href="#ratings" color="primary">
                 Read all reviews
@@ -107,6 +104,17 @@ function RightOfCarousel(props) {
             </Typography>
             <br />
           </Grid>
+        </Grid>
+        {
+          // Category name, style, and price
+        }
+        <Grid
+          container
+          elevation={0}
+          className={classes.root}
+          justifyContent="flex-start"
+          alignItems="flex-start"
+        >
           <Grid item xs={12}>
             <Typography variant="h5" color="primary">
               {currentItem.category}
@@ -127,7 +135,10 @@ function RightOfCarousel(props) {
             </div>
           </Grid>
           <Grid container elevation={0} className={classes.root}>
-            <Grid item xs={12}>
+            <AddToCart
+              currentStyleSkus={currentStylesObj.results[currentItemIndex].skus}
+            />
+            {/* <Grid item xs={12}>
               <Box sx={{ minWidth: 120 }}>
                 <FormControl
                   className={classes.formControlSize}
@@ -180,11 +191,7 @@ function RightOfCarousel(props) {
                 size="large"
                 startIcon={<StarBorderIcon />}
               />
-              <br />
-              <Grid item xs={12}>
-                <FacebookIcon /> <TwitterIcon /> <PinterestIcon />
-              </Grid>
-            </Grid>
+            </Grid>*/}
           </Grid>
         </Grid>
       </div>
@@ -194,3 +201,9 @@ function RightOfCarousel(props) {
 }
 
 export default RightOfCarousel;
+
+{
+  /* <Grid item xs={12}>
+<FacebookIcon /> <TwitterIcon /> <PinterestIcon />
+</Grid> */
+}
