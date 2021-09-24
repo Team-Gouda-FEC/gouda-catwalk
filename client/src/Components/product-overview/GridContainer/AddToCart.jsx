@@ -48,16 +48,24 @@ const useStyles = makeStyles((theme) => ({
 
 const AddToCart = function (props) {
   const classes = useStyles();
-  const { currentStyles, currentItemIndex } = props;
-  const styleSkus = currentStyles.results[currentItemIndex].skus;
-  const skuData = [];
+  const { currentStyleSkus } = props;
+  const sizeData = [];
+  const quantData = [];
 
-  // const parseSkuData = function () {
-  //   for (const key of styleSkus) {
-  //     skuData.push({ key: styleSkus[key] });
-  //   }
-  // };
-  console.log(styleSkus);
+  const parseSkuData = function () {
+    console.log('currentStyleSkus before load', currentStyleSkus);
+    console.log('obj entries ', Object.entries(currentStyleSkus));
+    if (currentStyleSkus !== undefined) {
+      for (const [key, value] of Object.entries(currentStyleSkus)) {
+        console.log(`object key ${key}: obj value ${value.size}`);
+        sizeData.push(currentStyleSkus[key].size);
+        quantData.push(currentStyleSkus[key].quantity);
+      }
+    }
+  };
+
+  console.log('size array', sizeData);
+  console.log('quantity array', quantData);
 
   const [size, setSize] = useState();
   const [quantity, setQuantity] = useState();
@@ -70,61 +78,59 @@ const AddToCart = function (props) {
     setQuantity(event.target.value);
   };
 
-  // if (styleSkus !== undefined) {
-  //   useEffect(() => {
-  //     parseSkuData();
-  //   }, [currentStyles]);
-  // }
+  if (currentStyleSkus !== undefined) {
+    useEffect(() => {
+      parseSkuData();
+    }, [currentStyleSkus]);
+  }
 
   return (
-    <Grid container elevation={0} className={classes.root}>
-      <Grid item xs={12}>
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl className={classes.formControlSize} variant="outlined">
-            <InputLabel id="Select Size">Select Size</InputLabel>
-            <Select
-              id="select-size"
-              value={1}
-              label="Select Size"
-              onChange={handleSizeChange}
-            >
-              <MenuItem value={1}>Small</MenuItem>
-              <MenuItem value={2}>Medium</MenuItem>
-              <MenuItem value={3}>Large</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl
-            className={classes.formControlQuantity}
-            color="primary"
-            variant="outlined"
+    <Grid item xs={12}>
+      <Box sx={{ minWidth: 120 }}>
+        <FormControl className={classes.formControlSize} variant="outlined">
+          <InputLabel id="Select Size">Select Size</InputLabel>
+          <Select
+            id="select-size"
+            value={1}
+            label="Select Size"
+            onChange={handleSizeChange}
           >
-            <InputLabel id="Select Quantity">Quantity</InputLabel>
-            <Select
-              id="select-quantity"
-              value={1}
-              label="Select Quantity"
-              onChange={handleQuantityChange}
-            >
-              <MenuItem value={1}>1</MenuItem>
-              <MenuItem value={2}>2</MenuItem>
-              <MenuItem value={3}>3</MenuItem>
-              <MenuItem value={4}>4</MenuItem>
-              <MenuItem value={5}>5</MenuItem>
-              <MenuItem value={6}>6</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-        <Button variant="outlined" color="primary" endIcon={<AddIcon />}>
-          ADD TO BAG
-        </Button>
-        <Button
-          variant="outlined"
+            <MenuItem value={1}>Small</MenuItem>
+            <MenuItem value={2}>Medium</MenuItem>
+            <MenuItem value={3}>Large</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl
+          className={classes.formControlQuantity}
           color="primary"
-          size="large"
-          className={classes.button}
-          startIcon={<StarBorderIcon />}
-        />
-      </Grid>
+          variant="outlined"
+        >
+          <InputLabel id="Select Quantity">Quantity</InputLabel>
+          <Select
+            id="select-quantity"
+            value={1}
+            label="Select Quantity"
+            onChange={handleQuantityChange}
+          >
+            <MenuItem value={1}>1</MenuItem>
+            <MenuItem value={2}>2</MenuItem>
+            <MenuItem value={3}>3</MenuItem>
+            <MenuItem value={4}>4</MenuItem>
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={6}>6</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <Button variant="outlined" color="primary" endIcon={<AddIcon />}>
+        ADD TO BAG
+      </Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        size="large"
+        className={classes.button}
+        startIcon={<StarBorderIcon />}
+      />
     </Grid>
   );
 };

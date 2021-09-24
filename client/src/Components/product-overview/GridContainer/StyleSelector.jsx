@@ -10,10 +10,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   large: {
-    width: theme.spacing(10),
-    height: theme.spacing(10),
-    margin: 12,
-    border: '4px solid black',
+    width: theme.spacing(11),
+    height: theme.spacing(11),
+    margin: 10,
   },
   root: {
     '& > *': {
@@ -26,7 +25,6 @@ const SmallAvatar = withStyles((theme) => ({
   root: {
     width: 30,
     height: 30,
-    border: '3px solid black',
   },
 }))(Avatar);
 
@@ -38,41 +36,48 @@ const StyleSelector = (props) => {
     handleUpdateCarousel(index);
   };
 
+  const checkmarkIcon = <CheckCircleIcon />;
+
   if (currentStyles.results) {
     return (
       <>
-        <Grid item xs={12}>
-          <Typography variant="h6">
-            Style
-            {' > '}
-          </Typography>
-          <Typography variant="h5">
-            {currentStyles.results[currentItemIndex].name}
-          </Typography>
-          <br />
-          <div className={classes.root}>
-            {currentStyles.results.map((style, index) => (
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography variant="h6">
+              Style
+              {' > '}
+            </Typography>
+            <Typography variant="h5" color="primary">
+              {currentStyles.results[currentItemIndex].name}
+            </Typography>
+            <br />
+          </Grid>
+          {currentStyles.results.map((style, index) => (
+            <Grid item xs={3} key={index}>
               <Badge
-                key={index}
                 overlap="circular"
                 anchorOrigin={{
                   vertical: 'top',
                   horizontal: 'right',
                 }}
-                badgeContent={<SmallAvatar alt="selected" src="" />}
+                badgeContent={
+                  <SmallAvatar
+                    alt="selected"
+                    src="../../../images/checkmark.png"
+                  />
+                }
               >
                 <Avatar
                   alt={currentStyles.results[currentItemIndex].name}
                   src={style.photos[0].thumbnail_url}
-                  variant="circular"
                   className={classes.large}
                   onClick={() => {
                     handleClick(index);
                   }}
                 />
               </Badge>
-            ))}
-          </div>
+            </Grid>
+          ))}
         </Grid>
       </>
     );

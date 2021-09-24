@@ -69,7 +69,7 @@ export default function NavBar() {
       <AppBar position="static">
         <Toolbar>
           <Typography className={classes.title} variant="h4" noWrap>
-            GOUDA FOR YOU FASHION
+            🧀 Gouda for You Fashions
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
