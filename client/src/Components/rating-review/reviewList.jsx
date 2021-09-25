@@ -8,18 +8,26 @@ import MoreReviews from './moreReviews.jsx';
 // render multiple individual review tiles
 // based on the arr passed in the property
 const ReviewList = (props) => {
-  const { reviews } = props;
-  const { setReviewCount } = props;
-  const { count } = props;
-  const { productId } = props;
+  const { filterBy, maxCount, reviews, setReviewCount, count, productId } = props;
 
   const getReviews = () => {
+    const filter = Number(filterBy);
     const reviewList = [];
-    for (let i = 0; i < count; i += 1) {
+    let cutOff = 0;
+    for (let i = 0; i < reviews.length; i += 1) {
+      // a catch just incase reviews count is too high
+      // needed since reported messages iterfeers with overall interview count
       if (reviews[i] === undefined) {
         break;
       }
-      reviewList.push(reviews[i]);
+      // only render "count" components
+      if (cutOff >= count || cutOff >= maxCount) {
+        break;
+      }
+      if (reviews[i].rating === filter || filter === 0) {
+        reviewList.push(reviews[i]);
+        cutOff += 1;
+      }
     }
     return reviewList;
   };
@@ -29,18 +37,23 @@ const ReviewList = (props) => {
   };
 
   const moreReviewsButton = () => {
-    const element =
-      count >= reviews.length ? (
-        <div />
-      ) : (
-        <MoreReviews setReviewCount={incrementCount} />
-      );
-    return element;
+    if (count >= props.totalReviewCount || count >= maxCount) {
+      return <div />
+    }
+    return <MoreReviews setReviewCount={incrementCount} />
   };
+
+  // const handleScroll = (event) => {
+  //   const bottom = event.target.scrollHeight - event.target.scrollTop -1 <= event.target.clientHeight;
+  //   // console.log(event.target.scrollHeight - event.target.scrollTop);
+  //   if (bottom) {
+  //     console.log('Reached the bottom');;
+  //   }
+  // };
 
   return (
     <div>
-      <div style={{ maxHeight: 400, overflow: 'scroll' }}>
+      <div style={{ maxHeight: 450, overflow: 'scroll' }} >
         {/* eslint-disable-next-line react/prop-types */}
         {getReviews().map((details, index) => (
           <ReviewTile

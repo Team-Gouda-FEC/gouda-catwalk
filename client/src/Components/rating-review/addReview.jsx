@@ -56,6 +56,7 @@ const AddReview = (props) => {
   const [traitsIds, setTraitsIds] = useState({});
   const [traitObj, setTraitObj] = useState({});
   const [userRating, setUserRating] = useState(5);
+  const [userPics, setUserPics] = useState('');
 
   const handleClick = (event) => {
     console.log(`eventTarget: ${event.target} props: ${props}`);
@@ -71,19 +72,46 @@ const AddReview = (props) => {
   };
 
   const handleBodyChange = (event) => {
-    setBody(event.target.value);
+    let update = event.target.value;
+    if (update.length > 1000) {
+      update = update.slice(0, 1000);
+      // eslint-disable-next-line no-param-reassign
+      event.target.value = update;
+    }
+    setBody(update);
   };
 
-  const handleSummaryChange = (event) => {
-    setSummary(event.target.value);
+  const handleUrlChange = (event) => {
+    setUserPics(event.target.value);
+  };
+
+
+  const handleSummaryChange = (event) => {let update = event.target.value;
+    if (update.length > 60) {
+      update = update.slice(0, 60);
+      // eslint-disable-next-line no-param-reassign
+      event.target.value = update;
+    }
+    setSummary(update);
   };
 
   const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+    let update = event.target.value;
+    if (update.length > 60) {
+      update = update.slice(0, 60);
+      // eslint-disable-next-line no-param-reassign
+      event.target.value = update;
+    }
+    setEmail(update);
   };
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
+  const handleNameChange = (event) => {let update = event.target.value;
+    if (update.length > 60) {
+      update = update.slice(0, 60);
+      // eslint-disable-next-line no-param-reassign
+      event.target.value = update;
+    }
+    setName(update);
   };
 
   const handleRecommededChange = (event) => {
@@ -132,6 +160,10 @@ const AddReview = (props) => {
       const value = Number(str.slice(str.indexOf(':') + 1));
       traitsIds[key] = value;
     };
+
+    const getUserPics = () => {
+
+    }
 
     const getCharButtons = () => {
       // generate a form controller
@@ -196,6 +228,10 @@ const AddReview = (props) => {
         photos: [],
         characteristics: traitsIds,
       };
+      if(userPics !== '') {
+        bodyObj.photos.push(userPics);
+      }
+      setUserPics('')
       setBody('');
       setName('');
       setEmail('');
@@ -230,15 +266,17 @@ const AddReview = (props) => {
             {ratingInput}
             <TextField
               id="Name"
+              required
               placeholder="Name"
               onChange={handleNameChange}
               label="Name"
               fullWidth
-              variant="outlined"
+              variant="filled"
             />
             <br />
             <TextField
               id="Email"
+              required
               placeholder="Email"
               onChange={handleEmailChange}
               label="Email"
@@ -249,15 +287,17 @@ const AddReview = (props) => {
             <TextField
               id="summary"
               xs={6}
+              required
               placeholder="Summary"
               onChange={handleSummaryChange}
               label="Summary"
               fullWidth
-              variant="outlined"
+              variant="filled"
             />
             <br />
             <TextField
               id="body"
+              required
               minRows={2}
               size="medium"
               label="Body"
@@ -266,6 +306,16 @@ const AddReview = (props) => {
               onChange={handleBodyChange}
               placeholder="Body"
               variant="outlined"
+            />
+            <br />
+            <TextField
+              id="userImage"
+              size="medium"
+              label="Image Url"
+              multiline
+              onChange={handleUrlChange}
+              placeholder="Image Url"
+              // variant="outlined"
             />
             <Grid
               container

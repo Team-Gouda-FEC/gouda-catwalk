@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   paper: {
-    backgroundColor: 'yellow',
-    border: '2px solid #000',
+    backgroundColor: 'lightcoral',
+    border: '1px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AnimatedModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const { relatedItemInfo, currentItemInfo } = props;
 
   const handleOpen = () => {
     setOpen(true);
@@ -53,7 +54,7 @@ export default function AnimatedModal(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <ComparisonTable relatedItemInfo={props.relatedItemInfo} currentItemInfo={props.currentItemInfo} />
+            <ComparisonTable relatedItemInfo={relatedItemInfo} currentItemInfo={currentItemInfo} />
           </div>
         </Fade>
       </Modal>

@@ -1,6 +1,16 @@
+// import Rating from '@material-ui/lab/Rating';
+// import React, { useState, useEffect } from 'react';
+
+// const Stars = (props) => {
+//   const { rating } = props;
+//   return <Rating name="read-only" precision={0.25} value={rating} readOnly />;
+// };
+
+// export default Stars;
 import React, { useState, useEffect } from 'react';
-import Star from '@material-ui/icons/Star';
-import Outline from '@material-ui/icons/StarBorderOutlined';
+import Star from '@material-ui/icons/StarRounded';
+import Outline from '@material-ui/icons/StarBorderRounded';
+import Grid from '@material-ui/core/Grid';
 // import '../../../dist/starRating.css';
 
 const Stars = (props) => {
@@ -19,11 +29,11 @@ const Stars = (props) => {
       }
       // use the remaining size to get the next quater pixal
       if (num >= 18) {
-        size += 14;
+        size += 15;
       } else if (num >= 12) {
         size += 12;
       } else if (num >= 6) {
-        size += 10;
+        size += 9;
       }
     } else if (num >= 5) {
       size = 120;
@@ -36,15 +46,17 @@ const Stars = (props) => {
     <div
       id="starRating"
       style={{
-        width: '120',
+        boxSizing: 'border-box',
+        width: '120px',
         position: 'relative',
       }}
     >
       <div
         id="under"
         style={{
+          boxSizing: 'border-box',
           position: 'relative',
-          color: '#FF9529',
+          color: 'darkgrey',
         }}
       >
         <Outline id="star 1" />
@@ -56,9 +68,11 @@ const Stars = (props) => {
       <div
         id="starSubContainer"
         style={{
-          width: pxWidth,
+          boxSizing: 'border-box',
+          width: `${pxWidth}px`,
           position: 'absolute',
           top: 0,
+          left: 0,
           height: 20,
           overflow: 'hidden',
         }}
@@ -66,9 +80,10 @@ const Stars = (props) => {
         <div
           id="over"
           style={{
+            boxSizing: 'border-box',
             overflow: 'hidden',
             whiteSpace: 'nowrap',
-            color: '#FF9529',
+            color: 'lightcoral',
           }}
         >
           <Star key="star 1" />

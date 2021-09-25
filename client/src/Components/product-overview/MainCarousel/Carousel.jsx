@@ -22,20 +22,18 @@ export default function Carousel(props) {
 
   if (images.length !== 0) {
     return (
-      <>
-        <ImageGallery
-          items={images}
-          useBrowserFullscreen={false}
-          showPlayButton={false}
-          thumbnailPosition="left"
-          slideOnThumbnailOver={false}
-          ref={(i) => setCurrentIndex(i)}
-          onClick={(i) => onImageClick(i)}
-          onSlide={(i) => {
-            onSlide(i);
-          }}
-        />
-      </>
+      <ImageGallery
+        items={images}
+        useBrowserFullscreen={false}
+        showPlayButton={false}
+        thumbnailPosition="left"
+        slideOnThumbnailOver={false}
+        ref={(i) => setCurrentIndex(i)}
+        onClick={(i) => onImageClick(i)}
+        onSlide={(i) => {
+          onSlide(i);
+        }}
+      />
     );
   }
   return <CircularProgress />;

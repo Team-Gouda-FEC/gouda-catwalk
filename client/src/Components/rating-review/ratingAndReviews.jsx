@@ -16,6 +16,8 @@ const RatingAndReviews = (props) => {
   const [totalReviewCount, setTotalReviewCount] = useState(0);
   const [sortOrder, setSortOrder] = useState('relevent');
   const [characteristics, setCharacteristics] = useState({});
+  const [filterBy, setFilterBy] = useState(0);
+  const [maxCount, setMaxCount] = useState(2);
 
   const getReviews = () => {
     if (productId) {
@@ -65,7 +67,7 @@ const RatingAndReviews = (props) => {
   };
 
   return (
-    <div>
+    <div id="ratings">
       <br />
       <Grid
         container
@@ -74,14 +76,20 @@ const RatingAndReviews = (props) => {
         alignItems="flex-start"
       >
         <Grid item xs={3}>
-          <h2> Ratings Reviews </h2>
+          <Typography variant='h5'> Ratings Reviews </Typography>
+          <br />
           <ProductReview
             setChar={setCharacteristics}
             productId={productId}
-            setMoreReviews={setTotalReviewCount}
+            setTotalReviewCount={setTotalReviewCount}
+            setReviewRenderCount={setReviewCount}
             totalReviewCount={totalReviewCount}
             // eslint-disable-next-line react/destructuring-assignment
             handleProductRatingChange={props.handleProductRatingChange}
+            setFilterBy={setFilterBy}
+            filterBy={filterBy}
+            setMaxCount={setMaxCount}
+            maxCount={maxCount}
           />
         </Grid>
 
@@ -100,12 +108,15 @@ const RatingAndReviews = (props) => {
             />
             <ReviewList
               reviews={reviews}
+              filterBy={filterBy}
               count={reviewCount}
+              totalReviewCount={totalReviewCount}
               setReviewCount={setReviewCount}
               handleReport={handleReport}
               productId={productId}
               characteristics={characteristics}
               updateReviews={getReviews}
+              maxCount={maxCount}
             />
           </Grid>
         </Grid>

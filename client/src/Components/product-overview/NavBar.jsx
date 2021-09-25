@@ -68,8 +68,8 @@ export default function NavBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            GOUDA-FEC
+          <Typography className={classes.title} variant="h4" noWrap>
+            🧀 Gouda for You Fashions
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

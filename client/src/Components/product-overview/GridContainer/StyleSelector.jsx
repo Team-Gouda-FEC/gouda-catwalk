@@ -2,72 +2,84 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
+import Icon from '@material-ui/core/Icon';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   large: {
-    width: theme.spacing(8),
-    height: theme.spacing(8),
-    padding: 5,
+    width: theme.spacing(11),
+    height: theme.spacing(11),
     margin: 10,
-    border: '2px solid black',
+  },
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
   },
 }));
 
-const StyledBadge = withStyles((theme) => ({
-  badge: {
-    right: -3,
-    top: 13,
-    border: `3px solid ${theme.palette.background.paper}`,
-    padding: '0 4px',
+const SmallAvatar = withStyles((theme) => ({
+  root: {
+    width: 30,
+    height: 30,
   },
-}))(Badge);
+}))(Avatar);
 
 const StyleSelector = (props) => {
   const classes = useStyles();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const { currentStyles, handleUpdateCarousel } = props;
+  const { currentStyles, currentItemIndex, handleUpdateCarousel } = props;
 
   const handleClick = (index) => {
-    setCurrentIndex(index);
     handleUpdateCarousel(index);
   };
 
+  const checkmarkIcon = <CheckCircleIcon />;
+
   if (currentStyles.results) {
     return (
-      <div>
-        <Grid container item xs={8}>
-          <Typography>
-            Style
-            {' > '}
-            {currentStyles.results[currentIndex].name}
-          </Typography>
+      <>
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography variant="h6">
+              Style
+              {' > '}
+            </Typography>
+            <Typography variant="h5" color="primary">
+              {currentStyles.results[currentItemIndex].name}
+            </Typography>
+            <br />
+          </Grid>
+          {currentStyles.results.map((style, index) => (
+            <Grid item xs={3} key={index}>
+              <Badge
+                overlap="circular"
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                badgeContent={
+                  <SmallAvatar
+                    alt="selected"
+                    src="../../../images/checkmark.png"
+                  />
+                }
+              >
+                <Avatar
+                  alt={currentStyles.results[currentItemIndex].name}
+                  src={style.photos[0].thumbnail_url}
+                  className={classes.large}
+                  onClick={() => {
+                    handleClick(index);
+                  }}
+                />
+              </Badge>
+            </Grid>
+          ))}
         </Grid>
-        {currentStyles.results.map((style, index) => (
-          <StyledBadge
-            key={index}
-            overlap="circular"
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            badgeContent={4}
-            variant="dot"
-          >
-            <Avatar
-              alt="name"
-              src={style.photos[0].thumbnail_url}
-              sx={{ width: 64, height: 64 }}
-              className={classes.large}
-              onClick={() => {
-                handleClick(index);
-              }}
-            />
-          </StyledBadge>
-        ))}
-      </div>
+      </>
     );
   }
   return <CircularProgress />;

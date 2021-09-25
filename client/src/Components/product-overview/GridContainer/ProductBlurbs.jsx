@@ -11,6 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
+    padding: 10,
   },
 }));
 
@@ -19,29 +20,23 @@ export default function ProductBlurbs(props) {
   const { currentItemInfo } = props;
 
   if (currentItemInfo.features) {
-    return currentItemInfo.features.map((feature) => (
-      <Grid
-        container
-        elevation={0}
-        className={classes.root}
-        key={feature.feature}
-      >
-        <Grid item xs={12}>
-          <List dense className="list of features">
+    return (
+      <Grid item xs={4}>
+        {currentItemInfo.features.map((feature, index) => (
+          <List dense className="list of features" key={index}>
             <ListItem alignItems="flex-start">
               <ListItemIcon>
                 <CheckIcon />
               </ListItemIcon>
               <ListItemText
-                variant="button"
                 primary={`${feature.feature} :`}
                 secondary={` ${feature.value}`}
               />
             </ListItem>
           </List>
-        </Grid>
+        ))}
       </Grid>
-    ));
+    );
   }
   return <CircularProgress />;
 }

@@ -32,15 +32,14 @@ const RelatedProductCard = (props) => {
   const classes = useStyles();
   const [productInfo, setProductInfo] = useState(null);
   const [productImage, setProductImage] = useState(null);
+  const [salePrice, setSalePrice] = useState(null);
   const [rating, setRating] = useState(0);
-  const prodId = props.productId;
-  const { handleUpdateCurrentItem } = props;
-  const { currentItemInfo } = props;
+  const { handleUpdateCurrentItem, currentItemInfo, productId, currentIndex } = props;
 
   const getProductInfo = () => {
     axios
       .get('http://localhost:1337/getProductInfo/', {
-        params: { product_id: prodId },
+        params: { product_id: productId },
       })
       .then((response) => {
         setProductInfo(response.data);
@@ -50,17 +49,20 @@ const RelatedProductCard = (props) => {
       });
   };
 
-  const getImage = () => {
+  const getImage = (styleId) => {
     axios
       .get('http://localhost:1337/getImage/', {
-        params: { product_id: prodId },
+        params: { product_id: productId },
       })
       .then((response) => {
         setProductImage(response.data.results[0].photos[0].thumbnail_url);
+        if (response.data.results[styleId].sale_price !== null) {
+          setSalePrice(response.data.results[styleId].sale_price);
+        }
       })
       .catch((error) => {
         console.log(error);
-        setProductImage('https://via.placeholder.com/300x300');
+        setProductImage('https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg');
       });
   };
 
@@ -78,7 +80,7 @@ const RelatedProductCard = (props) => {
 
   const getProductRating = () => {
     const params = {
-      product_id: prodId,
+      product_id: productId,
     };
 
     axios
@@ -99,15 +101,15 @@ const RelatedProductCard = (props) => {
 
   useEffect(() => {
     getProductInfo();
-  }, []);
+  }, [productId]);
 
   useEffect(() => {
-    getImage();
-  }, []);
+    getImage(currentIndex);
+  }, [productId]);
 
   useEffect(() => {
     getProductRating();
-  }, []);
+  }, [productId]);
 
   return (
     productInfo && (
@@ -116,7 +118,7 @@ const RelatedProductCard = (props) => {
           <CardContent>
             <CardMedia
               className={classes.media}
-              image={productImage || 'https://via.placeholder.com/300x300'}
+              image={productImage || 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg'}
             >
               <Grid item container justifyContent="flex-end">
                 <AnimatedModal
@@ -139,6 +141,7 @@ const RelatedProductCard = (props) => {
             </Typography>
             <Typography variant="body1">
               {productInfo.default_price}{' '}
+              {salePrice}
             </Typography>
           </CardContent>
           <Stars rating={rating} />

@@ -12,7 +12,7 @@ const Carousel = (props) => {
   }, [children]);
 
   const next = () => {
-    if (currentIndex < length - show) {
+    if (currentIndex < (length - show)) {
       setCurrentIndex((prevState) => prevState + 1);
     }
   };
@@ -28,8 +28,7 @@ const Carousel = (props) => {
       <div className="carousel-wrapper">
         {currentIndex > 0 && (
           <button onClick={prev} className="left-arrow">
-            {' '}
-            &lt;{' '}
+            &lt;
           </button>
         )}
         <div className="carousel-content-wrapper">
@@ -42,10 +41,9 @@ const Carousel = (props) => {
             {children}
           </div>
         </div>
-        {currentIndex < length - show && (
+        { (currentIndex < (length - show)) && (
           <button onClick={next} className="right-arrow">
-            {' '}
-            &gt;{' '}
+            &gt;
           </button>
         )}
       </div>

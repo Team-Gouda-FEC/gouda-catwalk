@@ -8,7 +8,10 @@ import CheckIcon from '@material-ui/icons/Check';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
-import Stars from './starRating.jsx';
+import Avatar from '@material-ui/core/Avatar';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import Stars from './StarRating.jsx';
 
 const months = {
   '01': 'Janurary',
@@ -26,8 +29,10 @@ const months = {
 };
 
 const ReviewTile = (props) => {
+  const { review } = props;
+  const { handleReport } = props;
   const getDate = () => {
-    let { date } = props.review;
+    let { date } = review;
     const year = date.slice(0, 4);
     const month = date.slice(5, 7);
     const day = date.slice(8, 10);
@@ -43,7 +48,7 @@ const ReviewTile = (props) => {
   };
 
   const getUserRecommendation = () => {
-    if (props.review.recommend) {
+    if (review.recommend) {
       return (
         <Grid
           container
@@ -51,7 +56,7 @@ const ReviewTile = (props) => {
           justifyContent="flex-start"
           alignItems="center"
         >
-          <CheckIcon fontSize="small" /> <div>I recommend this product</div>
+          <CheckIcon fontSize="small" /> <Typography>I recommend this product</Typography>
         </Grid>
       );
     }
@@ -66,17 +71,53 @@ const ReviewTile = (props) => {
       style={{ margin: '1em 0' }}
     >
       <Grid item style={{ fontSize: '.7em' }}>
-        Helpful? <u>Yes</u> ({props.review.helpfulness}) |
-        <u style={{marginLeft: ".25em"}} onClick={handleClick} id={props.review.review_id}>
+        <Typography>
+        Helpful? <u>Yes</u> ({review.helpfulness}) |
+        <u style={{marginLeft: ".25em"}} onClick={handleClick} id={review.review_id}>
           Report
         </u>
+        </Typography>
       </Grid>
     </Grid>
   );
 
   const handleClick = (event) => {
     console.log(event.target);
-    props.handleReport(event.target.id);
+    handleReport(event.target.id);
+  };
+
+  const generatePics = () => {
+    const pics = review.photos.map((image, index) => (
+      <Avatar key="index" id="image" src={image.url} />
+    ));
+    return (
+      <Grid
+        container
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="center"
+      >
+        {pics}
+      </Grid>
+    );
+  };
+
+  const generateResponse = () => {
+    if (review.response === null || review.response === '') {
+      return;
+    }
+    const resp = <Typography>Response: {review.response}</Typography>;
+    return (
+      <div
+        style={{
+          marginLeft: '1em',
+          marginRight: '2em',
+          backgroundColor: 'lightgrey',
+        }}
+      >
+        {resp}
+      </div>
+    );
   };
 
   return (
@@ -87,13 +128,15 @@ const ReviewTile = (props) => {
         justifyContent="flex-end"
         alignItems="center"
       >
-        {getPurchaseVerification()} {props.review.reviewer_name}, {getDate()}
+        {getPurchaseVerification()} <Typography> {review.reviewer_name}, {getDate()} </Typography>
       </Grid>
-      <Stars rating={props.review.rating} />
-      <Typography> {props.review.summary} </Typography>
-      <Typography> {props.review.body}</Typography>
+      <Stars rating={review.rating} />
+      <Typography> {review.summary} </Typography>
+      <Typography> {review.body}</Typography>
       {getUserRecommendation()}
+      {generateResponse()}
       {getHelpfulness()}
+      {generatePics()}
       <Divider />
       <br />
     </div>

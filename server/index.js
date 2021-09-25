@@ -1,5 +1,4 @@
 const express = require('express');
-// const path = require('path');
 const cors = require('cors');
 const apiFn = require('./apiHelpers');
 
@@ -59,19 +58,6 @@ app.get('/getImage/', (req, res) => {
     }
   });
 });
-
-// app.get('/productRating/', (req, res) => {
-//   const productId = req.query.product_id;
-//   apiFn.getProdRating(productId, (err, response) => {
-//     if (err) {
-//       console.log(err)
-//       res.status(404).send(err);
-//     } else {
-//       console.log(response)
-//       res.status(200).send(response);
-//     }
-//   });
-// });
 
 /* **** QUESTIONS & ANSWERS SECTION **** */
 
