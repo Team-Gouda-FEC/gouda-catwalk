@@ -49,17 +49,20 @@ const useStyles = makeStyles((theme) => ({
 const AddToCart = function (props) {
   const classes = useStyles();
   const { currentStyleSkus, currentItemStylesObj } = props;
-  const [size, setSize] = useState(null);
+  const [sizeIndex, setSizeIndex] = useState(0);
   const [quantity, setQuantity] = useState(null);
   const styleData = Object.entries(currentStyleSkus);
+  const sizesArr = [];
+  console.log('styleData', styleData);
 
   const handleSizeChange = (event) => {
-    setSize(event.target.value);
+    console.log('handle size change value: ', event.target.value);
+    setSizeIndex(event.target.value);
   };
 
   const handleQuantityChange = (event) => {
     console.log('*** quant change', event.target.value);
-    setQuantity(event.target.value);
+    setQuantity(event.target.value - 1);
   };
 
   if (styleData.length > 0) {
@@ -71,11 +74,14 @@ const AddToCart = function (props) {
             <Select
               id="select-size"
               defaultValue=""
+              value={sizeIndex}
               label="Select Size"
               onChange={handleSizeChange}
             >
               {styleData.map((item, index) => (
-                <MenuItem key={item[0]}>{item[1].size}</MenuItem>
+                <MenuItem key={item[0]} value={index}>
+                  {item[1].size}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -88,13 +94,21 @@ const AddToCart = function (props) {
             <Select
               id="select-quantity"
               defaultValue=""
+              value={1}
               label="Select Quantity"
               onChange={handleQuantityChange}
             >
-              {styleData.map((item, index) => {
-                console.log('** item in map', item);
-                return <MenuItem key={item[0]}>{item[1].quantity}</MenuItem>;
-              })}
+              {styleData[sizeIndex][1].quantity > 15
+                ? [...Array(16).keys()].map((value, index) => (
+                    <MenuItem key={index}>{value}</MenuItem>
+                  ))
+                : [...Array(styleData[sizeIndex][1].quantity + 1).keys()].map(
+                    (value, index) => (
+                      <MenuItem key={index} value={value}>
+                        {value}
+                      </MenuItem>
+                    )
+                  )}
             </Select>
           </FormControl>
         </Box>
