@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
@@ -19,20 +20,17 @@ const useStyles = makeStyles((theme) => ({
   loadAnswers: {
     marginLeft: '10%',
   },
+  answerBlock: {
+    paddingTop: '5px',
+    paddingBottom: '5px',
+  },
 }));
 
-const QABlock = ({ questionObj }) => {
-  const { answers } = questionObj;
+const QABlock = ({ questionObj, productObj, rerender }) => {
+  const { question_body, answers } = questionObj;
   const classes = useStyles();
   const [count, setCount] = useState(2);
   const answersData = Object.values(questionObj.answers);
-  const [testValue, setTestValue] = useState(0);
-
-  const incrementTest = () => {
-    console.log('before setTestValue: ', testValue);
-    setTestValue(testValue + 1);
-    console.log('after setTestValue: ', testValue);
-  };
 
   const createAnswersArr = () => {
     const answersArr = [];
@@ -56,11 +54,11 @@ const QABlock = ({ questionObj }) => {
       ) : (
         <Button
           className={classes.loadAnswers}
-          variant="outlined"
+          variant="text"
           color="secondary"
           onClick={incrementCount}
         >
-          More Answers
+          Load More Answers
         </Button>
       );
     return element;
@@ -69,11 +67,15 @@ const QABlock = ({ questionObj }) => {
   return (
     <Card>
       <CardContent>
-        <Question questionObj={questionObj} onChange={incrementTest} />
+        <Question
+          questionObj={questionObj}
+          productObj={productObj}
+          rerender={rerender}
+        />
         {answers &&
           createAnswersArr().map((element, key) => (
-            <div key={key}>
-              <Answer answerObj={element} />
+            <div key={key} className={classes.answerBlock}>
+              <Answer answerObj={element} rerender={rerender} />
             </div>
           ))}
       </CardContent>

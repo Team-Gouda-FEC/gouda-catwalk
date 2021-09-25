@@ -46,7 +46,10 @@ export default class App extends React.Component {
     if (!this.state.yourOutfits.includes(productId)) {
       this.setState({
         yourOutfits: [productId, ...currentOutfits],
-        yourOutfitsStyleId: [this.state.currentIndex, ...this.state.yourOutfitsStyleId],
+        yourOutfitsStyleId: [
+          this.state.currentIndex,
+          ...this.state.yourOutfitsStyleId,
+        ],
       });
     }
   }
@@ -145,7 +148,10 @@ export default class App extends React.Component {
               currentItemId={this.state.currentItemId}
               productRating={this.state.productRating}
             />
-            <Typography variant="h6" color="primary"> [ RELATED PRODUCTS ] </Typography>
+            <Typography variant="h6" color="primary">
+              {' '}
+              [ RELATED PRODUCTS ]{' '}
+            </Typography>
             <Carousel show={this.state.showNumCarouselItems}>
               {this.state.relatedItems.map((elem, i) => (
                 <div key={i}>
@@ -161,7 +167,10 @@ export default class App extends React.Component {
                 </div>
               ))}
             </Carousel>
-            <Typography variant="h6" color="primary"> [ YOUR OUTFITS ] </Typography>
+            <Typography variant="h6" color="primary">
+              {' '}
+              [ YOUR OUTFITS ]{' '}
+            </Typography>
             <Carousel show={this.state.showNumCarouselItems}>
               <div>
                 <div style={{ padding: 8 }}>
@@ -169,7 +178,7 @@ export default class App extends React.Component {
                     productId={this.state.currentItemId}
                     handleAddOutfitClick={this.handleAddOutfitClick}
                   />
-              </div>
+                </div>
               </div>
               {this.state.yourOutfits.map((elem, i) => (
                 <div key={i}>
@@ -187,7 +196,7 @@ export default class App extends React.Component {
               <PlaceHolder1 />
               <PlaceHolder1 />
             </Carousel>
-            <QAWidget productId={38326} />
+            <QAWidget productObj={this.state.currentItem} />
             <section id="ratings">
               <RatingAndReviews
                 id="reviews"
