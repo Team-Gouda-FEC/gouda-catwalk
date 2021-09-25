@@ -84,7 +84,7 @@ const AddAnswer = ({ questionObj, productObj, rerender }) => {
             <Grid
               container
               alignItems="center"
-              justifyContent="center"
+              justifyContent="flex-start"
               direction="column"
               sx={style}
             >
@@ -94,6 +94,7 @@ const AddAnswer = ({ questionObj, productObj, rerender }) => {
                   {name}: {question_body}
                 </Typography>
                 <TextField
+                  style={{ width: '85%' }}
                   required
                   id="answerInput"
                   name="answer"
@@ -107,6 +108,7 @@ const AddAnswer = ({ questionObj, productObj, rerender }) => {
               <Grid item>
                 <TextField
                   required
+                  style={{ width: '85%' }}
                   id="nameInput"
                   label="What is your nickname?"
                   placeholder="Example: jackson11!"
@@ -120,6 +122,7 @@ const AddAnswer = ({ questionObj, productObj, rerender }) => {
               </Grid>
               <Grid item>
                 <TextField
+                  style={{ width: '85%' }}
                   id="emailInput"
                   label="Email"
                   inputProps={{ maxLength: 60 }}
