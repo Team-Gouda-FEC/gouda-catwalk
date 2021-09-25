@@ -88,6 +88,7 @@ const AddQuestion = ({ productObj, rerender }) => {
               <Grid item>
                 <Typography>Ask your question about {name}</Typography>
                 <TextField
+                  style={{ width: '85%' }}
                   required
                   id="questionInput"
                   name="question"
@@ -100,6 +101,7 @@ const AddQuestion = ({ productObj, rerender }) => {
               </Grid>
               <Grid item>
                 <TextField
+                  style={{ width: '85%' }}
                   required
                   id="nameInput"
                   label="What is your nickname?"
@@ -114,6 +116,7 @@ const AddQuestion = ({ productObj, rerender }) => {
               </Grid>
               <Grid item>
                 <TextField
+                  style={{ width: '85%' }}
                   id="emailInput"
                   label="Email"
                   inputProps={{ maxLength: 60 }}
