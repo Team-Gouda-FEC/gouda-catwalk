@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SmallAvatar = withStyles((theme) => ({
   root: {
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
   },
 }))(Avatar);
 
@@ -52,32 +52,45 @@ const StyleSelector = (props) => {
             </Typography>
             <br />
           </Grid>
-          {currentStyles.results.map((style, index) => (
-            <Grid item xs={3} key={index}>
-              <Badge
-                overlap="circular"
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                badgeContent={
-                  <SmallAvatar
-                    alt="selected"
-                    src="../../../images/checkmark.png"
-                  />
-                }
-              >
-                <Avatar
-                  alt={currentStyles.results[currentItemIndex].name}
-                  src={style.photos[0].thumbnail_url}
-                  className={classes.large}
-                  onClick={() => {
-                    handleClick(index);
+
+          {currentStyles.results.map((style, index) =>
+            currentItemIndex === index ? (
+              <Grid item xs={3} key={index}>
+                <Badge
+                  overlap="circular"
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
                   }}
-                />
-              </Badge>
-            </Grid>
-          ))}
+                  badgeContent={
+                    <SmallAvatar
+                      alt="selected"
+                      src="https://www.pinclipart.com/picdir/big/131-1310444_check-sign-23-buy-clip-art-check-mark.png"
+                    />
+                  }
+                >
+                  <Avatar
+                    alt={currentStyles.results[currentItemIndex].name}
+                    src={style.photos[0].thumbnail_url}
+                    className={classes.large}
+                    onClick={() => {
+                      handleClick(index);
+                    }}
+                  />
+                </Badge>
+              </Grid>
+            ) : (
+              <Avatar
+                alt={currentStyles.results[currentItemIndex].name}
+                src={style.photos[0].thumbnail_url}
+                className={classes.large}
+                key={index}
+                onClick={() => {
+                  handleClick(index);
+                }}
+              />
+            )
+          )}
         </Grid>
       </>
     );
