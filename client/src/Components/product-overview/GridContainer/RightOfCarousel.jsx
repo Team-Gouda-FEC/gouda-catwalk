@@ -120,7 +120,21 @@ function RightOfCarousel(props) {
               {currentItem.category}
             </Typography>
             <Typography variant="h3">{currentItem.name}</Typography>
-            <Typography variant="h5">$ {currentItem.default_price}</Typography>
+
+            {currentStylesObj.results[currentItemIndex].sale_price ? (
+              <>
+                <Typography variant="h6">
+                  -$-{currentStylesObj.results[currentItemIndex].original_price}-
+                </Typography>
+                <Typography variant="h5" color="error">
+                  $ {currentStylesObj.results[currentItemIndex].sale_price}
+                </Typography>
+              </>
+            ) : (
+              <Typography variant="h5">
+                $ {currentStylesObj.results[currentItemIndex].original_price}{' '}
+              </Typography>
+            )}
           </Grid>
           <Grid item xs={12}>
             <div className={classes.root2}>
@@ -191,7 +205,7 @@ function RightOfCarousel(props) {
                 size="large"
                 startIcon={<StarBorderIcon />}
               />
-            </Grid>*/}
+            </Grid> */}
           </Grid>
         </Grid>
       </div>

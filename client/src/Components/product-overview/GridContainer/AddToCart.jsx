@@ -48,91 +48,70 @@ const useStyles = makeStyles((theme) => ({
 
 const AddToCart = function (props) {
   const classes = useStyles();
-  const { currentStyleSkus } = props;
-  const sizeData = [];
-  const quantData = [];
-
-  const parseSkuData = function () {
-    console.log('currentStyleSkus before load', currentStyleSkus);
-    console.log('obj entries ', Object.entries(currentStyleSkus));
-    if (currentStyleSkus !== undefined) {
-      for (const [key, value] of Object.entries(currentStyleSkus)) {
-        console.log(`object key ${key}: obj value ${value.size}`);
-        sizeData.push(currentStyleSkus[key].size);
-        quantData.push(currentStyleSkus[key].quantity);
-      }
-    }
-  };
-
-  console.log('size array', sizeData);
-  console.log('quantity array', quantData);
-
-  const [size, setSize] = useState();
-  const [quantity, setQuantity] = useState();
+  const { currentStyleSkus, currentItemStylesObj } = props;
+  const [size, setSize] = useState(null);
+  const [quantity, setQuantity] = useState(null);
+  const styleData = Object.entries(currentStyleSkus);
 
   const handleSizeChange = (event) => {
     setSize(event.target.value);
   };
 
   const handleQuantityChange = (event) => {
+    console.log('*** quant change', event.target.value);
     setQuantity(event.target.value);
   };
 
-  if (currentStyleSkus !== undefined) {
-    useEffect(() => {
-      parseSkuData();
-    }, [currentStyleSkus]);
-  }
-
-  return (
-    <Grid item xs={12}>
-      <Box sx={{ minWidth: 120 }}>
-        <FormControl className={classes.formControlSize} variant="outlined">
-          <InputLabel id="Select Size">Select Size</InputLabel>
-          <Select
-            id="select-size"
-            value={1}
-            label="Select Size"
-            onChange={handleSizeChange}
+  if (styleData.length > 0) {
+    return (
+      <Grid item xs={12}>
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl className={classes.formControlSize} variant="outlined">
+            <InputLabel id="Select Size">Select Size</InputLabel>
+            <Select
+              id="select-size"
+              defaultValue=""
+              label="Select Size"
+              onChange={handleSizeChange}
+            >
+              {styleData.map((item, index) => (
+                <MenuItem key={item[0]}>{item[1].size}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl
+            className={classes.formControlQuantity}
+            color="primary"
+            variant="outlined"
           >
-            <MenuItem value={1}>Small</MenuItem>
-            <MenuItem value={2}>Medium</MenuItem>
-            <MenuItem value={3}>Large</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl
-          className={classes.formControlQuantity}
-          color="primary"
+            <InputLabel id="Select Quantity">Quantity</InputLabel>
+            <Select
+              id="select-quantity"
+              defaultValue=""
+              label="Select Quantity"
+              onChange={handleQuantityChange}
+            >
+              {styleData.map((item, index) => {
+                console.log('** item in map', item);
+                return <MenuItem key={item[0]}>{item[1].quantity}</MenuItem>;
+              })}
+            </Select>
+          </FormControl>
+        </Box>
+        <Button variant="outlined" color="primary" endIcon={<AddIcon />}>
+          ADD TO BAG
+        </Button>
+        <Button
           variant="outlined"
-        >
-          <InputLabel id="Select Quantity">Quantity</InputLabel>
-          <Select
-            id="select-quantity"
-            value={1}
-            label="Select Quantity"
-            onChange={handleQuantityChange}
-          >
-            <MenuItem value={1}>1</MenuItem>
-            <MenuItem value={2}>2</MenuItem>
-            <MenuItem value={3}>3</MenuItem>
-            <MenuItem value={4}>4</MenuItem>
-            <MenuItem value={5}>5</MenuItem>
-            <MenuItem value={6}>6</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-      <Button variant="outlined" color="primary" endIcon={<AddIcon />}>
-        ADD TO BAG
-      </Button>
-      <Button
-        variant="outlined"
-        color="primary"
-        size="large"
-        className={classes.button}
-        startIcon={<StarBorderIcon />}
-      />
-    </Grid>
-  );
+          color="primary"
+          size="large"
+          className={classes.button}
+          startIcon={<StarBorderIcon />}
+        />
+      </Grid>
+    );
+  }
+  return <CircularProgress />;
 };
 
 export default AddToCart;
