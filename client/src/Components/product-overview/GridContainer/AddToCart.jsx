@@ -12,6 +12,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AddIcon from '@material-ui/icons/Add';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,18 +55,26 @@ const AddToCart = function (props) {
   const classes = useStyles();
   const { currentStyleSkus, currentItemStylesObj } = props;
   const [sizeIndex, setSizeIndex] = useState(0);
-  const [quantity, setQuantity] = useState(null);
+  const [quantity, setQuantity] = useState(0);
+  const [open, setOpen] = useState(false);
   const styleData = Object.entries(currentStyleSkus);
   const sizesArr = [];
-  console.log('styleData', styleData);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setQuantity(0);
+    setSizeIndex(0);
+  };
 
   const handleSizeChange = (event) => {
-    console.log('handle size change value: ', event.target.value);
     setSizeIndex(event.target.value);
   };
 
   const handleQuantityChange = (event) => {
-    console.log('*** quant change', event.target.value);
     setQuantity(event.target.value - 1);
   };
 
@@ -94,25 +107,38 @@ const AddToCart = function (props) {
             <Select
               id="select-quantity"
               defaultValue=""
-              value={1}
+              value={quantity}
               label="Select Quantity"
               onChange={handleQuantityChange}
             >
-              {styleData[sizeIndex][1].quantity > 15
-                ? [...Array(16).keys()].map((value, index) => (
-                    <MenuItem key={index}>{value}</MenuItem>
+              {styleData[sizeIndex][1].quantity > 15 ? (
+                styleData[sizeIndex][1].quantity === 0 ? (
+                  <MenuItem value={value}>OUT OF STOCK</MenuItem>
+                ) : (
+                  [...Array(16).keys()].map((value, index) => (
+                    <MenuItem key={index} value={value}>
+                      {value}
+                    </MenuItem>
                   ))
-                : [...Array(styleData[sizeIndex][1].quantity + 1).keys()].map(
-                    (value, index) => (
-                      <MenuItem key={index} value={value}>
-                        {value}
-                      </MenuItem>
-                    )
-                  )}
+                )
+              ) : (
+                [...Array(styleData[sizeIndex][1].quantity + 1).keys()].map(
+                  (value, index) => (
+                    <MenuItem key={index} value={value}>
+                      {value}
+                    </MenuItem>
+                  )
+                )
+              )}
             </Select>
           </FormControl>
         </Box>
-        <Button variant="outlined" color="primary" endIcon={<AddIcon />}>
+        <Button
+          variant="outlined"
+          color="primary"
+          endIcon={<AddIcon />}
+          onClick={handleClickOpen}
+        >
           ADD TO BAG
         </Button>
         <Button
@@ -122,6 +148,26 @@ const AddToCart = function (props) {
           className={classes.button}
           startIcon={<StarBorderIcon />}
         />
+        <Dialog
+          maxWidth="sm"
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="max-width-dialog-title"
+        >
+          <DialogTitle id="max-width-dialog-title">
+            Your Shopping Cart
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              {`added ${quantity} of sku ${styleData[sizeIndex][0]} to cart!`}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Grid>
     );
   }

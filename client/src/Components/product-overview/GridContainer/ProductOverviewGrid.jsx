@@ -86,7 +86,6 @@ export default function ProductOverviewGrid(props) {
             alignItems="center"
           >
             <Grid item className="carousel" xs={7}>
-              {console.log('currentStylesObj', currentStylesObj)}
               <ImageGalleryComponent
                 currentItemStylesArr={
                   currentStylesObj.results[currentItemIndex].photos
