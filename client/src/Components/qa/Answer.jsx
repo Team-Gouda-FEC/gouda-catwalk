@@ -18,7 +18,7 @@ const months = {
   12: 'December',
 };
 
-const Answer = ({ answerObj }) => {
+const Answer = ({ answerObj, rerender }) => {
   const { answers, body, answerer_name, id, helpfulness, date } = answerObj;
   const [aHelpCount, setAHelpCount] = useState(helpfulness);
   const [aReportBool, setAReportBool] = useState(false);
@@ -52,6 +52,7 @@ const Answer = ({ answerObj }) => {
       .put('/reportAnswer', params)
       .then((response) => {
         setAReportBool(!aReportBool);
+        rerender();
       })
       .catch((err) => {
         console.log(err);
@@ -70,6 +71,7 @@ const Answer = ({ answerObj }) => {
           onClick={() => {
             markAnswer(id);
           }}
+          style={{ shadow: 'none' }}
         >
           Helpful? Yes({aHelpCount})
         </Button>

@@ -220,7 +220,7 @@ export default class App extends React.Component {
               <PlaceHolder1 />
               <PlaceHolder1 />
             </Carousel>
-            <QAWidget productId={38326} />
+            <QAWidget productObj={this.state.currentItem} />
             <section id="ratings">
               <RatingAndReviews
                 id="reviews"
