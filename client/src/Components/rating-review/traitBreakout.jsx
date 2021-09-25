@@ -66,9 +66,7 @@ const TraitBreakout = (props) => {
         // height: '50px',
       }}
     >
-      <div style={{
-        height:'1em',
-      }}>
+      <div style={{ height: '1em' }}>
         <Typography variant="overline"> {trait}: </Typography>
       </div>
       {getRatingBar(traitObj[trait])}

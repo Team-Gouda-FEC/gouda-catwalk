@@ -39,9 +39,9 @@ const ReviewList = (props) => {
 
   const moreReviewsButton = () => {
     if (count >= props.totalReviewCount || count >= maxCount) {
-      return <div />
+      return <div />;
     }
-    return <MoreReviews setReviewCount={incrementCount} />
+    return <MoreReviews setReviewCount={incrementCount} />;
   };
 
   // const handleScroll = (event) => {

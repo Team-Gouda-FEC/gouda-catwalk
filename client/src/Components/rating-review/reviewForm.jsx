@@ -119,7 +119,6 @@ const ReviewForm = (props) => {
   };
 
   const setPicCollection = (event) => {
-    console.log('hit');
     let pics = [];
     allUserPics.map((pic) => {
       pics.push(pic);
@@ -190,7 +189,6 @@ const ReviewForm = (props) => {
       const tld = userEmail.slice(dotIndex);
       if (emailName.length <= 0 || emailDomain.length <= 1 || tld.length <= 1) {
         invalid.push('email');
-        console.log(emailName, emailDomain, tld);
       }
     } else {
       invalid.push('email');
@@ -233,7 +231,7 @@ const ReviewForm = (props) => {
           updateReviews();
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     } else {
       setMissingRequired(true);
