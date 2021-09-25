@@ -121,8 +121,11 @@ function RightOfCarousel(props) {
 
             {currentStylesObj.results[currentItemIndex].sale_price ? (
               <>
-                <Typography variant="h6">
-                  -$-{currentStylesObj.results[currentItemIndex].original_price}-
+                <Typography
+                  variant="h6"
+                  style={{ textDecoration: 'line-through' }}
+                >
+                  $ {currentStylesObj.results[currentItemIndex].original_price}
                 </Typography>
                 <Typography variant="h5" color="error">
                   $ {currentStylesObj.results[currentItemIndex].sale_price}
