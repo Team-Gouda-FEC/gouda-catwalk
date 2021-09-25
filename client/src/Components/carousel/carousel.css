@@ -3,6 +3,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  background-color:rgba(4, 8, 238, 0.603);
 }
 
 .carousel-wrapper {
@@ -55,7 +56,7 @@
   width: 48px;
   height: 48px;
   border-radius: 24px;
-  background-color: white;
+  background-color: rgb(219, 104, 104);
   border: 1px solid #ddd;
 }
 
