@@ -95,7 +95,7 @@ const RatingAndReviews = (props) => {
           />
         </Grid>
 
-        <Grid item xs="6" xl="6">
+        <Grid item xs={6} xl={6}>
           <Grid
             container
             direction="column"

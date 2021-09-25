@@ -20,6 +20,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import Avatar from '@material-ui/core/Avatar';
 
+const max = window.innerHeight * 0.95;
+
 const ratingArr = [
   'A size too small',
   '½ a size too small',
@@ -295,138 +297,147 @@ const ReviewForm = (props) => {
     <Paper elevation={3}>
       <div
         style={{
-          width: '800px',
-          margin: '0 1em',
+          maxHeight: `${max}px`,
+          // width: '800px',
+          margin: '0 2em',
+          overflowY: 'scroll',
+          overflowX: 'hidden',
+          boxSizing: 'border box',
         }}
       >
-        <Grid
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="flex-start"
+        <div
+          style={{ width: '95%' }}
         >
-          {ratingInput}
-          <TextField
-            id="name"
-            required
-            placeholder="Example: jackson11!"
-            onChange={handleFormChange}
-            label="Name"
-            fullWidth
-            variant="filled"
-            error={getFieldValidated('name')}
-            helperText={getHelperText('name')}
-          />
-          <br />
-          <TextField
-            id="email"
-            required
-            placeholder="Example: jackson11@email.com"
-            onChange={handleFormChange}
-            label="Email"
-            fullWidth
-            variant="outlined"
-            error={getFieldValidated('email')}
-            helperText={getHelperText('email')}
-          />
-          <Typography variant="subtitle2">
-            For authentication reasons, you will not be emailed
-          </Typography>
-          <br />
-          <TextField
-            id="summary"
-            xs={6}
-            required
-            placeholder="Example: Best purchase ever!"
-            onChange={handleFormChange}
-            label="Summary"
-            fullWidth
-            variant="filled"
-            error={getFieldValidated('summary')}
-            helperText={getHelperText('summary')}
-          />
-          <br />
-          <TextField
-            id="body"
-            required
-            minRows={2}
-            size="medium"
-            label="Body"
-            fullWidth
-            multiline
-            onChange={handleFormChange}
-            placeholder="Body"
-            variant="outlined"
-            error={getFieldValidated('body')}
-            helperText={getHelperText('body')}
-          />
-          <br />
           <Grid
             container
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
-            mb={3}
+            direction="column"
+            justifyContent="center"
+            alignItems="flex-start"
           >
+            {ratingInput}
             <TextField
-              id="userImage"
-              size="medium"
-              value={userPics}
-              label="Image Url"
-              multiline
+              id="name"
+              required
               fullWidth
-              onChange={handleUrlChange}
-              placeholder="Image Url"
-              // variant="outlined"
+              placeholder="Example: jackson11!"
+              onChange={handleFormChange}
+              label="Name"
+              size="medium"
+              variant="filled"
+              error={getFieldValidated('name')}
+              helperText={getHelperText('name')}
             />
             <br />
-            {getPics()}
-          </Grid>
-          <br />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={setPicCollection}
-          >
-            Add Image
-          </Button>
-          <br />
-          <Grid
-            container
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
-          >
-            <Checkbox
-              ml={-2}
-              color="primary"
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
-              onChange={handleRecommededChange}
+            <TextField
+              id="email"
+              required
+              placeholder="Example: jackson11@email.com"
+              onChange={handleFormChange}
+              label="Email"
+              fullWidth
+              variant="outlined"
+              error={getFieldValidated('email')}
+              helperText={getHelperText('email')}
             />
-            <Typography>Do you recommend this product?</Typography>
-          </Grid>
-          <br />
-          {getCharButtons()}
-          <br />
-          <Grid
-            container
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
-            spacing={2}
-          >
+            <Typography variant="subtitle2">
+              For authentication reasons, you will not be emailed
+            </Typography>
+            <br />
+            <TextField
+              id="summary"
+              xs={6}
+              required
+              placeholder="Example: Best purchase ever!"
+              onChange={handleFormChange}
+              label="Summary"
+              fullWidth
+              variant="filled"
+              error={getFieldValidated('summary')}
+              helperText={getHelperText('summary')}
+            />
+            <br />
+            <TextField
+              id="body"
+              required
+              minRows={2}
+              size="medium"
+              label="Body"
+              fullWidth
+              multiline
+              onChange={handleFormChange}
+              placeholder="Body"
+              variant="outlined"
+              error={getFieldValidated('body')}
+              helperText={getHelperText('body')}
+            />
+            <br />
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              mb={3}
+            >
+              <TextField
+                id="userImage"
+                size="medium"
+                value={userPics}
+                label="Image Url"
+                multiline
+                fullWidth
+                onChange={handleUrlChange}
+                placeholder="Image Url"
+                // variant="outlined"
+              />
+              <br />
+              {getPics()}
+            </Grid>
+            <br />
             <Button
               variant="contained"
               color="primary"
-              onClick={handlFormSubmit}
-              startIcon={<ArrowUpwardIcon />}
+              onClick={setPicCollection}
             >
-              submit
+              Add Image
             </Button>
-            <Grid item>{getMissingMessage()}</Grid>
+            <br />
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+            >
+              <Checkbox
+                ml={-2}
+                color="primary"
+                inputProps={{ 'aria-label': 'secondary checkbox' }}
+                onChange={handleRecommededChange}
+              />
+              <Typography>Do you recommend this product?</Typography>
+            </Grid>
+            <br />
+            {getCharButtons()}
+            <br />
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              spacing={2}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handlFormSubmit}
+                startIcon={<ArrowUpwardIcon />}
+              >
+                submit
+              </Button>
+              <Grid item>{getMissingMessage()}</Grid>
+            </Grid>
+            <br />
           </Grid>
-          <br />
-        </Grid>
+        </div>
       </div>
     </Paper>
   );

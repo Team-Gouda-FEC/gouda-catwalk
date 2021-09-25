@@ -64,6 +64,10 @@ const AddReview = (props) => {
             product_id={product_id}
             updateReviews={updateReviews}
             setOpen={setOpen}
+            style={{
+              height: '40px',
+              overflow: 'scroll',
+            }}
           />
         </Fade>
       </Modal>
