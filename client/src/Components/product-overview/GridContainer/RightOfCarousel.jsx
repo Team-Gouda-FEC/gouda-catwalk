@@ -77,8 +77,6 @@ function RightOfCarousel(props) {
 
   const handleUpdateCurrentStyle = (index) => {
     setCurrentStyleIndex(index);
-    console.log('index in right of carousel', currentItemIndex);
-    console.log('event', index);
     handleUpdateCarousel(index);
   };
 
@@ -120,7 +118,24 @@ function RightOfCarousel(props) {
               {currentItem.category}
             </Typography>
             <Typography variant="h3">{currentItem.name}</Typography>
-            <Typography variant="h5">$ {currentItem.default_price}</Typography>
+
+            {currentStylesObj.results[currentItemIndex].sale_price ? (
+              <>
+                <Typography
+                  variant="h6"
+                  style={{ textDecoration: 'line-through' }}
+                >
+                  $ {currentStylesObj.results[currentItemIndex].original_price}
+                </Typography>
+                <Typography variant="h5" color="error">
+                  $ {currentStylesObj.results[currentItemIndex].sale_price}
+                </Typography>
+              </>
+            ) : (
+              <Typography variant="h5">
+                $ {currentStylesObj.results[currentItemIndex].original_price}{' '}
+              </Typography>
+            )}
           </Grid>
           <Grid item xs={12}>
             <div className={classes.root2}>
@@ -138,60 +153,6 @@ function RightOfCarousel(props) {
             <AddToCart
               currentStyleSkus={currentStylesObj.results[currentItemIndex].skus}
             />
-            {/* <Grid item xs={12}>
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl
-                  className={classes.formControlSize}
-                  variant="outlined"
-                >
-                  <InputLabel id="Select Size">Select Size</InputLabel>
-                  <Select
-                    id="select-size"
-                    value={1}
-                    label="Select Size"
-                    onChange={handleSizeChange}
-                  >
-                    <MenuItem value={1}>Small</MenuItem>
-                    <MenuItem value={2}>Medium</MenuItem>
-                    <MenuItem value={3}>Large</MenuItem>
-                  </Select>
-                </FormControl>
-                <FormControl
-                  className={classes.formControlQuantity}
-                  color="primary"
-                  variant="outlined"
-                >
-                  <InputLabel id="Select Quantity">Quantity</InputLabel>
-                  <Select
-                    id="select-quantity"
-                    value={1}
-                    label="Select Quantity"
-                    onChange={handleQuantityChange}
-                  >
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    <MenuItem value={4}>4</MenuItem>
-                    <MenuItem value={5}>5</MenuItem>
-                    <MenuItem value={6}>6</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-              <Button
-                variant="outlined"
-                color="primary"
-                size="large"
-                endIcon={<AddIcon />}
-              >
-                ADD TO BAG
-              </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                size="large"
-                startIcon={<StarBorderIcon />}
-              />
-            </Grid>*/}
           </Grid>
         </Grid>
       </div>
