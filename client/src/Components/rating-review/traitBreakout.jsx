@@ -34,7 +34,7 @@ const TraitBreakout = (props) => {
             position: 'relative',
             width: `${fillTotal}px`,
             backgroundColor: 'lightgrey',
-            marginTop: '.5em',
+            marginTop: '1em',
             borderRadius: '1px',
           }}
         />

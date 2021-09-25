@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import ReviewTile from './review.jsx';
 import AddReview from './addReview.jsx';
 import MoreReviews from './moreReviews.jsx';
+import ReviewForm from './reviewForm.jsx';
 
 // render multiple individual review tiles
 // based on the arr passed in the property
@@ -53,7 +54,7 @@ const ReviewList = (props) => {
 
   return (
     <div>
-      <div style={{ maxHeight: 450, overflow: 'scroll' }} >
+      <div style={{ maxHeight: 450, overflow: 'scroll' }}>
         {/* eslint-disable-next-line react/prop-types */}
         {getReviews().map((details, index) => (
           <ReviewTile

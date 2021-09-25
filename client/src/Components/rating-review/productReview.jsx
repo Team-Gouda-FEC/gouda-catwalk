@@ -5,9 +5,17 @@ import Typography from '@material-ui/core/Typography';
 import Stars from './StarRating.jsx';
 import Breakdown from './ratingBreakdown.jsx';
 import TraitBreakout from './traitBreakout.jsx';
+import ReviewForm from './reviewForm.jsx';
 
 const ProductReview = (props) => {
-  const { filterBy, maxCount, setMaxCount, setTotalReviewCount, totalReviewCount } = props;
+  const {
+    filterBy,
+    setFilterBy,
+    maxCount,
+    setMaxCount,
+    setTotalReviewCount,
+    totalReviewCount,
+  } = props;
   const [rating, setRating] = useState(0);
 
   const [recommendationPercent, setPercent] = useState(0);
@@ -36,7 +44,7 @@ const ProductReview = (props) => {
     const positiveCount = Number(recObj.true);
     const negativeCount = Number(recObj.false);
     const total = positiveCount + negativeCount;
-    if(filterBy === 0) {
+    if (filterBy === 0) {
       setMaxCount(total);
     } else {
       setMaxCount(ratingsCount[filterBy]);
@@ -72,13 +80,13 @@ const ProductReview = (props) => {
     setRatingCount(newBreakdown);
   };
 
-  useEffect(()=> {
-    if(filterBy === 0) {
-      setMaxCount( totalReviewCount );
+  useEffect(() => {
+    if (filterBy === 0) {
+      setMaxCount(totalReviewCount);
     } else {
       setMaxCount(ratingsCount[filterBy]);
     }
-  }, [filterBy])
+  }, [filterBy]);
 
   useEffect(() => {
     if (props.productId !== undefined) {
@@ -132,17 +140,21 @@ const ProductReview = (props) => {
           </div>
         </Grid>
       </Grid>
-      <Typography variant='caption'> {recommendationPercent || 0}% of reviews recommend this product</Typography>
+      <Typography variant="body2">
+        {' '}
+        {recommendationPercent || 0}% of reviews recommend this product
+      </Typography>
+      <br />
       <Breakdown
         filterBy={filterBy}
         ratings={ratingsCount}
-        reviewCount={props.totalReviewCount}
-        setFilterBy={props.setFilterBy}
+        reviewCount={totalReviewCount}
+        setFilterBy={setFilterBy}
       />
       <br />
       <TraitBreakout traits={traitsArr} traitObj={traitObj} />
     </Grid>
-  )
+  );
 };
 
 export default ProductReview;

@@ -69,14 +69,16 @@ const RatingAndReviews = (props) => {
   return (
     <div id="ratings">
       <br />
+      <br />
+      <br />
       <Grid
         container
         direction="row"
         justifyContent="space-around"
         alignItems="flex-start"
       >
-        <Grid item xs={3}>
-          <Typography variant='h5'> Ratings Reviews </Typography>
+        <Grid item>
+          <Typography variant="h4"> Ratings Reviews </Typography>
           <br />
           <ProductReview
             setChar={setCharacteristics}
@@ -93,7 +95,7 @@ const RatingAndReviews = (props) => {
           />
         </Grid>
 
-        <Grid item xs={8}>
+        <Grid item xs="6" xl="6">
           <Grid
             container
             direction="column"
