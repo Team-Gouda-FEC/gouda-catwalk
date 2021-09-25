@@ -9,7 +9,7 @@ import ProductOverviewGrid from './product-overview/GridContainer/ProductOvervie
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
 import AddOutfitCard from './related-items-section/addOutfitCard.jsx';
 import OutfitProductCard from './related-items-section/outfitProductCard.jsx';
-import PlaceHolder from './related-items-section/placeHolder.jsx';
+import PlaceHolder1 from './related-items-section/placeHolder1.jsx';
 import Carousel from './carousel/carousel.jsx';
 import RatingAndReviews from './rating-review/ratingAndReviews.jsx';
 import QAWidget from './qa/qaWidget.jsx';
@@ -18,9 +18,10 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showNumCarouselItems: 3,
+      showNumCarouselItems: 4,
       relatedItems: [],
       yourOutfits: [],
+      yourOutfitsStyleId: [],
       currentItemId: '',
       currentItem: '',
       currentIndex: 0,
@@ -45,6 +46,7 @@ export default class App extends React.Component {
     if (!this.state.yourOutfits.includes(productId)) {
       this.setState({
         yourOutfits: [productId, ...currentOutfits],
+        yourOutfitsStyleId: [this.state.currentIndex, ...this.state.yourOutfitsStyleId],
       });
     }
   }
@@ -63,14 +65,6 @@ export default class App extends React.Component {
     this.setState({
       yourOutfits: [...currentOutfits],
     });
-    console.log(currentOutfits);
-  }
-
-  handleOutfitPlaceholders() {
-    const count =
-      this.state.showNumCarouselItems - this.state.yourOutfits.length - 1;
-    console.log(count);
-    return <PlaceHolder />;
   }
 
   getAllProducts() {
@@ -161,6 +155,7 @@ export default class App extends React.Component {
                       productId={elem}
                       currentItemInfo={this.state.currentItem}
                       handleUpdateCurrentItem={this.updateCurrentItem}
+                      currentIndex={this.state.currentIndex}
                     />
                   </div>
                 </div>
@@ -174,17 +169,23 @@ export default class App extends React.Component {
                     productId={this.state.currentItemId}
                     handleAddOutfitClick={this.handleAddOutfitClick}
                   />
-                </div>
+              </div>
               </div>
               {this.state.yourOutfits.map((elem, i) => (
                 <div key={i}>
                   <div style={{ padding: 8 }}>
-                    <OutfitProductCard key={i} productId={elem} />
+                    <OutfitProductCard
+                      key={i}
+                      productId={elem}
+                      handleRemoveOutfitClick={this.handleRemoveOutfitClick}
+                      yourOutfitsStyleId={this.state.yourOutfitsStyleId[i]}
+                    />
                   </div>
                 </div>
               ))}
-              <PlaceHolder />
-              <PlaceHolder />
+              <PlaceHolder1 />
+              <PlaceHolder1 />
+              <PlaceHolder1 />
             </Carousel>
             <QAWidget productId={38326} />
             <section id="ratings">
