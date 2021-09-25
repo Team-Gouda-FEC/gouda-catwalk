@@ -19,6 +19,8 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import Avatar from '@material-ui/core/Avatar';
+import Star from '@material-ui/icons/StarRounded';
+import Outline from '@material-ui/icons/StarBorderRounded';
 
 const max = window.innerHeight * 0.95;
 
@@ -103,6 +105,7 @@ const ReviewForm = (props) => {
     <Box component="fieldset" mb={2} ml={-1} borderColor="transparent">
       <Typography>Rating</Typography>
       <Rating
+        style={{ color: 'lightcoral' }}
         name="simple-controlled"
         value={userRating}
         onChange={(event, newValue) => {
@@ -305,9 +308,7 @@ const ReviewForm = (props) => {
           boxSizing: 'border box',
         }}
       >
-        <div
-          style={{ width: '95%' }}
-        >
+        <div style={{ width: '95%' }}>
           <Grid
             container
             direction="column"
