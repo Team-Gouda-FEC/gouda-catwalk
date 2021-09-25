@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import {
   Card,
@@ -10,7 +9,7 @@ import {
   IconButton,
   MoreVertIcon,
   Button,
-  Grid
+  Grid,
 } from '@material-ui/core';
 import axios from 'axios';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -26,7 +25,7 @@ const useStyles = makeStyles({
   },
   button: {
     zIndex: 1,
-  }
+  },
 });
 
 const OutfitProductCard = (props) => {
@@ -55,16 +54,18 @@ const OutfitProductCard = (props) => {
         params: { product_id: productId },
       })
       .then((response) => {
-        const thumbnail = response.data.results[styleId].photos[0].thumbnail_url;
+        const thumbnail =
+          response.data.results[styleId].photos[0].thumbnail_url;
         setProductImage(thumbnail);
         if (response.data.results[styleId].sale_price !== null) {
           setSalePrice(response.data.results[styleId].sale_price);
         }
-
       })
       .catch((error) => {
         console.log(error);
-        setProductImage('https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg');
+        setProductImage(
+          'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg'
+        );
       });
   };
 
@@ -76,27 +77,52 @@ const OutfitProductCard = (props) => {
   }, [productId]);
 
   if (productInfo) {
-  return (
-    <div>
-      <Card className={classes.root}>
-        <CardContent>
-          <CardMedia className={classes.media} image={productImage || 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg'}>
-          <Grid item container justifyContent="flex-end">
-            <RemoveOutfitButton onClick={handleRemoveOutfitClick} prodId={productId} />
-            </Grid>
-
-          </CardMedia>
-          <Typography variant="body1"> {productInfo.category} </Typography>
-          <Typography variant="body1" style={{ fontWeight: 600 }}>{productInfo.name} </Typography>
-          <Typography variant="body1">{productInfo.default_price}
-          {salePrice} </Typography>
-        </CardContent>
-        <Stars rating={2.5} />
-      </Card>
-    </div>
-  );
-}
-return <CircularProgress />;
-}
+    return (
+      <div>
+        <Card className={classes.root}>
+          <CardContent>
+            <CardMedia
+              className={classes.media}
+              image={
+                productImage ||
+                'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg'
+              }
+            >
+              <Grid item container justifyContent="flex-end">
+                <RemoveOutfitButton
+                  onClick={handleRemoveOutfitClick}
+                  prodId={productId}
+                />
+              </Grid>
+            </CardMedia>
+            <Typography variant="body1"> {productInfo.category} </Typography>
+            <Typography variant="body1" style={{ fontWeight: 600 }}>
+              {productInfo.name}{' '}
+            </Typography>
+            {salePrice ? (
+              <>
+                <Typography
+                  variant="body1"
+                  style={{ textDecoration: 'line-through' }}
+                >
+                  $ {productInfo.default_price}
+                </Typography>
+                <Typography variant="body1" color="error">
+                  $ {salePrice}
+                </Typography>
+              </>
+            ) : (
+              <Typography variant="body1">
+                $ {productInfo.default_price}
+              </Typography>
+            )}
+          </CardContent>
+          <Stars rating={2.5} />
+        </Card>
+      </div>
+    );
+  }
+  return <CircularProgress />;
+};
 
 export default OutfitProductCard;

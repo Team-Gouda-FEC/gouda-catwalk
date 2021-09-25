@@ -21,12 +21,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductOverviewGrid(props) {
   const classes = useStyles();
-  const { currentItemId, currentItem, productRating, updateCurrentIndex } =
-    props;
+  const {
+    currentItemId,
+    currentItem,
+    productRating,
+    updateCurrentIndex,
+    // currentItemInfo,
+    // currentStylesObj,
+  } = props;
   const [currentStylesObj, setCurrentStyleObj] = useState('');
   const [currentStyleId, setCurrentStyleId] = useState('');
   const [currentItemInfo, setCurrentItemInfo] = useState('');
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
+
 
   function getProductInfo() {
     axios
@@ -66,10 +73,12 @@ export default function ProductOverviewGrid(props) {
   }
 
   useEffect(() => {
-    getProductInfo();
+    getProductStyles();
+    setCurrentItemIndex(0);
   }, [currentItemId]);
   useEffect(() => {
-    getProductStyles();
+    getProductInfo();
+    setCurrentItemIndex(0);
   }, [currentItemId]);
 
   if (currentStylesObj.results) {

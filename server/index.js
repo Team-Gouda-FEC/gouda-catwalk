@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const apiFn = require('./apiHelpers');
+var compression = require('compression')
 
 const app = express();
 const PORT = 1337 || process.env.PORT;
@@ -8,6 +9,7 @@ const PORT = 1337 || process.env.PORT;
 app.use(express.static('client/dist'));
 app.use(express.json());
 app.use(cors());
+app.use(compression());
 
 /* **** PRODUCTS SECTION **** */
 app.get('/products/', (req, res) => {

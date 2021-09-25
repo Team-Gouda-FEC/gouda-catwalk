@@ -26,6 +26,8 @@ export default class App extends React.Component {
       currentItem: '',
       currentIndex: 0,
       productRating: 0,
+      productInfo: '',
+      currentStylesObj: {},
     };
     this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.handleAddOutfitClick = this.handleAddOutfitClick.bind(this);
@@ -46,7 +48,10 @@ export default class App extends React.Component {
     if (!this.state.yourOutfits.includes(productId)) {
       this.setState({
         yourOutfits: [productId, ...currentOutfits],
-        yourOutfitsStyleId: [this.state.currentIndex, ...this.state.yourOutfitsStyleId],
+        yourOutfitsStyleId: [
+          this.state.currentIndex,
+          ...this.state.yourOutfitsStyleId,
+        ],
       });
     }
   }
@@ -77,7 +82,7 @@ export default class App extends React.Component {
             currentItem: response.data[0],
           },
           () => {
-            this.getRelated();
+            this.axiosAll();
           }
         );
       })
@@ -86,7 +91,7 @@ export default class App extends React.Component {
       });
   }
 
-  getRelated() {
+  axiosAll() {
     axios
       .get('/relatedproducts/', {
         params: { product_id: this.state.currentItemId },
@@ -95,22 +100,48 @@ export default class App extends React.Component {
         this.setState({
           relatedItems: response.data,
         });
+        return axios.get('/getProductInfo/', {
+          params: { product_id: this.state.currentItemId },
+        });
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .then((response) => {
+        this.setState({
+          productInfo: response.data,
+        });
+        return axios.get('/getImage/', {
+          params: { product_id: this.state.currentItemId },
+        });
+      })
+      .then((response) => {
+        this.setState({
+          currentStylesObj: response.data,
+        });
+      })
+      .catch((error) => console.log(error.response));
   }
 
+  // getRelated() {
+  //   axios
+  //     .get('/relatedproducts/', {
+  //       params: { product_id: this.state.currentItemId },
+  //     })
+  //     .then((response) => {
+  //       this.setState({
+  //         relatedItems: response.data,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
+
   updateCurrentItem(itemId, itemObj) {
-    this.setState(
-      {
-        currentItemId: itemId,
-        currentItem: itemObj,
-      },
-      () => {
-        this.getRelated();
-      }
-    );
+    this.setState({
+      currentItemId: itemId,
+      currentItem: itemObj,
+      currentIndex: 0,
+    });
+    this.axiosAll();
   }
 
   updateCurrentIndex(index) {
@@ -124,28 +155,27 @@ export default class App extends React.Component {
       return (
         <>
           <NavBar />
-          <div
-            className="App"
-            style={{
-              maxWidth: 1280,
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginTop: 5,
-            }}
-          >
+          <div>
+            <br />
             <Marquee speed={15}>
               <Typography variant="h6" color="secondary">
                 SITE-WIDE ANNOUCEMENT MESSAGE! -- SALE/DISCOUNT OFFER -- NEW
                 PRODUCT HIGHLIGHT!
               </Typography>
             </Marquee>
+            <br />
             <ProductOverviewGrid
               updateCurrentIndex={this.updateCurrentIndex}
               currentItem={this.state.currentItem}
               currentItemId={this.state.currentItemId}
               productRating={this.state.productRating}
+              currentItemInfo={this.state.productInfo}
+              currentStylesObj={this.state.currentStylesObj}
             />
-            <Typography variant="h6" color="primary"> [ RELATED PRODUCTS ] </Typography>
+            <Typography variant="h6" color="primary">
+              {' '}
+              [ RELATED PRODUCTS ]{' '}
+            </Typography>
             <Carousel show={this.state.showNumCarouselItems}>
               {this.state.relatedItems.map((elem, i) => (
                 <div key={i}>
@@ -161,7 +191,10 @@ export default class App extends React.Component {
                 </div>
               ))}
             </Carousel>
-            <Typography variant="h6" color="primary"> [ YOUR OUTFITS ] </Typography>
+            <Typography variant="h6" color="primary">
+              {' '}
+              [ YOUR OUTFITS ]{' '}
+            </Typography>
             <Carousel show={this.state.showNumCarouselItems}>
               <div>
                 <div style={{ padding: 8 }}>
@@ -169,7 +202,7 @@ export default class App extends React.Component {
                     productId={this.state.currentItemId}
                     handleAddOutfitClick={this.handleAddOutfitClick}
                   />
-              </div>
+                </div>
               </div>
               {this.state.yourOutfits.map((elem, i) => (
                 <div key={i}>

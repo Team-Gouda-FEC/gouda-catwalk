@@ -63,7 +63,7 @@ function RightOfCarousel(props) {
     productRating,
   } = props;
 
-  const [styleIndex, setCurrentStyleIndex] = useState(0);
+  // const [styleIndex, setCurrentStyleIndex] = useState(0);
   const [size, setSize] = useState();
   const [quantity, setQuantity] = useState();
 
@@ -76,7 +76,7 @@ function RightOfCarousel(props) {
   };
 
   const handleUpdateCurrentStyle = (index) => {
-    setCurrentStyleIndex(index);
+    // setCurrentStyleIndex(index);
     handleUpdateCarousel(index);
   };
 
