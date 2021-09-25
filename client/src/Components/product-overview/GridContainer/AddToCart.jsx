@@ -12,6 +12,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AddIcon from '@material-ui/icons/Add';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,49 +53,49 @@ const useStyles = makeStyles((theme) => ({
 
 const AddToCart = function (props) {
   const classes = useStyles();
-  const { currentStyles, currentItemIndex } = props;
-  const styleSkus = currentStyles.results[currentItemIndex].skus;
-  const skuData = [];
+  const { currentStyleSkus, currentItemStylesObj } = props;
+  const [sizeIndex, setSizeIndex] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+  const [open, setOpen] = useState(false);
+  const styleData = Object.entries(currentStyleSkus);
+  const sizesArr = [];
 
-  // const parseSkuData = function () {
-  //   for (const key of styleSkus) {
-  //     skuData.push({ key: styleSkus[key] });
-  //   }
-  // };
-  console.log(styleSkus);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-  const [size, setSize] = useState();
-  const [quantity, setQuantity] = useState();
+  const handleClose = () => {
+    setOpen(false);
+    setQuantity(0);
+    setSizeIndex(0);
+  };
 
   const handleSizeChange = (event) => {
-    setSize(event.target.value);
+    setSizeIndex(event.target.value);
   };
 
   const handleQuantityChange = (event) => {
-    setQuantity(event.target.value);
+    setQuantity(event.target.value - 1);
   };
 
-  // if (styleSkus !== undefined) {
-  //   useEffect(() => {
-  //     parseSkuData();
-  //   }, [currentStyles]);
-  // }
-
-  return (
-    <Grid container elevation={0} className={classes.root}>
+  if (styleData.length > 0) {
+    return (
       <Grid item xs={12}>
         <Box sx={{ minWidth: 120 }}>
           <FormControl className={classes.formControlSize} variant="outlined">
             <InputLabel id="Select Size">Select Size</InputLabel>
             <Select
               id="select-size"
-              value={1}
+              defaultValue=""
+              value={sizeIndex}
               label="Select Size"
               onChange={handleSizeChange}
             >
-              <MenuItem value={1}>Small</MenuItem>
-              <MenuItem value={2}>Medium</MenuItem>
-              <MenuItem value={3}>Large</MenuItem>
+              {styleData.map((item, index) => (
+                <MenuItem key={item[0]} value={index}>
+                  {item[1].size}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
           <FormControl
@@ -101,20 +106,39 @@ const AddToCart = function (props) {
             <InputLabel id="Select Quantity">Quantity</InputLabel>
             <Select
               id="select-quantity"
-              value={1}
+              defaultValue=""
+              value={quantity}
               label="Select Quantity"
               onChange={handleQuantityChange}
             >
-              <MenuItem value={1}>1</MenuItem>
-              <MenuItem value={2}>2</MenuItem>
-              <MenuItem value={3}>3</MenuItem>
-              <MenuItem value={4}>4</MenuItem>
-              <MenuItem value={5}>5</MenuItem>
-              <MenuItem value={6}>6</MenuItem>
+              {styleData[sizeIndex][1].quantity > 15 ? (
+                styleData[sizeIndex][1].quantity === 0 ? (
+                  <MenuItem value={value}>OUT OF STOCK</MenuItem>
+                ) : (
+                  [...Array(16).keys()].map((value, index) => (
+                    <MenuItem key={index} value={value}>
+                      {value}
+                    </MenuItem>
+                  ))
+                )
+              ) : (
+                [...Array(styleData[sizeIndex][1].quantity + 1).keys()].map(
+                  (value, index) => (
+                    <MenuItem key={index} value={value}>
+                      {value}
+                    </MenuItem>
+                  )
+                )
+              )}
             </Select>
           </FormControl>
         </Box>
-        <Button variant="outlined" color="primary" endIcon={<AddIcon />}>
+        <Button
+          variant="outlined"
+          color="primary"
+          endIcon={<AddIcon />}
+          onClick={handleClickOpen}
+        >
           ADD TO BAG
         </Button>
         <Button
@@ -124,9 +148,30 @@ const AddToCart = function (props) {
           className={classes.button}
           startIcon={<StarBorderIcon />}
         />
+        <Dialog
+          maxWidth="sm"
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="max-width-dialog-title"
+        >
+          <DialogTitle id="max-width-dialog-title">
+            Your Shopping Cart
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              {`added ${quantity} of sku ${styleData[sizeIndex][0]} to cart!`}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Grid>
-    </Grid>
-  );
+    );
+  }
+  return <CircularProgress />;
 };
 
 export default AddToCart;

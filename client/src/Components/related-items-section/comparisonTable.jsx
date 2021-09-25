@@ -22,49 +22,51 @@ const useStyles = makeStyles({
 
 export default function ComparisonTable(props) {
   const classes = useStyles();
-  const currentItemId = props.currentItemInfo.id;
-  const relatedItemId = props.relatedItemInfo.id;
-
+  const { currentItemInfo, relatedItemInfo } = props;
 
   const columns = [
-  { id: 'currentItem', label: props.currentItemInfo.name , minWidth: 30 },
-  { id: 'feature', label: '', minWidth: 50 },
-  { id: 'relatedItem' , label: props.relatedItemInfo.name , minWidth: 30 },
-];
+    { id: 'currentItem', label: currentItemInfo.name, minWidth: 30 },
+    { id: 'feature', label: '', minWidth: 50 },
+    { id: 'relatedItem', label: relatedItemInfo.name, minWidth: 30 },
+  ];
 
-  const featuresList = []
+  const featuresList = [];
 
-  const currentItemFeaturesList = [];
-  for (var i = 0; i < props.currentItemInfo.features.length; i++)  {
-    featuresList.push(props.currentItemInfo.features[i].feature + ': ' + props.currentItemInfo.features[i].value);
-    currentItemFeaturesList.push(props.currentItemInfo.features[i].feature + ': ' + props.currentItemInfo.features[i].value);
+  for (let i = 0; i < currentItemInfo.features.length; i++) {
+    featuresList.push(currentItemInfo.features[i].feature);
   }
 
   const relatedItemFeaturesList = [];
-  for (var j = 0; j < props.relatedItemInfo.features.length; j++)  {
-    if (!featuresList.includes(props.relatedItemInfo.features[j].feature + ': ' + props.relatedItemInfo.features[j].value)) {
-      featuresList.push(props.relatedItemInfo.features[j].feature + ': ' + props.relatedItemInfo.features[j].value)
-    }
-    relatedItemFeaturesList.push(props.relatedItemInfo.features[j].feature + ': ' + props.relatedItemInfo.features[j].value);
+  for (let j = 0; j < relatedItemInfo.features.length; j++) {
+    featuresList.push(relatedItemInfo.features[j].feature);
   }
 
+  const featuresSet = new Set(featuresList);
+  const uniqueFeatures = Array.from(featuresSet);
+
   var rows = [];
-  var checkA = false;
-  var checkB = false;
+  var currentItemFeatureValue = null;
+  var featureName = null;
+  var relatedItemFeatureValue = null;
 
-  for (var k = 0; k < featuresList.length; k++) {
 
-    if (currentItemFeaturesList.includes(featuresList[k])) {
-      checkA = true;
+  for (let k = 0; k < uniqueFeatures.length; k++) {
+
+    const currentItemFeatureObject = currentItemInfo.features.find(({ feature }) => feature === uniqueFeatures[k]);
+    if (currentItemFeatureObject === undefined) {
+      currentItemFeatureValue = '';
+    } else {
+      currentItemFeatureValue = currentItemFeatureObject.value;
     }
 
-    const featureName = featuresList[k];
-
-    if (relatedItemFeaturesList.includes(featuresList[k])) {
-      checkB = true;
+    const relatedItemFeatureObject = relatedItemInfo.features.find(({ feature }) => feature === uniqueFeatures[k]);
+    if (relatedItemFeatureObject === undefined) {
+      relatedItemFeatureValue = '';
+    } else {
+      relatedItemFeatureValue = relatedItemFeatureObject.value;
     }
 
-    rows.push({ currentItem: checkA, feature: featureName, relatedItem: checkB })
+    rows.push({ currentItem: currentItemFeatureValue, feature: uniqueFeatures[k], relatedItem: relatedItemFeatureValue })
   }
 
   return (
@@ -88,11 +90,11 @@ export default function ComparisonTable(props) {
             {rows.map((row) => {
               return (
                 <TableRow hover key={row.code}>
-                  {columns.map((column) => {
+                  {columns.map((column, i) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.align}>
-                        {value ? (column.id === 'feature' ? value : <CheckIcon></CheckIcon>) : ''}
+                      <TableCell key={i} align={column.align}>
+                        {value === null ? <CheckIcon></CheckIcon> : value}
                       </TableCell>
                     );
                   })}

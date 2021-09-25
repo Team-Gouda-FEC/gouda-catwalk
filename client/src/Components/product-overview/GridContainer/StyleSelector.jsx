@@ -10,10 +10,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   large: {
-    width: theme.spacing(10),
-    height: theme.spacing(10),
-    margin: 12,
-    border: '4px solid black',
+    width: theme.spacing(11),
+    height: theme.spacing(11),
+    margin: 10,
   },
   root: {
     '& > *': {
@@ -24,9 +23,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SmallAvatar = withStyles((theme) => ({
   root: {
-    width: 30,
-    height: 30,
-    border: '3px solid black',
+    width: 25,
+    height: 25,
   },
 }))(Avatar);
 
@@ -38,41 +36,61 @@ const StyleSelector = (props) => {
     handleUpdateCarousel(index);
   };
 
+  const checkmarkIcon = <CheckCircleIcon />;
+
   if (currentStyles.results) {
     return (
       <>
-        <Grid item xs={12}>
-          <Typography variant="h6">
-            Style
-            {' > '}
-          </Typography>
-          <Typography variant="h5">
-            {currentStyles.results[currentItemIndex].name}
-          </Typography>
-          <br />
-          <div className={classes.root}>
-            {currentStyles.results.map((style, index) => (
-              <Badge
-                key={index}
-                overlap="circular"
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                badgeContent={<SmallAvatar alt="selected" src="" />}
-              >
-                <Avatar
-                  alt={currentStyles.results[currentItemIndex].name}
-                  src={style.photos[0].thumbnail_url}
-                  variant="circular"
-                  className={classes.large}
-                  onClick={() => {
-                    handleClick(index);
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography variant="h6">
+              Style
+              {' > '}
+            </Typography>
+            <Typography variant="h5" color="primary">
+              {currentStyles.results[currentItemIndex].name}
+            </Typography>
+            <br />
+          </Grid>
+
+          {currentStyles.results.map((style, index) =>
+            currentItemIndex === index ? (
+              <Grid item xs={3} key={index}>
+                <Badge
+                  overlap="circular"
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
                   }}
-                />
-              </Badge>
-            ))}
-          </div>
+                  badgeContent={
+                    <SmallAvatar
+                      alt="selected"
+                      src="https://www.pinclipart.com/picdir/big/131-1310444_check-sign-23-buy-clip-art-check-mark.png"
+                    />
+                  }
+                >
+                  <Avatar
+                    alt={currentStyles.results[currentItemIndex].name}
+                    src={style.photos[0].thumbnail_url}
+                    className={classes.large}
+                    onClick={() => {
+                      handleClick(index);
+                    }}
+                  />
+                </Badge>
+              </Grid>
+            ) : (
+              <Avatar
+                alt={currentStyles.results[currentItemIndex].name}
+                src={style.photos[0].thumbnail_url}
+                className={classes.large}
+                key={index}
+                onClick={() => {
+                  handleClick(index);
+                }}
+              />
+            )
+          )}
         </Grid>
       </>
     );

@@ -1,5 +1,4 @@
 const express = require('express');
-// const path = require('path');
 const cors = require('cors');
 const apiFn = require('./apiHelpers');
 
@@ -60,19 +59,6 @@ app.get('/getImage/', (req, res) => {
   });
 });
 
-// app.get('/productRating/', (req, res) => {
-//   const productId = req.query.product_id;
-//   apiFn.getProdRating(productId, (err, response) => {
-//     if (err) {
-//       console.log(err)
-//       res.status(404).send(err);
-//     } else {
-//       console.log(response)
-//       res.status(200).send(response);
-//     }
-//   });
-// });
-
 /* **** QUESTIONS & ANSWERS SECTION **** */
 
 // Get Questions List
@@ -109,11 +95,12 @@ app.get('/getAnswers', (req, res) => {
 // Adds a Question
 app.post('/addQuestion', (req, res) => {
   const params = {
-    text: req.body.text,
+    body: req.body.body,
     name: req.body.name,
     email: req.body.email,
     product_id: req.body.product_id,
   };
+
   apiFn.addQuestion(params, (err, confirmed) => {
     if (err) {
       res.status(500).send('Error adding a question');
@@ -126,11 +113,12 @@ app.post('/addQuestion', (req, res) => {
 // Adds an Answer
 app.post('/addAnswer', (req, res) => {
   const params = {
-    text: req.body.text,
+    body: req.body.body,
     name: req.body.name,
     email: req.body.email,
     photos: req.body.photos,
   };
+
   apiFn.addAnswer(req.body.question_id, params, (err, confirmed) => {
     if (err) {
       res.status(500).send('Error adding an answer');
