@@ -69,7 +69,10 @@ const Breakdown = (props) => {
       onClick={handleClick}
     >
       <div id={rating}>
-        <Typography id={rating}> {rating} Star </Typography>
+        <Typography id={rating} variant="body1">
+          {' '}
+          {rating} Star{' '}
+        </Typography>
       </div>
       {getRatingBar(ratings[rating], rating)}
     </Grid>

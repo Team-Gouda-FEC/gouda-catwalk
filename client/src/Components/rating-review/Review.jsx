@@ -1,15 +1,17 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react';
+import React, { useState } from 'react';
 import Divider from '@material-ui/core/Divider';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import CheckIcon from '@material-ui/icons/Check';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
+import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
 import Stars from './StarRating.jsx';
 
@@ -23,12 +25,28 @@ const months = {
   '07': 'July',
   '08': 'August',
   '09': 'September',
-  10: 'October',
-  11: 'November',
-  12: 'December',
+  '10': 'October',
+  '11': 'November',
+  '12': 'December',
 };
 
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+
 const ReviewTile = (props) => {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
   const { review } = props;
   const { handleReport } = props;
   const getDate = () => {
@@ -82,13 +100,12 @@ const ReviewTile = (props) => {
   );
 
   const handleClick = (event) => {
-    console.log(event.target);
     handleReport(event.target.id);
   };
 
   const generatePics = () => {
     const pics = review.photos.map((image, index) => (
-      <Avatar key="index" id="image" src={image.url} />
+      <Avatar key={index} id="image" src={image.url} />
     ));
     return (
       <Grid
@@ -96,6 +113,7 @@ const ReviewTile = (props) => {
         direction="row"
         justifyContent="flex-start"
         alignItems="center"
+        style={{ maxWidth: '500px' }}
       >
         {pics}
       </Grid>
@@ -128,11 +146,15 @@ const ReviewTile = (props) => {
         justifyContent="flex-end"
         alignItems="center"
       >
-        {getPurchaseVerification()} <Typography> {review.reviewer_name}, {getDate()} </Typography>
+        {getPurchaseVerification()}{' '}
+        <Typography>
+          {' '}
+          {review.reviewer_name}, {getDate()}{' '}
+        </Typography>
       </Grid>
       <Stars rating={review.rating} />
-      <Typography> {review.summary} </Typography>
-      <Typography> {review.body}</Typography>
+      <Typography variant="body1"> {review.summary} </Typography>
+      <Typography variant="body1"> {review.body}</Typography>
       {getUserRecommendation()}
       {generateResponse()}
       {getHelpfulness()}
