@@ -3,39 +3,38 @@ import axios from 'axios';
 import SearchBar from './SearchBar.jsx';
 import QuestionsList from './QuestionsList.jsx';
 
-const QAWidget = ({ productId }) => {
-  const [currentId, setCurrentId] = useState(productId);
+const QAWidget = ({ productObj }) => {
+  const { id } = productObj;
   const [questionsArr, setQuestionsArr] = useState([]);
 
-  useEffect(() => {
+  const getInfo = () => {
     const params = {
-      product_id: currentId,
+      product_id: id,
       page: 1,
       count: 20,
     };
-    if (currentId) {
-      axios
-        .get('/getQuestions', { params })
-        .then((questionsData) => {
-          setQuestionsArr(questionsData.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [currentId]);
+    axios
+      .get('/getQuestions', { params })
+      .then((questionsData) => {
+        setQuestionsArr(questionsData.data.results);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
-    console.log('changing product id');
-    setCurrentId(productId);
-  }, [productId]);
-
-  console.log('questionList rending');
+    getInfo();
+  }, [id]);
 
   return (
     <div className="qa-container">
       <SearchBar questions={questionsArr} />
-      <QuestionsList questionsList={questionsArr} />
+      <QuestionsList
+        questionsList={questionsArr}
+        productObj={productObj}
+        rerender={getInfo}
+      />
     </div>
   );
 };

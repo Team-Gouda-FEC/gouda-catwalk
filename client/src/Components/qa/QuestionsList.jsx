@@ -12,25 +12,25 @@ import AddQuestion from './AddQuestion.jsx';
 
 const useStyles = makeStyles((theme) => ({
   qaBlock: {
-    width: '85%',
-    alignSelf: 'center',
+    width: '100%',
+    justifyContent: 'center',
   },
   footerButtons: {
-    justifySelf: 'center',
+    display: 'flex',
   },
 }));
 
-const QuestionsList = ({ questionsList, productName }) => {
+const QuestionsList = ({ questionsList, productObj, rerender }) => {
   const classes = useStyles();
   const [count, setCount] = useState(4);
 
   const createQuestionsArr = () => {
     const questionsArr = [];
     for (let i = 0; i < count; i += 1) {
-      if (questionsList.results[i] === undefined) {
+      if (questionsList[i] === undefined) {
         break;
       }
-      questionsArr.push(questionsList.results[i]);
+      questionsArr.push(questionsList[i]);
     }
     return questionsArr;
   };
@@ -39,11 +39,20 @@ const QuestionsList = ({ questionsList, productName }) => {
     setCount(count + 2);
   };
 
+  const resetCount = () => {
+    setCount(4);
+  };
+
   const moreQuestionsButton = () => {
-    console.log('test point');
     const element =
-      count >= questionsList.results.length ? (
-        <Button variant="outlined" color="textPrimary" onClick={setCount(4)}>
+      count >= questionsList.length ? (
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={() => {
+            resetCount();
+          }}
+        >
           Close Questions
         </Button>
       ) : (
@@ -52,7 +61,7 @@ const QuestionsList = ({ questionsList, productName }) => {
     return element;
   };
 
-  if (questionsList.results) {
+  if (questionsList) {
     return (
       <Box
         style={{
@@ -62,6 +71,7 @@ const QuestionsList = ({ questionsList, productName }) => {
       >
         <Grid
           container
+          className={classes.qaBlock}
           spacing={2}
           direction="column"
           justifyContent="center"
@@ -69,14 +79,20 @@ const QuestionsList = ({ questionsList, productName }) => {
         >
           <Grid item>
             {createQuestionsArr().map((element, key) => (
-              <Grid key={key} className={classes.qaBlock} item>
-                <QABlock questionObj={element} />
+              <Grid key={key} item>
+                <QABlock
+                  questionObj={element}
+                  productObj={productObj}
+                  rerender={rerender}
+                />
               </Grid>
             ))}
           </Grid>
           <Grid item className={classes.footerButtons}>
-            {moreQuestionsButton()}
-            <AddQuestion productName={productName} />
+            <Grid item>{moreQuestionsButton()}</Grid>
+            <Grid item>
+              <AddQuestion productObj={productObj} rerender={rerender} />
+            </Grid>
           </Grid>
         </Grid>
       </Box>

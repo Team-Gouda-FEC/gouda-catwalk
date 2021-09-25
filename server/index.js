@@ -109,11 +109,12 @@ app.get('/getAnswers', (req, res) => {
 // Adds a Question
 app.post('/addQuestion', (req, res) => {
   const params = {
-    text: req.body.text,
+    body: req.body.body,
     name: req.body.name,
     email: req.body.email,
     product_id: req.body.product_id,
   };
+
   apiFn.addQuestion(params, (err, confirmed) => {
     if (err) {
       res.status(500).send('Error adding a question');
@@ -126,11 +127,12 @@ app.post('/addQuestion', (req, res) => {
 // Adds an Answer
 app.post('/addAnswer', (req, res) => {
   const params = {
-    text: req.body.text,
+    body: req.body.body,
     name: req.body.name,
     email: req.body.email,
     photos: req.body.photos,
   };
+
   apiFn.addAnswer(req.body.question_id, params, (err, confirmed) => {
     if (err) {
       res.status(500).send('Error adding an answer');

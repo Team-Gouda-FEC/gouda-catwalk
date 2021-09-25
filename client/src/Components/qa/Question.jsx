@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Typography, ButtonGroup, Button, makeStyles } from '@material-ui/core';
 import axios from 'axios';
+import AddAnswer from './AddAnswer.jsx';
 
 const useStyles = makeStyles((theme) => ({
   question: {
@@ -13,9 +14,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Question = ({ questionObj }) => {
+const Question = ({ questionObj, productObj, rerender }) => {
   const { question_id, question_body, question_helpfulness } = questionObj;
   const [qHelpfulCount, setQHelpfulCount] = useState(question_helpfulness);
+  const [qReportBool, setQReportBool] = useState(false);
   const classes = useStyles();
 
   const markQuestion = (questionId) => {
@@ -32,8 +34,23 @@ const Question = ({ questionObj }) => {
       });
   };
 
+  const reportQuestion = (questionId) => {
+    const params = {
+      question_id: questionId,
+    };
+    axios
+      .put('/reportQuestion', params)
+      .then((response) => {
+        setQReportBool(!qReportBool);
+        rerender();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <Typography className={classes.question} variant="h5" color="textPrimary">
+    <Typography className={classes.question} variant="h6" color="textPrimary">
       {`Q: ${question_body}`}
       <ButtonGroup
         className={classes.questionButtons}
@@ -48,7 +65,19 @@ const Question = ({ questionObj }) => {
         >
           Helpful? Yes({qHelpfulCount})
         </Button>
-        <Button>Add Answer</Button>
+        <Button
+          variant="text"
+          onClick={() => {
+            reportQuestion(question_id);
+          }}
+        >
+          Report
+        </Button>
+        <AddAnswer
+          productObj={productObj}
+          questionObj={questionObj}
+          rerender={rerender}
+        />
       </ButtonGroup>
     </Typography>
   );
