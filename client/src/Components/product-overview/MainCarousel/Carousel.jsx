@@ -19,6 +19,13 @@ export default function Carousel(props) {
   function onSlide(index) {
     setCurrentIndex(index);
   }
+  const tempImages = [
+    'https://tinyimg.io/i/ZkK2p1j.png',
+    'https://tinyimg.io/i/6OQsg7g.png',
+    'https://tinyimg.io/i/V20N4Q5.png',
+    'https://tinyimg.io/i/8g2YnIp.png',
+    'https://tinyimg.io/i/3hPVfB3.png',
+  ];
 
   if (images.length !== 0) {
     return (
@@ -28,6 +35,7 @@ export default function Carousel(props) {
         showPlayButton={false}
         thumbnailPosition="left"
         slideOnThumbnailOver={false}
+        onErrorImageURL="https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg"
         ref={(i) => setCurrentIndex(i)}
         onClick={(i) => onImageClick(i)}
         onSlide={(i) => {
@@ -36,5 +44,20 @@ export default function Carousel(props) {
       />
     );
   }
+  return (
+    <ImageGallery
+      items={tempImages}
+      useBrowserFullscreen={false}
+      showPlayButton={false}
+      thumbnailPosition="left"
+      slideOnThumbnailOver={false}
+      ref={(i) => setCurrentIndex(i)}
+      onClick={(i) => onImageClick(i)}
+      onSlide={(i) => {
+        onSlide(i);
+      }}
+    />
+  );
+
   return <CircularProgress />;
 }
