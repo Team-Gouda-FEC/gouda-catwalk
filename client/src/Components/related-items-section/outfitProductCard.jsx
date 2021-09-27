@@ -57,7 +57,7 @@ const OutfitProductCard = (props) => {
         const thumbnail =
           response.data.results[styleId].photos[0].thumbnail_url;
         setProductImage(thumbnail);
-        if (response.data.results[styleId].sale_price !== null) {
+        if (response.data.results[styleId].sale_price !== null || response.data.results[styleId].sale_price !== undefined) {
           setSalePrice(response.data.results[styleId].sale_price);
         }
       })
@@ -76,7 +76,7 @@ const OutfitProductCard = (props) => {
     getImage(yourOutfitsStyleId);
   }, [productId]);
 
-  if (productInfo) {
+  if (productInfo && productImage) {
     return (
       <div>
         <Card className={classes.root}>

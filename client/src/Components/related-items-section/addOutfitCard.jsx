@@ -18,7 +18,7 @@ import AnimatedModal from './animatedModal.jsx';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 360,
+    maxWidth: (window / 4) - 60,
   },
   media: {
     height: 150,

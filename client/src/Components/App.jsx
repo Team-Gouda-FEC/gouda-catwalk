@@ -9,8 +9,8 @@ import ProductOverviewGrid from './product-overview/GridContainer/ProductOvervie
 import RelatedProductCard from './related-items-section/relatedProductCard.jsx';
 import AddOutfitCard from './related-items-section/addOutfitCard.jsx';
 import OutfitProductCard from './related-items-section/outfitProductCard.jsx';
-import PlaceHolder1 from './related-items-section/placeHolder1.jsx';
-import Carousel from './carousel/carousel.jsx';
+import RelatedItemsCarousel from './related-items-section/relatedItemsCarousel.jsx';
+import OutfitsCarousel from './related-items-section/outfitsCarousel.jsx';
 import RatingAndReviews from './rating-review/ratingAndReviews.jsx';
 import QAWidget from './qa/qaWidget.jsx';
 
@@ -62,13 +62,17 @@ export default class App extends React.Component {
 
   handleRemoveOutfitClick(productId) {
     const currentOutfits = [];
+    const currentOutfitsStyleId = [];
     for (let i = 0; i < this.state.yourOutfits.length; i += 1) {
       if (this.state.yourOutfits[i] !== productId) {
         currentOutfits.push(this.state.yourOutfits[i]);
+        currentOutfitsStyleId.push(this.state.yourOutfitsStyleId[i]);
       }
     }
+
     this.setState({
       yourOutfits: [...currentOutfits],
+      yourOutfitsStyleId: [...currentOutfitsStyleId],
     });
   }
 
@@ -176,50 +180,27 @@ export default class App extends React.Component {
               {' '}
               [ RELATED PRODUCTS ]{' '}
             </Typography>
-            <Carousel show={this.state.showNumCarouselItems}>
-              {this.state.relatedItems.map((elem, i) => (
-                <div key={i}>
-                  <div style={{ padding: 8 }}>
-                    <RelatedProductCard
-                      key={i}
-                      productId={elem}
-                      currentItemInfo={this.state.currentItem}
-                      handleUpdateCurrentItem={this.updateCurrentItem}
-                      currentIndex={this.state.currentIndex}
-                    />
-                  </div>
-                </div>
-              ))}
-            </Carousel>
+            <RelatedItemsCarousel
+              showNumCarouselItems={this.state.showNumCarouselItems}
+              relatedItems={this.state.relatedItems}
+              currentItem={this.state.currentItem}
+              updateCurrentItem={this.updateCurrentItem}
+              >
+            </RelatedItemsCarousel>
             <Typography variant="h6" color="primary">
               {' '}
               [ YOUR OUTFITS ]{' '}
             </Typography>
-            <Carousel show={this.state.showNumCarouselItems}>
-              <div>
-                <div style={{ padding: 8 }}>
-                  <AddOutfitCard
-                    productId={this.state.currentItemId}
-                    handleAddOutfitClick={this.handleAddOutfitClick}
-                  />
-                </div>
-              </div>
-              {this.state.yourOutfits.map((elem, i) => (
-                <div key={i}>
-                  <div style={{ padding: 8 }}>
-                    <OutfitProductCard
-                      key={i}
-                      productId={elem}
-                      handleRemoveOutfitClick={this.handleRemoveOutfitClick}
-                      yourOutfitsStyleId={this.state.yourOutfitsStyleId[i]}
-                    />
-                  </div>
-                </div>
-              ))}
-              <PlaceHolder1 />
-              <PlaceHolder1 />
-              <PlaceHolder1 />
-            </Carousel>
+            <OutfitsCarousel
+              showNumCarouselItems={this.state.showNumCarouselItems}
+              yourOutfits={this.state.yourOutfits}
+              currentItemId={this.state.currentItemId}
+              handleAddOutfitClick={this.handleAddOutfitClick}
+              handleRemoveOutfitClick={this.handleRemoveOutfitClick}
+              yourOutfitsStyleId={this.state.yourOutfitsStyleId}
+              >
+            </OutfitsCarousel>
+
             <QAWidget productObj={this.state.currentItem} />
             <section id="ratings">
               <RatingAndReviews
