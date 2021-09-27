@@ -34,7 +34,7 @@ const RelatedProductCard = (props) => {
   const [productImage, setProductImage] = useState(null);
   const [salePrice, setSalePrice] = useState(null);
   const [rating, setRating] = useState(0);
-  const { handleUpdateCurrentItem, currentItemInfo, productId, currentIndex } = props;
+  const { handleUpdateCurrentItem, currentItemInfo, productId} = props;
 
   const getProductInfo = () => {
     axios
@@ -49,15 +49,15 @@ const RelatedProductCard = (props) => {
       });
   };
 
-  const getImage = (styleId) => {
+  const getImage = () => {
     axios
       .get('http://localhost:1337/getImage/', {
         params: { product_id: productId },
       })
       .then((response) => {
         setProductImage(response.data.results[0].photos[0].thumbnail_url);
-        if (response.data.results[styleId].sale_price !== null || response.data.results[styleId].sale_price !== null) {
-          setSalePrice(response.data.results[styleId].sale_price);
+        if (response.data.results[0].sale_price !== null || response.data.results[0].sale_price !== undefined) {
+          setSalePrice(response.data.results[0].sale_price);
         }
       })
       .catch((error) => {
@@ -95,7 +95,7 @@ const RelatedProductCard = (props) => {
       });
   };
 
-  function handleUpdateItem(id, info) {
+  const handleUpdateItem = (id, info) => {
     handleUpdateCurrentItem(id, info);
   }
 
@@ -104,12 +104,40 @@ const RelatedProductCard = (props) => {
   }, [productId]);
 
   useEffect(() => {
-    getImage(currentIndex);
+    getImage();
   }, [productId]);
 
   useEffect(() => {
     getProductRating();
   }, [productId]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:1337/getProductInfo/', {
+  //       params: { product_id: productId },
+  //     })
+  //     .then((response) => {
+  //       setProductInfo(response.data);
+  //       return axios.get('http://localhost:1337/getImage/', {
+  //         params: { product_id: productId },
+  //       })
+  //     })
+  //       .then((response) => {
+  //         setProductImage(response.data.results[0].photos[0].thumbnail_url);
+  //         if (response.data.results[0].sale_price !== null || response.data.results[0].sale_price !== undefined) {
+  //           setSalePrice(response.data.results[0].sale_price);
+  //         }
+  //         return axios.get('/reviews/meta', { product_id: productId })
+  //       })
+  //           .then((reviewMetaData) => {
+  //             const rate = getRatingAverage(reviewMetaData.data.ratings);
+  //             setRating(rate);
+  //           })
+  //           .catch((err) => {
+  //             console.log(err);
+  //             console.log('failed to get review meta data');
+  //           })
+  //         }, [productId])
 
   return (
     productInfo && (
