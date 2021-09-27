@@ -56,7 +56,7 @@ const RelatedProductCard = (props) => {
       })
       .then((response) => {
         setProductImage(response.data.results[0].photos[0].thumbnail_url);
-        if (response.data.results[styleId].sale_price !== null) {
+        if (response.data.results[styleId].sale_price !== null || response.data.results[styleId].sale_price !== null) {
           setSalePrice(response.data.results[styleId].sale_price);
         }
       })
