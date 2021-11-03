@@ -92,9 +92,11 @@ npm start
 
 ## Ratings and Reviews (Rob Williams) <a name="reviews"></a>
 * Material UI Grid components segment the product rating from the reviews
+
 **Ratings Section**
 * Ratings are rendered based on the meta data recieved from the server via Axios requests
 * Each product has different "characteristics" which are displayed below the star rating
+
 **Reviews Section**
 * Each review is displayeed in a card component with review body, and other data positioned using grid and flex display
 * Reviews are conditionally rendered based on a stateful counter which increments in intervals of 2 when "more reviews" is clicked on
